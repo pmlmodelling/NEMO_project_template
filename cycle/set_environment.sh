@@ -12,7 +12,7 @@ export END_DATE=(1993 12 31) # End date (year month day)
 export CYCLE_LEN=(0 1 0) # (years months days), recommended to only use 1 unit
 export SUB_CYCLES=1 #Integer, number of cycles per job submission
 export starting_iter=1 # starting iteration number
-export initialise=true # Determine whether to initialis
+export initialise=true # Determine whether to run setup_initial (true) or not (false) 
 
 #Run options - SBATCH configuration
 export time=01:00:00

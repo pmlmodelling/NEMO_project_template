@@ -1,0 +1,21 @@
+This directory contains the files needed to perform a cycle run. 
+
+The following files will need to be edited for your project:
+
+set_environment.sh - Configuration file for cycle;
+                        set working directories, run length, cycle length and slurm options
+
+setup_initial.sh - Setup to be run before the first cycle; 
+                    creates folders, links restarts, domain files and executables
+
+setup_year.sh - Setup needed during the run for each year of the cycle;
+                    Links lateral and surface boundary files, as well as rivers
+
+
+The following files should not need to be edited:
+
+cycle_outer.slurm - This is the script to execute to run the cycle
+
+cycle_inner.slurm - Handles multiple cycles on a single job submission
+
+update_nemo_nl - perl script to update namelists each cycle
