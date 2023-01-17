@@ -21,7 +21,7 @@ while [ `date -d $inner_cycle_start +'%s'` -lt `date -d $outer_cycle_end +'%s'` 
 
     # Calculate iteration numbers
     printf -v iter_start_zero "%08d" $iter_start # Padded 8digit number for restart files
-    nday=$(( (`date -d $inner_cycle_end +%s` - `date -d $inner_cycle_start +%s`) / 86400 ))
+    nday=$(( (`date -d "$inner_cycle_end UTC" +%s` - `date -d "$inner_cycle_start UTC" +%s`) / 86400 ))
     iter_end=$(python -c "print(int($iter_start + 86400*$nday/$dt))")     # 
     iter_start=$(( iter_start + 1 ))             # Starting iteration of cycle
     

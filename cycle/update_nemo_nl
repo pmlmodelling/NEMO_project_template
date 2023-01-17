@@ -14,6 +14,8 @@ my $l_restart;         # Restart logical indicator
 my $final_ts;          # End time-step
 my $start_ts;          # Start date
 my $restart_file;      # Physics restart filename 
+my $ice_file;          # Ice Namelist file to edit
+my $ice_restart_file;  # Ice restart filename
 my $trc_file;          # Tracer Namelist file to edit
 my $trc_restart_file;  # Tracer restart filename
 my $help;
@@ -26,6 +28,8 @@ if (@ARGV > 0) {
              'n|next_step=s'         => \$start_ts,
              'p|restart_file=s'      => \$restart_file,
              'r|runid=s'             => \$runid,
+             'i|ice_file=s'          => \$ice_file,
+             'j|ice_restart_file=s'  => \$ice_restart_file,
              't|trc_file=s'          => \$trc_file,
              'u|trc_restart_file=s'  => \$trc_restart_file,
              'v|verbose'             => \$verbose,
@@ -47,6 +51,8 @@ if ($verbose) {
   print "  final_ts = $final_ts\n" if ($final_ts);
   print "  start_ts = $start_ts\n" if ($start_ts);
   print "  restart_file = $restart_file\n" if ($restart_file);
+  print "  ice_file = $ice_file\n" if ($ice_file);
+  print "  ice_restart_file = $ice_restart_file\n" if ($ice_restart_file);
   print "  trc_file = $trc_file\n" if ($trc_file);
   print "  trc_restart_file = $trc_restart_file\n" if ($trc_restart_file);
 }
@@ -69,15 +75,25 @@ foreach my $line (@lines) {
 
 write_file($file,@lines);
 
-print "  Updating tracer namelist file: $trc_file\n" if ($verbose);
-my @lines2 = read_file($trc_file);
+print "  Updating ice namelist file: $ice_file\n" if ($verbose);
+my @lines2 = read_file($ice_file);
 
 foreach my $line2 (@lines2) {
 
-  $line2 =~ s/^(\s*?cn_trcrst_in\s*?)=.*/$1=  '$trc_restart_file'/ if ($trc_restart_file);
+  $line2 =~ s/^(\s*?cn_icerst_in\s*?)=.*/$1=  '$ice_restart_file'/ if ($ice_restart_file);
 }
 
-write_file($trc_file,@lines2);
+write_file($ice_file,@lines2);
+
+print "  Updating tracer namelist file: $trc_file\n" if ($verbose);
+my @lines3 = read_file($trc_file);
+
+foreach my $line3 (@lines3) {
+
+  $line3 =~ s/^(\s*?cn_trcrst_in\s*?)=.*/$1=  '$trc_restart_file'/ if ($trc_restart_file);
+}
+
+write_file($trc_file,@lines3);
 
 sub read_file {
 
