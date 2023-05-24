@@ -20,9 +20,9 @@ Clone repository for a specific project, for example, `NECCTON` rather than `NEM
 
 First, navigate to the `code/` directory and set the enviroment via `0_set_environment.sh`
 
-We advise people to ue the singularity container to install NEMO-FABM-ERSEM. The scripts pull the container from the repository https://github.com/pmlmodelling/NEMO-container.
+We advise people to use the singularity container to install NEMO-FABM-BGC. The scripts pull the container from the repository https://github.com/pmlmodelling/NEMO-container and can be build via the `1_build_container.sh` script within the `code/` directory.
 
-Alternatively, if singularity is not available the scripts to build NEMO-FABM-ERSEM are in the `archer_standalone/` directory.
+Alternatively, if singularity is not available the scripts to build NEMO-FABM-BGC are in the `archer_standalone/` directory.
 
 ### INPUTS
 
@@ -51,6 +51,3 @@ More details are provided in `cycle/README.md`. After setting these files, the r
 ### OUTPUTS
 
 By default, output will be moved to the `OUTPUTS/` directory using the `YYYY/MM/` folder structure. 
-
-
-
