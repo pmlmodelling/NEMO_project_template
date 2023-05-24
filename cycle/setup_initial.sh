@@ -15,8 +15,8 @@ mkdir -p $RUN_DIR/fluxes
 mkdir -p $RUN_DIR/tides
 
 # Restarts
-ln -s $INPUT_DIR/DOM/restart_trc.nc $RUN_DIR/restarts/${NAME}_00000000_restart_trc.nc
-ln -s $INPUT_DIR/ICS/* $RUN_DIR
+ln -s $INPUT_DIR/DOM/restart_trc.nc $RUN_DIR/restarts/${NAME}_${START_YEAR}0101_restart_trc.nc
+ln -s $INPUT_DIR/DOM/restart.nc $RUN_DIR/restarts/${NAME}_${START_YEAR}0101_restart.nc
 
 # Domain
 ln -s $INPUT_DIR/DOM/domain_cfg.nc $RUN_DIR/domain_cfg.nc

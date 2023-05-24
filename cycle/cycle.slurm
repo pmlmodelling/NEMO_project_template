@@ -8,10 +8,9 @@
 #SBATCH --nodes=$nodes
 #SBATCH --ntasks-per-core=$ntaskspc
 
-# SUBMIT WITH: sbatch --export=year=XXXX --export=month=YYYYY cycle.slurm
+# SUBMIT WITH: sbatch --export=year=YYYY --export=month=MM cycle.slurm
 
 export OMP_NUM_THREADS=1
-source ../code/archer2-files/ucx_env
 source set_environment.sh
 
 if [ ! -d $RUN_DIR ]; then
