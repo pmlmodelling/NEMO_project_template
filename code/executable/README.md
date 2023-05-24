@@ -1,0 +1,1 @@
+This directory will contain the executables once NEMO-FABM-BGC has been build
