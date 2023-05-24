@@ -17,3 +17,5 @@ cp $CODE_DIR/NEMO-container/container_executable_template $CODE_DIR/executable/n
 sed 's/NEMO_XIOS/nemo/' $CODE_DIR/executable/nemo
 cp $CODE_DIR/NEMO-container/container_executable_template $CODE_DIR/executable/xios
 sed 's/NEMO_XIOS/xios/' $CODE_DIR/executable/xios
+
+cp $CODE_DIR/0_set_enviroment.sh $/$CODE_DIR/executable/build_env

@@ -13,3 +13,4 @@ printf 'y\nn\nn\ny\nn\nn\nn\nn\n' |./makenemo -r $NEMO_REF -m $NEMO_ARCH -n $NEM
 
 cp $NEMO_DIR/cfgs/$NEMO_CFG/EXP00/nemo $CODE_DIR/executable/nemo
 
+cp $CODE_DIR/0_set_enviroment.sh $EXECUTABLE_DIR/build_env

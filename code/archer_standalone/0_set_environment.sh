@@ -8,7 +8,8 @@ export ARCHER2=true
 
 #Config options
 export WORK=/path/to/project/dir
-export CODE_DIR=$WORK/code
+export EXECUTABLE_DIR=$WORK/code
+export CODE_DIR=$WORK/code/archer2_standalone
 
 #XIOS options
 export XIOS_CLONE=$CODE_DIR/xios
