@@ -14,6 +14,10 @@ export START_MONTH=01 # Start month
 export END_MONTH=12 # End month
 export starting_iter=1 # starting iteration number
 export initialise=true # Determine whether to run setup_initial (true) or not (false) 
+export ICE=false
+export YEARLY=true
+export CLEAN_RESTART=true
+
 
 #Run options - SBATCH configuration
 export time=01:00:00
