@@ -22,4 +22,4 @@ export SINGULARITYENV_LD_LIBRARY_PATH=/opt/fabric:$SINGULARITYENV_LD_LIBRARY_PAT
 export LD_LIBRARY_PATH=/opt/hdf5/install/lib
 export OMP_NUM_THREADS=1
 
-singularity run ${BIND_OPTS} --home $RUN_DIR nemo.sif NEMO_XIOS
+singularity run ${BIND_OPTS} --home $RUN_DIR $CODE_DIR/executable/nemo.sif NEMO_XIOS
