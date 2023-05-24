@@ -14,4 +14,6 @@ fi
 cd $XIOS_CLONE && ./make_xios --prod --arch $XIOS_ARCH --netcdf_lib netcdf4_par --job 16 --full
 rsync -a $XIOS_CLONE/bin $XIOS_CLONE/inc $XIOS_CLONE/lib $XIOS_HOME
 
+cp $XIOS_HOME/xios_server.exe $CODE_DIR/excutable/xios
+
 cd $WORK

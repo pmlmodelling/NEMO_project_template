@@ -11,3 +11,5 @@ printf 'y\nn\nn\ny\nn\nn\nn\nn\n' |./makenemo -r $NEMO_REF -m $NEMO_ARCH -n $NEM
 ./makenemo -r $NEMO_REF -m $NEMO_ARCH -n $NEMO_CFG -j 4 clean
 ./makenemo -m $NEMO_ARCH -r $NEMO_REF -n $NEMO_CFG -j 8
 
+cp $NEMO_DIR/cfgs/$NEMO_CFG/EXP00/nemo $CODE_DIR/executable/nemo
+
