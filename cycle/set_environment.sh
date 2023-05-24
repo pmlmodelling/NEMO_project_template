@@ -2,15 +2,16 @@
 
 #Config options
 export WORK=/work/n01/n01/<uname>/<project>
-export NEMO_CFG=<NAME> # Name given to the compiled nemo code
+export EXECUTABLE_DIR=$WORK/code/executable
 export NAME=<NAME> #Experiment name (used as cn_exp in namelist_cfg)
 export EXP_NAME=EXPXX # Name for running directory
 export RUN_DIR=$WORK/RUN/$EXP_NAME
 
-export START_DATE=(1993 1 1) # Start date (year month day)
-export END_DATE=(1993 12 31) # End date (year month day)
-export CYCLE_LEN=(0 1 0) # (years months days), recommended to only use 1 unit
-export SUB_CYCLES=1 #Integer, number of cycles per job submission
+export START_YEAR=1993 # Start year
+export END_YEAR=1993 # End year 
+# START_MONTH and END_MONTH are ignored when using `cycle_year.sh`
+export START_MONTH=01 # Start month
+export END_MONTH=12 # End month
 export starting_iter=1 # starting iteration number
 export initialise=true # Determine whether to run setup_initial (true) or not (false) 
 

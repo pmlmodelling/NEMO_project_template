@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=eORCA1
-#SBATCH --time=03:20:00
-#SBATCH --account=n01-NCEO
-#SBATCH --partition=standard
-#SBATCH --qos=standard
+#SBATCH --job-name=$jobname
+#SBATCH --time=$time
+#SBATCH --account=$account
+#SBATCH --partition=$partition
+#SBATCH --qos=$qos
 
-#SBATCH --nodes=4
-#SBATCH --ntasks-per-core=1
+#SBATCH --nodes=$nodes
+#SBATCH --ntasks-per-core=$ntaskspc
 
 # SUBMIT WITH: sbatch --export=year=XXXX cycle_year.slurm
 
@@ -15,7 +15,7 @@ source ../code/archer2-files/ucx_env
 source set_environment.sh
 
 if [ ! -d $RUN_DIR ]; then
-    $CYCLE_DIR/setup_run.sh
+    $CYCLE_DIR/setup_initial.sh
 fi
 
 $CYCLE_DIR/setup_year.sh $year
