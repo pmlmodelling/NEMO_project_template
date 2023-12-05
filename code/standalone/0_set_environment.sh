@@ -1,15 +1,18 @@
 #!/bin/bash
 
 # Load modules
-module load cray-hdf5-parallel/1.12.0.7
-module load cray-netcdf-hdf5parallel/4.7.4.7
+module swap craype-network-ofi craype-network-ucx
+module swap cray-mpich cray-mpich-ucx
+module load cray-hdf5-parallel/1.12.2.1
+module load cray-netcdf-hdf5parallel/4.9.0.1
 module load cmake
+
 export ARCHER2=true
 
 #Config options
 export WORK=/path/to/project/dir
-export EXECUTABLE_DIR=$WORK/code
-export CODE_DIR=$WORK/code/archer2_standalone
+export EXECUTABLE_DIR=$WORK/code/executable
+export CODE_DIR=$WORK/code/standalone
 
 #XIOS options
 export XIOS_CLONE=$CODE_DIR/xios

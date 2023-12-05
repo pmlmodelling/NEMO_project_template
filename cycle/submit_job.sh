@@ -1,4 +1,4 @@
-!#/bin/slurm
+#!/bin/bash
 
 echo "$SLURM_JOB_ID Submitting year/month" $year/$month >> $RUN_DIR/jobs.log
 
@@ -23,12 +23,12 @@ if [$ICE]
 fi
 # Launch Run
 echo "Launching $year $month at $(date +%s) seconds since 1970-01-01 00:00:00"
-srun run_script.slurm
+$RUN_DIR/runscript.slurm
 
 # Archive results
 outdir=$OUTPUT_DIR/$year/$month
 mkdir -p $outdir
 mv $NAME*nc *.output $outdir
-cp namelist* $outdir
+cp namelist* fabm.yaml fabm_input.nml $outdir
 
 echo $iter_end > $RUN_DIR/current_iter

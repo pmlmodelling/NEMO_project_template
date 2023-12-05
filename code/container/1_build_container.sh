@@ -13,9 +13,9 @@ singularity build /home/singularity/nemo.sif /home/singularity/nemo.def
 cp $CONTAINER_DIR/nemo.sif $CODE_DIR/executable/nemo.sif
 
 # creating NEMO and XIOS executables based on the `container_executable_template`
-cp $CODE_DIR/NEMO-container/container_executable_template $CODE_DIR/executable/nemo
+cp $CODE_DIR/container_executable_template $CODE_DIR/executable/nemo
 sed 's/NEMO_XIOS/nemo/' $CODE_DIR/executable/nemo
-cp $CODE_DIR/NEMO-container/container_executable_template $CODE_DIR/executable/xios
+cp $CODE_DIR/container_executable_template $CODE_DIR/executable/xios
 sed 's/NEMO_XIOS/xios/' $CODE_DIR/executable/xios
 
-cp $CODE_DIR/0_set_enviroment.sh $/$CODE_DIR/executable/build_env
+cp $CODE_DIR/0_set_environment.sh $/$CODE_DIR/executable/build_env

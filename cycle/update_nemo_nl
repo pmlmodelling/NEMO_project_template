@@ -8,7 +8,7 @@ use Pod::Usage;
 
 # Arguments:
 my $verbose = 0;       # Verbose output
-my $file;              # Namelist file to edit
+my $phy_file;              # Namelist file to edit
 my $runid;             # Job name
 my $l_restart;         # Restart logical indicator
 my $final_ts;          # End time-step
@@ -22,7 +22,7 @@ my $help;
 
 # Process arguments:
 if (@ARGV > 0) {
-  GetOptions('f|file=s'              => \$file,
+  GetOptions('f|phy_file=s'          => \$phy_file,
              'e|final_step=s'        => \$final_ts,
              'g|restart=s'           => \$l_restart,
              'n|next_step=s'         => \$start_ts,
@@ -45,7 +45,7 @@ pod2usage(1) if $help;
 
 if ($verbose) {
   print "NEMO namelist update settings:\n";
-  print "  file = $file\n" if ($file);
+  print "  file = $phy_file\n" if ($phy_file);
   print "  runid = $runid\n" if ($runid);
   print "  l_restart = $l_restart\n" if ($l_restart);
   print "  final_ts = $final_ts\n" if ($final_ts);
@@ -57,8 +57,9 @@ if ($verbose) {
   print "  trc_restart_file = $trc_restart_file\n" if ($trc_restart_file);
 }
 
-print "  Updating namelist file: $file\n" if ($verbose);
-my @lines = read_file($file);
+if ($phy_file){
+print "  Updating namelist file: $phy_file\n" if ($verbose);
+my @lines = read_file($phy_file);
 
 foreach my $line (@lines) {
 
@@ -73,8 +74,10 @@ foreach my $line (@lines) {
   $line =~ s/^(\s*?cn_ocerst_in\s*?)=.*/$1=  '$restart_file'/ if ($restart_file);
 }
 
-write_file($file,@lines);
+write_file($phy_file,@lines);
+}
 
+if ($ice_file){
 print "  Updating ice namelist file: $ice_file\n" if ($verbose);
 my @lines2 = read_file($ice_file);
 
@@ -84,7 +87,9 @@ foreach my $line2 (@lines2) {
 }
 
 write_file($ice_file,@lines2);
+}
 
+if ($trc_file){
 print "  Updating tracer namelist file: $trc_file\n" if ($verbose);
 my @lines3 = read_file($trc_file);
 
@@ -94,6 +99,7 @@ foreach my $line3 (@lines3) {
 }
 
 write_file($trc_file,@lines3);
+}
 
 sub read_file {
 
@@ -126,7 +132,7 @@ update_nemo_nl - Update the NEMO namelist file
 update_nemo_nl -f <file> [OPTIONS]
 
   Arguments:
-    --file, -f <file>                 File containing namelists to edit
+    --phy_file, -f <file>                 File containing namelists to edit
     --final_step, -e <int>            End timestep
     --restart, -g <logical>           Restart logical indicator
     --next_step, -n <int>             Next timestep for a CRUN
