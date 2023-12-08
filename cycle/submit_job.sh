@@ -23,7 +23,7 @@ if [ $ICE = true ] ; then
     --ice_file $RUN_DIR/namelist_ice_cfg  \
     --ice_restart_file ${NAME}_${year}${mm}01_restart_ice
 fi
-if [ $iter_start -eq 1 ]; then
+if [ $COLD_START = true ]; then
     $CYCLE_DIR/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --restart false
 fi
