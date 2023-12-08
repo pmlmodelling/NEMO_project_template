@@ -45,7 +45,7 @@ Next edit 3 files within the `cycle/` directory.
 
 More details are provided in `cycle/README.md`. After setting these files, the run is ready to be executed using the command 
 ```
-    sbatch --export=year=$START_YEAR --export=month=01 cycle.slurm
+    sbatch --export=year=$START_YEAR,month=1 cycle.slurm
 ```
 
 ### OUTPUTS
