@@ -14,7 +14,7 @@ The following files will need to be edited for your project:
 
 The following files should not need to be edited:
 
-<b>cycle.slurm</b> - This is the script to execute to run the cycle. Submit using `sbatch --export=year=$START_YEAR --export=month=01 cycle.slurm`. Will either execute a whole year or individual months and resubmit until the final year in set_environment. 
+<b>cycle.slurm</b> - This is the script to execute to run the cycle. Submit using `sbatch --export=year=$START_YEAR,month=1 cycle.slurm`. Will either execute a whole year or individual months and resubmit until the final year in set_environment. 
 
 <b>submit_job</b> - Executes the job for a given month. 
 
