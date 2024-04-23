@@ -1,0 +1,93 @@
+#!/bin/bash
+
+#########################################
+#Load netcdf, hdf5 and cmake modules and set environment variables
+#########################################
+
+module restore
+module swap craype-network-ofi craype-network-ucx
+module swap cray-mpich cray-mpich-ucx
+module load cray-hdf5-parallel/1.12.2.1
+module load cray-netcdf-hdf5parallel/4.9.0.1
+module load cmake
+
+#########################################
+# EXPORT PATHS
+#########################################
+
+source config.sh
+cd $CODE_DIR
+mkdir -p $EXECUTABLE_DIR
+
+########################################
+# Clone code
+#########################################
+
+while getopts :x xios; do
+    case ${xios} in
+        x)
+          while getopts :c clone; do
+            case ${clone} in
+                c) 
+                  echo "Cloning XIOS"
+                  bash 1_clone_xios.sh
+                  ;;
+            esac
+          done
+          echo "Building XIOS"
+          bash 2_make_xios.sh
+          if [ -f $XIOS_BUILD/bin/xios_server.exe ]; then
+            ln -s $XIOS_BUILD/bin/xios_server.exe $EXECUTABLE_DIR/xios_server.exe
+          else
+            echo "XIOS Build Failed"
+          fi
+          ;;
+    esac
+done
+OPTIND=1
+while getopts :f fabm; do
+    case ${fabm} in
+        f)
+          while getopts :c clone; do
+            case ${clone} in
+                c) 
+                  echo "Cloning ERSEM and FABM"
+                  bash 1_clone_ersem_fabm.sh
+                  ;;
+            esac
+          done
+          echo "Building FABM"
+          bash 3_make_fabm.sh
+          ;;
+    esac
+done
+OPTIND=1
+while getopts :n nemo; do
+    case ${nemo} in
+        n)
+          while getopts :c clone; do
+            case ${clone} in
+                c) 
+                  echo "Cloning NEMO"
+                  bash 1_clone_nemo.sh
+                  ;;
+            esac
+          done
+          echo "Building NEMO"
+          bash 4_make_nemo.sh
+          if [ -f $NEMO_DIR/cfgs/$CFG/BLD/bin/nemo.exe ]; then
+            ln -s $NEMO_DIR/cfgs/$CFG/BLD/bin/nemo.exe $EXECUTABLE_DIR/nemo
+          else
+            echo "NEMO Build Failed"
+          fi
+          ;;
+        ?)
+          echo "Invalid option: -${opt}."
+          exit 1
+          ;;
+    esac
+done
+
+cd $WORK
+
+

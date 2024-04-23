@@ -1,5 +1,0 @@
-Scripts to compile XIOS, FABM and NEMO directly on the host system. 
-
-Default setup in for Archer2, with the correct modules and config files (as of Nov 2023)
-
-Note- The xios script usually has to be executed twice
