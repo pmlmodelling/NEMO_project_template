@@ -3,12 +3,12 @@
 #############################################
 # Build NEMO
 #############################################
-source ../config.sh
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source $SCRIPT_DIR/../config.sh
 
 #Build
-export FABM_HOME=$CODE_DIR/fabm-build
-export XIOS_HOME=$CODE_DIR/xios-build
-export NEMO_DIR=$CODE_DIR/nemo
+export FABM_HOME=$FABM_BUILD
+export XIOS_HOME=$XIOS_BUILD
 cd $NEMO_DIR
 
 #Define architecture

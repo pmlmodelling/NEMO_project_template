@@ -27,3 +27,9 @@ export SCRIPTS_DIR=$WORK/scripts
 export RUN_DIR=$WORK/RUN/$EXP_NAME
 export EXECUTABLE_DIR=$CODE_DIR/executables
 
+export ERSEM_DIR=$CODE_DIR/ersem
+export FABM_DIR=$CODE_DIR/fabm
+export FABM_BUILD=$CODE_DIR/fabm-build
+export NEMO_DIR=$CODE_DIR/nemo
+export XIOS_DIR=$CODE_DIR/xios
+export XIOS_BUILD=$CODE_DIR/xios-build

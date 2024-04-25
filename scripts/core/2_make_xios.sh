@@ -3,9 +3,9 @@
 #################################################
 # Script to compile XIOS2.5
 #################################################
-source ../config.sh
-XIOS_DIR=$CODE_DIR/xios
-export XIOS_BUILD=$CODE_DIR/xios-build
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source $SCRIPT_DIR/../config.sh
+
 cd $XIOS_DIR
 
 # set compile architecture and export compilers
