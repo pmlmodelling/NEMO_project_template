@@ -65,7 +65,7 @@
           <field field_ref="N4_n" operation="average" />
           <field field_ref="N5_s" operation="average" />
           <field field_ref="O3_c" operation="average" />
-          <field field_ref="O3_bioalk" operation="average" />
+          <field field_ref="O3_TA" operation="average" />
           <field field_ref="O3_pH" operation="average" />
           <field field_ref="O3_pCO2" operation="average" />
           <field field_ref="O3_Om_arg" operation="average" />

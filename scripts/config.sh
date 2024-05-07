@@ -2,7 +2,7 @@
 
 #Config options
 export WORK=/work/n01/n01/<uname>/<project>
-export NAME=<NAME> #Experiment name (used as cn_exp in namelist_cfg)
+export NAME=AMM7 #Experiment name (used as cn_exp in namelist_cfg)
 export EXP_NAME=EXPXX # Name for running directory, different to DEFAULT_RUN_DIR
 export account=n01-PML
 

@@ -7,7 +7,7 @@
   <field id="N5_s" long_name="silicate silicate" unit="mmol Si/m^3" default_value="-.200E+21" />
   <field id="O2_o" long_name="oxygen oxygen" unit="mmol O_2/m^3" default_value="-.200E+21" />
   <field id="O3_c" long_name="carbonate total dissolved inorganic carbon" unit="mmol C/m^3" default_value="-.200E+21" />
-  <field id="O3_bioalk" long_name="carbonate bioalkalinity" unit="mmol/m^3" default_value="-.200E+21" />
+  <field id="O3_TA" long_name="carbonate total alkalinity" unit="umol/kg" default_value="-.200E+21" />
   <field id="R1_c" long_name="labile dissolved organic matter carbon" unit="mg C/m^3" default_value="-.200E+21" />
   <field id="R1_n" long_name="labile dissolved organic matter nitrogen" unit="mmol N/m^3" default_value="-.200E+21" />
   <field id="R1_p" long_name="labile dissolved organic matter phosphorus" unit="mmol P/m^3" default_value="-.200E+21" />
@@ -122,10 +122,8 @@
   <field id="O2__attenuation_coefficient_of_photosynthetic_radiative_flux" long_name="oxygen light extinction contribution computed by get_light_extinction" unit="m-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_c_sms" long_name="carbonate total dissolved inorganic carbon sources-sinks" unit="mmol C/m^3/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_c_w" long_name="carbonate total dissolved inorganic carbon vertical velocity" unit="m/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
-  <field id="O3_TA" long_name="carbonate total alkalinity" unit="mmol/m^3" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="O3_bioalk_sms" long_name="carbonate bioalkalinity sources-sinks" unit="mmol/m^3/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
-  <field id="O3_bioalk_w" long_name="carbonate bioalkalinity vertical velocity" unit="m/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
-  <field id="O3__1_target_sms" long_name="carbonate _1 target variable sources-sinks" unit="UNITS m-3/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
+  <field id="O3_TA_sms" long_name="carbonate total alkalinity sources-sinks" unit="umol/kg/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
+  <field id="O3_TA_w" long_name="carbonate total alkalinity vertical velocity" unit="m/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_pH" long_name="carbonate pH on total scale" unit="-" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_pCO2" long_name="carbonate partial pressure of CO2" unit="1e-6" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_CarbA" long_name="carbonate carbonic acid concentration" unit="mmol/m^3" default_value="0.000E+00" grid_ref="grid_T_3D" />
@@ -240,7 +238,6 @@
   <field id="B1_fB1O3c" long_name="bacteria respiration" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="B1_fB1NIn" long_name="bacteria release of DIN" unit="mmol N/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="B1_fB1N1p" long_name="bacteria release of DIP" unit="mmol P/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="B1_bgeff" long_name="bacteria bacterial growth efficiency" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="B1_fB1R1c" long_name="bacteria release of labile DOC" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="B1_fB1R2c" long_name="bacteria release of semi-labile DOC" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="B1_fB1R3c" long_name="bacteria release of semi-refractory DOC" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
@@ -258,7 +255,6 @@
   <field id="B1_minp" long_name="bacteria mineralisation of DOP to DIP" unit="mmol P/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="B1__attenuation_coefficient_of_photosynthetic_radiative_flux" long_name="bacteria light extinction contribution computed by get_light_extinction" unit="m-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="pel_nit_rate" long_name="pelagic nitrification rate" unit="mmol/m3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="pel_nit_fN4N3n" long_name="pelagic nitrification nitrification" unit="mmol N/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="pel_nit_N3n_sms" long_name="pelagic nitrification nitrate sources-sinks" unit="mmol N/m^3/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="pel_nit_N3n_w" long_name="pelagic nitrification nitrate vertical velocity" unit="m/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="pel_nit_N4n_sms" long_name="pelagic nitrification ammonium sources-sinks" unit="mmol N/m^3/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
@@ -787,7 +783,50 @@
   <field id="Y4_Q6_change_in_s_processor__attenuation_coefficient_of_photosynthetic_radiative_flux" long_name="benthic meiofauna POM change_in_s_processor light extinction contribution computed by get_light_extinction" unit="m-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="Y4_Q6__attenuation_coefficient_of_photosynthetic_radiative_flux" long_name="benthic meiofauna POM light extinction contribution computed by get_light_extinction" unit="m-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="erosion__attenuation_coefficient_of_photosynthetic_radiative_flux" long_name="erosion light extinction contribution computed by get_light_extinction" unit="m-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
-  <field id="absorption_data" long_name="absorption data" unit="" default_value="0.700E-01" grid_ref="grid_T_3D" />
+  <field id="PON_result" long_name="particulate organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="POP_result" long_name="particulate organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="POSi_result" long_name="POSi result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="P1_fPIRIc_result" long_name="diatom loss to organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="P2_fPIRIc_result" long_name="nanophytoplankton loss to organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="P3_fPIRIc_result" long_name="picophytoplankton loss to organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="P4_fPIRIc_result" long_name="microphytoplankton loss to organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_labile_DOC_result" long_name="phytoplankton loss to labile dissolved organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_labile_DON_result" long_name="phytoplankton loss to labile dissolved organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_labile_DOP_result" long_name="phytoplankton loss to labile dissolved organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_non_labile_DOC_result" long_name="phytoplankton loss to non-labile dissolved organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_POC_result" long_name="phytoplankton loss to particulate organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_PON_result" long_name="phytoplankton loss to particulate organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_loss_to_POP_result" long_name="phytoplankton loss to particulate organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_uptake_oxN_result" long_name="phytoplankton uptake of oxidized nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_uptake_redN_result" long_name="phytoplankton uptake of reduced nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_uptake_DIP_result" long_name="phytoplankton uptake of dissolved inorganic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z4_fphytoc_result" long_name="mesozooplankton grazing of phytoplankton carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z4_fphyton_result" long_name="mesozooplankton grazing of phytoplankton nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z4_fphytop_result" long_name="mesozooplankton grazing of phytoplankton phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z4_fzooc_result" long_name="mesozooplankton predation of phytoplankton carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z4_fzoon_result" long_name="mesozooplankton predation of phytoplankton nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z4_fzoop_result" long_name="mesozooplankton predation of zooplankton phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z5_fphytoc_result" long_name="microzooplankton grazing of phytoplankton carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z5_fphyton_result" long_name="microzooplankton grazing of phytoplankton nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z5_fphytop_result" long_name="microzooplankton grazing of phytoplankton phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z5_fzooc_result" long_name="microzooplankton predation of zooplankton carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z5_fzoon_result" long_name="microzooplankton predation of zooplankton nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z5_fzoop_result" long_name="microzooplankton predation of zooplankton phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z6_fphytoc_result" long_name="heterotrophic flagellate grazing of phytoplankton carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z6_fphyton_result" long_name="heterotrophic flagellate grazing of phytoplankton nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="Z6_fphytop_result" long_name="heterotrophic flagellate grazing of phytoplankton phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_POC_result" long_name="total microzooplankton loss to particulate organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_PON_result" long_name="total microzooplankton loss to particulate organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_POP_result" long_name="total microzooplankton loss to particulate organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_DOC_result" long_name="total microzooplankton loss to dissolved organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_DON_result" long_name="total microzooplankton loss to dissolved organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_DOP_result" long_name="total microzooplankton loss to dissolved organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_respiration_result" long_name="total microzooplankton respiration result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_DIN_result" long_name="total microzooplankton loss to dissolved inorganic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_microzooplankton_loss_to_DIP_result" long_name="total microzooplankton loss to dissolved inorganic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="gross_calcification_rate_result" long_name="gross calcification rate result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_fO3PIc_result" long_name="phytoplankton gross primary production of carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_fPIO3c_result" long_name="phytoplankton gross primary production of carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="zero" long_name="zero" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="B1_RP1_state1_sms" long_name="bacteria RP1 state variable 1 sources-sinks" unit="mg C/m^3/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="B1_RP1_state1_w" long_name="bacteria RP1 state variable 1 vertical velocity" unit="m/s" default_value="0.000E+00" grid_ref="grid_T_3D" />
@@ -1071,7 +1110,6 @@
   <field id="O3_c_w_tot_calculator_result" long_name="carbonate c_w_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_TA_sms_tot_calculator_result" long_name="carbonate TA_sms_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="O3_TA_w_tot_calculator_result" long_name="carbonate TA_w_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
-  <field id="O3_bioalk_sms_tot_calculator_result" long_name="carbonate bioalk_sms_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="R1_c_sms_tot_calculator_result" long_name="labile dissolved organic matter c_sms_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="R1_c_w_tot_calculator_result" long_name="labile dissolved organic matter c_w_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="R1_n_sms_tot_calculator_result" long_name="labile dissolved organic matter n_sms_tot_calculator result" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
@@ -1194,10 +1232,8 @@
   <field id="O2__surface_drag_coefficient_in_air" long_name="oxygen surface drag contribution computed by get_drag" unit="-" default_value="0.000E+00" />
   <field id="O3_c_sfl" long_name="carbonate total dissolved inorganic carbon surface flux" unit="mmol C/m^3*m/s" default_value="0.000E+00" />
   <field id="O3_c_bfl" long_name="carbonate total dissolved inorganic carbon bottom flux" unit="mmol C/m^3*m/s" default_value="0.000E+00" />
-  <field id="O3_bioalk_sfl" long_name="carbonate bioalkalinity surface flux" unit="mmol/m^3*m/s" default_value="0.000E+00" />
-  <field id="O3_bioalk_bfl" long_name="carbonate bioalkalinity bottom flux" unit="mmol/m^3*m/s" default_value="0.000E+00" />
-  <field id="O3__2_target_bfl" long_name="carbonate _2 target variable bottom flux" unit="UNITS m-3*m/s" default_value="0.000E+00" />
-  <field id="O3__3_target_sfl" long_name="carbonate _3 target variable surface flux" unit="UNITS m-3*m/s" default_value="0.000E+00" />
+  <field id="O3_TA_sfl" long_name="carbonate total alkalinity surface flux" unit="umol/kg*m/s" default_value="0.000E+00" />
+  <field id="O3_TA_bfl" long_name="carbonate total alkalinity bottom flux" unit="umol/kg*m/s" default_value="0.000E+00" />
   <field id="O3_fair" long_name="carbonate air-sea flux of CO2" unit="mmol C/m^2/d" default_value="-.200E+21" />
   <field id="O3_wind" long_name="carbonate surface wind speed" unit="m/s" default_value="-.200E+21" />
   <field id="O3__surface_albedo" long_name="carbonate albedo contribution computed by get_albedo" unit="-" default_value="0.000E+00" />
@@ -1352,11 +1388,8 @@
   <field id="Q7_pen_depth_n_sms" long_name="benthic refractory matter penetration depth of nitrogen sources-sinks" unit="m/s" default_value="0.000E+00" />
   <field id="Q7_pen_depth_p_sms" long_name="benthic refractory matter penetration depth of phosphorus sources-sinks" unit="m/s" default_value="0.000E+00" />
   <field id="Q7_buried_c_sms" long_name="benthic refractory matter buried carbon sources-sinks" unit="mg C/m^2/s" default_value="0.000E+00" />
-  <field id="Q7_burial_flux_c" long_name="benthic refractory matter burial of carbon" unit="mg C/m^2/d" default_value="-.200E+21" />
   <field id="Q7_buried_p_sms" long_name="benthic refractory matter buried phosphorus sources-sinks" unit="mmol P/m^2/s" default_value="0.000E+00" />
-  <field id="Q7_burial_flux_p" long_name="benthic refractory matter burial of phosphorus" unit="mmol P/m^2/d" default_value="-.200E+21" />
   <field id="Q7_buried_n_sms" long_name="benthic refractory matter buried nitrogen sources-sinks" unit="mmol N/m^2/s" default_value="0.000E+00" />
-  <field id="Q7_burial_flux_n" long_name="benthic refractory matter burial of nitrogen" unit="mmol N/m^2/d" default_value="-.200E+21" />
   <field id="Q7_surface_c" long_name="benthic refractory matter surface carbon" unit="mg C/m^2" default_value="-.200E+21" />
   <field id="Q7_surface_change_in_c_processor__surface_albedo" long_name="benthic refractory matter surface change_in_c_processor albedo contribution computed by get_albedo" unit="-" default_value="0.000E+00" />
   <field id="Q7_surface_change_in_c_processor__surface_drag_coefficient_in_air" long_name="benthic refractory matter surface change_in_c_processor surface drag contribution computed by get_drag" unit="-" default_value="0.000E+00" />
@@ -2393,10 +2426,29 @@
   <field id="Y4_Q6_change_in_s_processor_pen_depth_s_sms" long_name="benthic meiofauna POM change_in_s_processor penetration depth for silicate sources-sinks" unit="m/s" default_value="0.000E+00" />
   <field id="Y4_Q6__surface_albedo" long_name="benthic meiofauna POM albedo contribution computed by get_albedo" unit="-" default_value="0.000E+00" />
   <field id="Y4_Q6__surface_drag_coefficient_in_air" long_name="benthic meiofauna POM surface drag contribution computed by get_drag" unit="-" default_value="0.000E+00" />
+  <field id="N3_flux_target_sfl" long_name="N3_flux target variable surface flux" unit="UNITS m-3*m/s" default_value="0.000E+00" />
+  <field id="N4_flux_target_sfl" long_name="N4_flux target variable surface flux" unit="UNITS m-3*m/s" default_value="0.000E+00" />
   <field id="erosion_v_er" long_name="erosion erosion rate" unit="m/d" default_value="-.200E+21" />
   <field id="erosion__surface_albedo" long_name="erosion albedo contribution computed by get_albedo" unit="-" default_value="0.000E+00" />
   <field id="erosion__surface_drag_coefficient_in_air" long_name="erosion surface drag contribution computed by get_drag" unit="-" default_value="0.000E+00" />
-  <field id="pco2a_data" long_name="pco2a data" unit="" default_value="0.400E+03" />
+  <field id="ben_PON_result" long_name="benthic particulate organic nitrogen result" unit="" default_value="-.200E+21" />
+  <field id="ben_POP_result" long_name="benthic particulate organic phosphate result" unit="" default_value="-.200E+21" />
+  <field id="benthic_denitrification_ammonification_result" long_name="benthic denitrification and ammonification result" unit="" default_value="-.200E+21" />
+  <field id="Y3_fphytoc_result" long_name="benthic suspension feeder grazing of phytoplankton carbon result" unit="" default_value="-.200E+21" />
+  <field id="Y3_fphyton_result" long_name="benthic suspension feeder grazing of phytoplankton nitrogen result" unit="" default_value="-.200E+21" />
+  <field id="Y3_fphytop_result" long_name="benthic suspension feeder grazing of phytoplankton phosphorus result" unit="" default_value="-.200E+21" />
+  <field id="Ymacro_fYG3c_result" long_name="benthic macrofauna respiration result" unit="" default_value="-.200E+21" />
+  <field id="Ymacro_fYQPc_result" long_name="benthic macrofauna loass to particulate organic carbon result" unit="" default_value="-.200E+21" />
+  <field id="Ymacro_fYQPn_result" long_name="benthic macrofauna loass to particulate organic nitrogen result" unit="" default_value="-.200E+21" />
+  <field id="Ymacro_fYQPp_result" long_name="benthic macrofauna loass to particulate organic phosphorus result" unit="" default_value="-.200E+21" />
+  <field id="Ymacro_fYKIn_result" long_name="benthic macrofauna loass to dissolved inorganic nitrogen result" unit="" default_value="-.200E+21" />
+  <field id="Ymacro_fYK1p_result" long_name="benthic macrofauna loass to dissolved inorganic phosphorus result" unit="" default_value="-.200E+21" />
+  <field id="Q6_remins_result" long_name="benthic remineralisation of silicate result" unit="" default_value="-.200E+21" />
+  <field id="net_PelBen_POC_result" long_name="flux of particulate organic carbon from pelagic to benthos result" unit="" default_value="-.200E+21" />
+  <field id="tot_PelBen_POC_result" long_name="flux of particulate organic carbon from pelagic to benthos result" unit="" default_value="-.200E+21" />
+  <field id="net_PelBen_PON_result" long_name="flux of particulate organic nitrogen from pelagic to benthos result" unit="" default_value="-.200E+21" />
+  <field id="net_PelBen_POP_result" long_name="flux of particulate organic phosphorus from pelagic to benthos result" unit="" default_value="-.200E+21" />
+  <field id="net_PelBen_POSi_result" long_name="flux of particulate organic silicate from pelagic to benthos result" unit="" default_value="-.200E+21" />
   <field id="zero_hz" long_name="zero_hz" unit="" default_value="0.000E+00" />
   <field id="Z4_integral_of_totprey_wrt_depth_calculator_result" long_name="mesozooplankton integral_of_totprey_wrt_depth_calculator result" unit="mg C/m^3*m" default_value="-.200E+21" />
   <field id="B1_RP1_state1_sfl" long_name="bacteria RP1 state variable 1 surface flux" unit="mg C/m^3*m/s" default_value="0.000E+00" />
@@ -2725,8 +2777,6 @@
   <field id="O3_c_bfl_tot_calculator_result" long_name="carbonate c_bfl_tot_calculator result" unit="" default_value="0.000E+00" />
   <field id="O3_TA_sfl_tot_calculator_result" long_name="carbonate TA_sfl_tot_calculator result" unit="" default_value="0.000E+00" />
   <field id="O3_TA_bfl_tot_calculator_result" long_name="carbonate TA_bfl_tot_calculator result" unit="" default_value="0.000E+00" />
-  <field id="O3_bioalk_sfl_tot_calculator_result" long_name="carbonate bioalk_sfl_tot_calculator result" unit="" default_value="0.000E+00" />
-  <field id="O3_bioalk_bfl_tot_calculator_result" long_name="carbonate bioalk_bfl_tot_calculator result" unit="" default_value="0.000E+00" />
   <field id="R1_c_sfl_tot_calculator_result" long_name="labile dissolved organic matter c_sfl_tot_calculator result" unit="" default_value="0.000E+00" />
   <field id="R1_c_bfl_tot_calculator_result" long_name="labile dissolved organic matter c_bfl_tot_calculator result" unit="" default_value="0.000E+00" />
   <field id="R1_n_sfl_tot_calculator_result" long_name="labile dissolved organic matter n_sfl_tot_calculator result" unit="" default_value="0.000E+00" />
@@ -2915,7 +2965,7 @@
   <field id="N5_s_VINT" long_name="depth-integrated silicate silicate" unit="mmol Si/m^3*m" default_value="0.0" />
   <field id="O2_o_VINT" long_name="depth-integrated oxygen oxygen" unit="mmol O_2/m^3*m" default_value="0.0" />
   <field id="O3_c_VINT" long_name="depth-integrated carbonate total dissolved inorganic carbon" unit="mmol C/m^3*m" default_value="0.0" />
-  <field id="O3_bioalk_VINT" long_name="depth-integrated carbonate bioalkalinity" unit="mmol/m^3*m" default_value="0.0" />
+  <field id="O3_TA_VINT" long_name="depth-integrated carbonate total alkalinity" unit="umol/kg*m" default_value="0.0" />
   <field id="R1_c_VINT" long_name="depth-integrated labile dissolved organic matter carbon" unit="mg C/m^3*m" default_value="0.0" />
   <field id="R1_n_VINT" long_name="depth-integrated labile dissolved organic matter nitrogen" unit="mmol N/m^3*m" default_value="0.0" />
   <field id="R1_p_VINT" long_name="depth-integrated labile dissolved organic matter phosphorus" unit="mmol P/m^3*m" default_value="0.0" />
@@ -2990,10 +3040,8 @@
   <field id="O2__attenuation_coefficient_of_photosynthetic_radiative_flux_VINT" long_name="depth-integrated                     oxygen light extinction contribution computed by get_light_extinction" unit="m-1*m" default_value="0.0" />
   <field id="O3_c_sms_VINT" long_name="depth-integrated                     carbonate total dissolved inorganic carbon sources-sinks" unit="mmol C/m^3/s*m" default_value="0.0" />
   <field id="O3_c_w_VINT" long_name="depth-integrated                     carbonate total dissolved inorganic carbon vertical velocity" unit="m/s*m" default_value="0.0" />
-  <field id="O3_TA_VINT" long_name="depth-integrated                     carbonate total alkalinity" unit="mmol/m^3*m" default_value="0.0" />
-  <field id="O3_bioalk_sms_VINT" long_name="depth-integrated                     carbonate bioalkalinity sources-sinks" unit="mmol/m^3/s*m" default_value="0.0" />
-  <field id="O3_bioalk_w_VINT" long_name="depth-integrated                     carbonate bioalkalinity vertical velocity" unit="m/s*m" default_value="0.0" />
-  <field id="O3__1_target_sms_VINT" long_name="depth-integrated                     carbonate _1 target variable sources-sinks" unit="UNITS m-3/s*m" default_value="0.0" />
+  <field id="O3_TA_sms_VINT" long_name="depth-integrated                     carbonate total alkalinity sources-sinks" unit="umol/kg/s*m" default_value="0.0" />
+  <field id="O3_TA_w_VINT" long_name="depth-integrated                     carbonate total alkalinity vertical velocity" unit="m/s*m" default_value="0.0" />
   <field id="O3_pH_VINT" long_name="depth-integrated                     carbonate pH on total scale" unit="-*m" default_value="0.0" />
   <field id="O3_pCO2_VINT" long_name="depth-integrated                     carbonate partial pressure of CO2" unit="1e-6*m" default_value="0.0" />
   <field id="O3_CarbA_VINT" long_name="depth-integrated                     carbonate carbonic acid concentration" unit="mmol/m^3*m" default_value="0.0" />
@@ -3108,7 +3156,6 @@
   <field id="B1_fB1O3c_VINT" long_name="depth-integrated                     bacteria respiration" unit="mg C/m^3/d*m" default_value="0.0" />
   <field id="B1_fB1NIn_VINT" long_name="depth-integrated                     bacteria release of DIN" unit="mmol N/m^3/d*m" default_value="0.0" />
   <field id="B1_fB1N1p_VINT" long_name="depth-integrated                     bacteria release of DIP" unit="mmol P/m^3/d*m" default_value="0.0" />
-  <field id="B1_bgeff_VINT" long_name="depth-integrated                     bacteria bacterial growth efficiency" unit="*m" default_value="0.0" />
   <field id="B1_fB1R1c_VINT" long_name="depth-integrated                     bacteria release of labile DOC" unit="mg C/m^3/d*m" default_value="0.0" />
   <field id="B1_fB1R2c_VINT" long_name="depth-integrated                     bacteria release of semi-labile DOC" unit="mg C/m^3/d*m" default_value="0.0" />
   <field id="B1_fB1R3c_VINT" long_name="depth-integrated                     bacteria release of semi-refractory DOC" unit="mg C/m^3/d*m" default_value="0.0" />
@@ -3126,7 +3173,6 @@
   <field id="B1_minp_VINT" long_name="depth-integrated                     bacteria mineralisation of DOP to DIP" unit="mmol P/m^3/d*m" default_value="0.0" />
   <field id="B1__attenuation_coefficient_of_photosynthetic_radiative_flux_VINT" long_name="depth-integrated                     bacteria light extinction contribution computed by get_light_extinction" unit="m-1*m" default_value="0.0" />
   <field id="pel_nit_rate_VINT" long_name="depth-integrated                     pelagic nitrification rate" unit="mmol/m3/d*m" default_value="0.0" />
-  <field id="pel_nit_fN4N3n_VINT" long_name="depth-integrated                     pelagic nitrification nitrification" unit="mmol N/m^3/d*m" default_value="0.0" />
   <field id="pel_nit_N3n_sms_VINT" long_name="depth-integrated                     pelagic nitrification nitrate sources-sinks" unit="mmol N/m^3/s*m" default_value="0.0" />
   <field id="pel_nit_N3n_w_VINT" long_name="depth-integrated                     pelagic nitrification nitrate vertical velocity" unit="m/s*m" default_value="0.0" />
   <field id="pel_nit_N4n_sms_VINT" long_name="depth-integrated                     pelagic nitrification ammonium sources-sinks" unit="mmol N/m^3/s*m" default_value="0.0" />
@@ -3655,7 +3701,50 @@
   <field id="Y4_Q6_change_in_s_processor__attenuation_coefficient_of_photosynthetic_radiative_flux_VINT" long_name="depth-integrated                     benthic meiofauna POM change_in_s_processor light extinction contribution computed by get_light_extinction" unit="m-1*m" default_value="0.0" />
   <field id="Y4_Q6__attenuation_coefficient_of_photosynthetic_radiative_flux_VINT" long_name="depth-integrated                     benthic meiofauna POM light extinction contribution computed by get_light_extinction" unit="m-1*m" default_value="0.0" />
   <field id="erosion__attenuation_coefficient_of_photosynthetic_radiative_flux_VINT" long_name="depth-integrated                     erosion light extinction contribution computed by get_light_extinction" unit="m-1*m" default_value="0.0" />
-  <field id="absorption_data_VINT" long_name="depth-integrated                     absorption data" unit="*m" default_value="0.0" />
+  <field id="PON_result_VINT" long_name="depth-integrated                     particulate organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="POP_result_VINT" long_name="depth-integrated                     particulate organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="POSi_result_VINT" long_name="depth-integrated                     POSi result" unit="*m" default_value="0.0" />
+  <field id="P1_fPIRIc_result_VINT" long_name="depth-integrated                     diatom loss to organic carbon result" unit="*m" default_value="0.0" />
+  <field id="P2_fPIRIc_result_VINT" long_name="depth-integrated                     nanophytoplankton loss to organic carbon result" unit="*m" default_value="0.0" />
+  <field id="P3_fPIRIc_result_VINT" long_name="depth-integrated                     picophytoplankton loss to organic carbon result" unit="*m" default_value="0.0" />
+  <field id="P4_fPIRIc_result_VINT" long_name="depth-integrated                     microphytoplankton loss to organic carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_labile_DOC_result_VINT" long_name="depth-integrated                     phytoplankton loss to labile dissolved organic carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_labile_DON_result_VINT" long_name="depth-integrated                     phytoplankton loss to labile dissolved organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_labile_DOP_result_VINT" long_name="depth-integrated                     phytoplankton loss to labile dissolved organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_non_labile_DOC_result_VINT" long_name="depth-integrated                     phytoplankton loss to non-labile dissolved organic carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_POC_result_VINT" long_name="depth-integrated                     phytoplankton loss to particulate organic carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_PON_result_VINT" long_name="depth-integrated                     phytoplankton loss to particulate organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_loss_to_POP_result_VINT" long_name="depth-integrated                     phytoplankton loss to particulate organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_uptake_oxN_result_VINT" long_name="depth-integrated                     phytoplankton uptake of oxidized nitrogen result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_uptake_redN_result_VINT" long_name="depth-integrated                     phytoplankton uptake of reduced nitrogen result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_uptake_DIP_result_VINT" long_name="depth-integrated                     phytoplankton uptake of dissolved inorganic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="Z4_fphytoc_result_VINT" long_name="depth-integrated                     mesozooplankton grazing of phytoplankton carbon result" unit="*m" default_value="0.0" />
+  <field id="Z4_fphyton_result_VINT" long_name="depth-integrated                     mesozooplankton grazing of phytoplankton nitrogen result" unit="*m" default_value="0.0" />
+  <field id="Z4_fphytop_result_VINT" long_name="depth-integrated                     mesozooplankton grazing of phytoplankton phosphorus result" unit="*m" default_value="0.0" />
+  <field id="Z4_fzooc_result_VINT" long_name="depth-integrated                     mesozooplankton predation of phytoplankton carbon result" unit="*m" default_value="0.0" />
+  <field id="Z4_fzoon_result_VINT" long_name="depth-integrated                     mesozooplankton predation of phytoplankton nitrogen result" unit="*m" default_value="0.0" />
+  <field id="Z4_fzoop_result_VINT" long_name="depth-integrated                     mesozooplankton predation of zooplankton phosphorus result" unit="*m" default_value="0.0" />
+  <field id="Z5_fphytoc_result_VINT" long_name="depth-integrated                     microzooplankton grazing of phytoplankton carbon result" unit="*m" default_value="0.0" />
+  <field id="Z5_fphyton_result_VINT" long_name="depth-integrated                     microzooplankton grazing of phytoplankton nitrogen result" unit="*m" default_value="0.0" />
+  <field id="Z5_fphytop_result_VINT" long_name="depth-integrated                     microzooplankton grazing of phytoplankton phosphorus result" unit="*m" default_value="0.0" />
+  <field id="Z5_fzooc_result_VINT" long_name="depth-integrated                     microzooplankton predation of zooplankton carbon result" unit="*m" default_value="0.0" />
+  <field id="Z5_fzoon_result_VINT" long_name="depth-integrated                     microzooplankton predation of zooplankton nitrogen result" unit="*m" default_value="0.0" />
+  <field id="Z5_fzoop_result_VINT" long_name="depth-integrated                     microzooplankton predation of zooplankton phosphorus result" unit="*m" default_value="0.0" />
+  <field id="Z6_fphytoc_result_VINT" long_name="depth-integrated                     heterotrophic flagellate grazing of phytoplankton carbon result" unit="*m" default_value="0.0" />
+  <field id="Z6_fphyton_result_VINT" long_name="depth-integrated                     heterotrophic flagellate grazing of phytoplankton nitrogen result" unit="*m" default_value="0.0" />
+  <field id="Z6_fphytop_result_VINT" long_name="depth-integrated                     heterotrophic flagellate grazing of phytoplankton phosphorus result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_POC_result_VINT" long_name="depth-integrated                     total microzooplankton loss to particulate organic carbon result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_PON_result_VINT" long_name="depth-integrated                     total microzooplankton loss to particulate organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_POP_result_VINT" long_name="depth-integrated                     total microzooplankton loss to particulate organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_DOC_result_VINT" long_name="depth-integrated                     total microzooplankton loss to dissolved organic carbon result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_DON_result_VINT" long_name="depth-integrated                     total microzooplankton loss to dissolved organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_DOP_result_VINT" long_name="depth-integrated                     total microzooplankton loss to dissolved organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_respiration_result_VINT" long_name="depth-integrated                     total microzooplankton respiration result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_DIN_result_VINT" long_name="depth-integrated                     total microzooplankton loss to dissolved inorganic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="total_microzooplankton_loss_to_DIP_result_VINT" long_name="depth-integrated                     total microzooplankton loss to dissolved inorganic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="gross_calcification_rate_result_VINT" long_name="depth-integrated                     gross calcification rate result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_fO3PIc_result_VINT" long_name="depth-integrated                     phytoplankton gross primary production of carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_fPIO3c_result_VINT" long_name="depth-integrated                     phytoplankton gross primary production of carbon result" unit="*m" default_value="0.0" />
   <field id="zero_VINT" long_name="depth-integrated                     zero" unit="*m" default_value="0.0" />
   <field id="B1_RP1_state1_sms_VINT" long_name="depth-integrated                     bacteria RP1 state variable 1 sources-sinks" unit="mg C/m^3/s*m" default_value="0.0" />
   <field id="B1_RP1_state1_w_VINT" long_name="depth-integrated                     bacteria RP1 state variable 1 vertical velocity" unit="m/s*m" default_value="0.0" />
@@ -3939,7 +4028,6 @@
   <field id="O3_c_w_tot_calculator_result_VINT" long_name="depth-integrated                     carbonate c_w_tot_calculator result" unit="*m" default_value="0.0" />
   <field id="O3_TA_sms_tot_calculator_result_VINT" long_name="depth-integrated                     carbonate TA_sms_tot_calculator result" unit="*m" default_value="0.0" />
   <field id="O3_TA_w_tot_calculator_result_VINT" long_name="depth-integrated                     carbonate TA_w_tot_calculator result" unit="*m" default_value="0.0" />
-  <field id="O3_bioalk_sms_tot_calculator_result_VINT" long_name="depth-integrated                     carbonate bioalk_sms_tot_calculator result" unit="*m" default_value="0.0" />
   <field id="R1_c_sms_tot_calculator_result_VINT" long_name="depth-integrated                     labile dissolved organic matter c_sms_tot_calculator result" unit="*m" default_value="0.0" />
   <field id="R1_c_w_tot_calculator_result_VINT" long_name="depth-integrated                     labile dissolved organic matter c_w_tot_calculator result" unit="*m" default_value="0.0" />
   <field id="R1_n_sms_tot_calculator_result_VINT" long_name="depth-integrated                     labile dissolved organic matter n_sms_tot_calculator result" unit="*m" default_value="0.0" />
@@ -4036,9 +4124,11 @@
   <field id="total_carbon" long_name="total_carbon" unit="mmol m-3" default_value="-.200E+21" />
  </field_group>
  <field_group id="fabm_input" grid_ref="grid_T_2D">
+  <field id="INP_N4_flux" long_name="N4_flux input" unit="" default_value="-.200E+21" />
+  <field id="INP_N3_flux" long_name="N3_flux input" unit="" default_value="-.200E+21" />
   <field id="INP_gelbstoff_absorption_satellite" long_name="gelbstoff_absorption_satellite input" unit="" default_value="-.200E+21" />
   <field id="INP_pCO2a" long_name="pCO2a input" unit="" default_value="-.200E+21" />
-  <field id="INP_robioalk" long_name="robioalk input" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="INP_rototalk" long_name="rototalk input" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="INP_roo" long_name="roo input" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="INP_rodic" long_name="rodic input" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="INP_rosio2" long_name="rosio2 input" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />

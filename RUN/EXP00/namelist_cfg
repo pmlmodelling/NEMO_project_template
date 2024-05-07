@@ -51,7 +51,7 @@
       cn_ocerst_out    = "restart"            !  suffix of ocean restart name (output)
       cn_ocerst_outdir = "./restarts"         !  directory in which to write output ocean restarts
    ln_iscpl    = .false.  !  cavity evolution forcing or coupling to ice sheet model
-   nn_istate   = 1        !  output the initial state (1) or not (0)
+   nn_istate   = 0        !  output the initial state (1) or not (0)
    ln_rst_list = .false.  !  output restarts at list of times using nn_stocklist (T) or at set frequency with nn_stock (F)
    nn_stock    = 0        !  used only if ln_rst_list = F: output restart freqeuncy (modulo referenced to 1)
       !                          !    =  0 force to write restart files only at the end of the run
@@ -218,10 +218,9 @@
 &namtra_qsr    !   penetrative solar radiation                          (ln_traqsr =T)
 !-----------------------------------------------------------------------
    !                       !  type of penetration                        (default: NO selection)
-   ln_qsr_rgb   = .false.     !  RGB light penetration (Red-Green-Blue)
+   ln_qsr_rgb   = .true.     !  RGB light penetration (Red-Green-Blue)
    ln_qsr_2bd   = .false.     !  2BD light penetration (two bands)
    ln_qsr_bio   = .false.     !  bio-model light penetration
-   ln_qsr_kd490 = .true.      !  diffuse attenuation coefficient 490 nm 
    !                       !  RGB & 2BD choices:
    rn_abs      =   0.58       !  RGB & 2BD: fraction absorbed in the very near surface
    rn_si0      =   0.35       !  RGB & 2BD: shortess depth of extinction
@@ -233,7 +232,6 @@
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
    sn_chl      ='kd490'                  ,        -1         , 'kd_490'  ,   .true.    , .true. , 'yearly'  , ''               , ''       , ''
-   sn_kd490    ='kd490'                  ,        -1         , 'kd_490'  ,   .true.    , .true. , 'yearly'  , ''               , ''       , ''
 /
 !-----------------------------------------------------------------------
 &namsbc_ssr    !   surface boundary condition : sea surface restoring   (ln_ssr =T)
@@ -366,7 +364,7 @@
 !-----------------------------------------------------------------------
 &nambdy_dta    !  open boundaries - external data                       
 !-----------------------------------------------------------------------
-   ln_zinterp  = .true.       !  T if a vertical interpolation is required. Variables gdep[tuv] and e3[tuv] must exist in the file
+   ln_zinterp  = .false.       !  T if a vertical interpolation is required. Variables gdep[tuv] and e3[tuv] must exist in the file
    !                          !  automatically defined to T if the number of vertical levels in bdy dta /= jpk
    ln_full_vel = .false.      !  T if [uv]3d are "full" velocities and not only its baroclinic components
    !
@@ -385,7 +383,7 @@
 !-----------------------------------------------------------------------
 &nambdy_dta      !  open boundaries - external data           ("key_bdy")
 !-----------------------------------------------------------------------
-   ln_zinterp  = .true.       !  T if a vertical interpolation is required. Variables gdep[tuv] and e3[tuv] must exist in the file
+   ln_zinterp  = .false.       !  T if a vertical interpolation is required. Variables gdep[tuv] and e3[tuv] must exist in the file
    !                          !  automatically defined to T if the number of vertical levels in bdy dta /= jpk
    ln_full_vel = .false.       !  T if [uv]3d are "full" velocities and not only its baroclinic components
    !
@@ -419,12 +417,13 @@
 !-----------------------------------------------------------------------
 &namdrg        !   top/bottom drag coefficient                          (default: NO selection)
 !-----------------------------------------------------------------------
-   ln_OFF      = .false.   !  free-slip       : Cd = 0                  (F => fill namdrg_bot
+   ln_drg_OFF      = .false.   !  free-slip       : Cd = 0                  (F => fill namdrg_bot
    ln_lin      = .false.   !  linear  drag: Cd = Cd0 Uc0                   &   namdrg_top)
-   ln_non_lin  = .false.   !  non-linear  drag: Cd = Cd0 |U|
-   ln_loglayer = .true.    !  logarithmic drag: Cd = vkarmn/log(z/z0) |U|
+   ln_non_lin  = .true.   !  non-linear  drag: Cd = Cd0 |U|
+   ln_loglayer = .false.    !  logarithmic drag: Cd = vkarmn/log(z/z0) |U|
    !
    ln_drgimp   = .true.    !  implicit top/bottom friction flag
+   ln_drgice_imp = .false. ! implicit ice-ocean drag
 /
 !-----------------------------------------------------------------------
 &namdrg_bot    !   BOTTOM friction                                  
@@ -434,6 +433,8 @@
    rn_Cdmax   =  0.1      !  drag value maximum [-] (logarithmic drag)
    rn_ke0     =  0.0e0    !  background kinetic energy  [m2/s2] (non-linear cases)
    rn_z0      =  0.003    !  roughness [m]  (ln_loglayer=T)
+   ln_boost    = .false.   !  =T regional boost of Cd0 ; =F constant
+   rn_boost =  50.         !  local boost factor  [-] 
 /
 !-----------------------------------------------------------------------
 &namdrg_top    !   TOP friction
@@ -443,6 +444,8 @@
    rn_Cdmax   =  0.1      !  drag value maximum [-] (logarithmic drag)
    rn_ke0     =  0.0e0    !  background kinetic energy  [m2/s2] (non-linear cases)
    rn_z0      =  0.003    !  roughness [m]  (ln_loglayer=T)
+   ln_boost    = .false.   !  =T regional boost of Cd0 ; =F constant
+   rn_boost =  50.         !  local boost factor  [-]
 /
 !!======================================================================
 !!                        Tracer (T & S) namelists                    !!
@@ -562,14 +565,19 @@
 !-----------------------------------------------------------------------
 &namzdf        !   vertical physics                                     (default: NO selection)
 !-----------------------------------------------------------------------
-   ln_zdfgls   =  .true.       !  Generic Length Scale closure              (T =>   fill namzdf_gls)                   ! coefficients
- 
-   ln_zdfevd   =  .false.
-   nn_evdm     =    1
-   rn_avm0     =   0.1e-6     !  vertical eddy viscosity   [m2/s]       (background Kz if ln_zdfcst=F)
-   rn_avt0     =   0.1e-6     !  vertical eddy diffusivity [m2/s]       (background Kz if ln_zdfcst=F)
+      ln_zdfcst   = .false. !
+   ln_zdfgls   = .true.        !  Generic Length Scale closure              (T =>   fill namzdf_gls)                   ! coefficients
+   ln_zdfevd   = .false.      !  enhanced vertical diffusion
+      nn_evdm     =    1         ! apply on tracer (=0) or on tracer and momentum (=1)
+      rn_evd      =  100.        ! mixing coefficient [m2/s]
+   ln_zdfnpc   = .false.      !  Non-Penetrative Convective algorithm
+      nn_npc      =    1         ! frequency of application of npc
+      nn_npcp     =  365         ! npc control print frequency
+   rn_avm0     =  0.1e-6 !.1e-6  ! 0.00012      !  vertical eddy viscosity   [m2/s]       (background Kz if ln_zdfcst=F)
+   rn_avt0     =  0.1e-6       ! 0.000012  ! 0.1e-6  AW    !  vertical eddy diffusivity [m2/s]       (background Kz if ln_zdfcst=F)
    nn_avb      =    0         !  profile for background avt & avm (=1) or not (=0)
    nn_havtb    =    0         !  horizontal shape for avtb (=1) or not (=0)
+
 /
 !-----------------------------------------------------------------------
 &namzdf_gls    !   GLS vertical diffusion                               (ln_zdfgls =T)

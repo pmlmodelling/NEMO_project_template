@@ -664,7 +664,6 @@
 !-----------------------------------------------------------------------
    filtide          = 'bdydta/amm12_bdytide_'   !  file name root of tidal forcing files
    ln_bdytide_2ddta = .false.                   !
-   ln_bdytide_conj  = .false.                   ! 
 /
 
 !!======================================================================
@@ -680,12 +679,13 @@
 !-----------------------------------------------------------------------
 &namdrg        !   top/bottom drag coefficient                          (default: NO selection)
 !-----------------------------------------------------------------------
-   ln_OFF      = .false.   !  free-slip       : Cd = 0                  (F => fill namdrg_bot
+   ln_drg_OFF      = .false.   !  free-slip       : Cd = 0                  (F => fill namdrg_bot
    ln_lin      = .false.   !      linear  drag: Cd = Cd0 Uc0                   &   namdrg_top)
    ln_non_lin  = .false.   !  non-linear  drag: Cd = Cd0 |U|
    ln_loglayer = .false.   !  logarithmic drag: Cd = vkarmn/log(z/z0) |U|
    !
    ln_drgimp   = .true.    !  implicit top/bottom friction flag
+   ln_drgice_imp = .false. ! implicit ice-ocean drag
 /
 !-----------------------------------------------------------------------
 &namdrg_top    !   TOP friction                                         (ln_OFF =F & ln_isfcav=T)

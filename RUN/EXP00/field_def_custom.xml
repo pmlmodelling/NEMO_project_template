@@ -157,6 +157,6 @@
   <field id="INP_rop_e3t" default_value="-.200E+21" > INP_rop * e3t </field>
   <field id="INP_ronsio2_e3t" default_value="-.200E+21" > INP_rosio2 * e3t </field>
   <field id="INP_roo_e3t" default_value="-.200E+21" > INP_roo * e3t </field>
-  <field id="INP_robioalk_e3t" default_value="-.200E+21" > INP_robioalk * e3t </field>
+  <field id="INP_rotoalk_e3t" default_value="-.200E+21" > INP_rotoalk * e3t </field>
  </field_group>
 </field_definition>

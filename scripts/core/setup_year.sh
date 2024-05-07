@@ -22,7 +22,9 @@ ln -s $INPUT_DIR/SBC/ATM/weights*.nc $RUN_DIR/fluxes/
 ln -s $INPUT_DIR/SBC/BGC/AMM7-ADY-broadband.nc $RUN_DIR/fluxes/ady.nc
 ln -s $INPUT_DIR/SBC/BGC/kd490.nc $RUN_DIR/fluxes/kd490.nc
 ln -s $INPUT_DIR/SBC/BGC/AMM7-pCO2a_y$year.nc $RUN_DIR/fluxes/pCO2a.nc 
+ln -s $INPUT_DIR/SBC/BGC/AMM7-pCO2a_y$year.nc $RUN_DIR/fluxes/pCO2a_y$year.nc 
 ln -s $INPUT_DIR/SBC/BGC/AMM7-EMEP-NDeposition.$year.nc $RUN_DIR/fluxes/Ndep.nc
+ln -s $INPUT_DIR/SBC/BGC/AMM7-EMEP-NDeposition.$year.nc $RUN_DIR/fluxes/Ndep_y$year.nc
 
 #Rivers (linked twice to avoid editing fabm_input each year)
 ln -s $INPUT_DIR/RIV/NOWMAPS_rivers.$year.ersem_ncc_dd_zeros_TA.nc $RUN_DIR/rivers.nc 
