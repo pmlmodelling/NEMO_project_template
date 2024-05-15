@@ -31,5 +31,6 @@ export ERSEM_DIR=$CODE_DIR/ersem
 export FABM_DIR=$CODE_DIR/fabm
 export FABM_BUILD=$CODE_DIR/fabm-build
 export NEMO_DIR=$CODE_DIR/nemo
+export NEMO_CFG=AMM7_FABM_BENCHMARK
 export XIOS_DIR=$CODE_DIR/xios
 export XIOS_BUILD=$CODE_DIR/xios-build

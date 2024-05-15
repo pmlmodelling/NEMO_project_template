@@ -76,15 +76,11 @@ while getopts :n nemo; do
           done
           echo "Building NEMO"
           bash $SCRIPTS_DIR/core/4_make_nemo.sh
-          if [ -f $NEMO_DIR/cfgs/$CFG/BLD/bin/nemo.exe ]; then
-            ln -s $NEMO_DIR/cfgs/$CFG/BLD/bin/nemo.exe $EXECUTABLE_DIR/nemo
+          if [ -f $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe ]; then
+            ln -s $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe $EXECUTABLE_DIR/nemo
           else
             echo "NEMO Build Failed"
           fi
-          ;;
-        ?)
-          echo "Invalid option: -${opt}."
-          exit 1
           ;;
     esac
 done
