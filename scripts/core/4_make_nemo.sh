@@ -15,7 +15,7 @@ cd $NEMO_DIR
 ARCH=X86_ARCHER2-Cray_FABM
 yes | cp $CODE_DIR/archer2-files/nemo/Config_cray.pm $NEMO_DIR/ext/FCM/lib/Fcm/Config.pm
 
-CFG=AMM7_FABM_BENCHMARK
+export CFG=AMM7_FABM_BENCHMARK
 REF=AMM7_FABM
 printf 'y\nn\nn\ny\nn\nn\nn\nn\n' |./makenemo -n $CFG -r $REF -m $ARCH -j 0
 ./makenemo -n $CFG -r $REF -m $ARCH -j 4 clean
