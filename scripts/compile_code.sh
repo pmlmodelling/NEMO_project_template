@@ -31,6 +31,7 @@ while getopts :x xios; do
                 c) 
                   echo "Cloning XIOS"
                   bash $SCRIPTS_DIR/core/1_clone_xios.sh
+                  bash $SCRIPTS_DIR/core/2_make_xios.sh
                   ;;
             esac
           done
