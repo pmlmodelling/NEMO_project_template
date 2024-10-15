@@ -2,6 +2,6 @@
 
 source config.sh
 
-ln -s /work/n01/n01/shared/AMM7_BGC_INPUTS $INPUT_DIR
+ln -s /work/n01/n01/shared/AMM7-INPUTS $INPUT_DIR
 
 

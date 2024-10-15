@@ -1,0 +1,240 @@
+domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
+ystart: 1997
+yend: 2003
+monthly: True
+institution: "Plymouth Marine Laboratory"
+author: "Dale Partridge"
+contact: "dapa@pml.ac.uk"
+boundaries:
+    open:
+        coords_file: /work/n01/n01/shared/AMM7-INPUTS/BDY/coordinates.bdy.nc
+        phys_folder: /work/n01/n01/shared/AMM7-INPUTS/BDY/PHY/
+        output_folder: /work/n01/n01/shared/AMM7-INPUTS/BDY/BGC/
+        filename_prefix: amm7_bdytrc
+variables:
+    N3_n:
+        units: "mmolN m-3"
+        short_name: "nitrate"
+        long_name: "nitrate"
+        method: 'input'
+        input_file: woa_OBCs.nc
+    N1_p:
+        units: "mmolP m-3"
+        short_name: "phosphate"
+        long_name: "phosphate"
+        method: 'input'
+        input_file: woa_OBCs.nc
+    N5_s:
+        units: "mmolSi m-3"
+        short_name: "silicate"
+        long_name: "silicate"
+        method: 'input'
+        input_file: woa_OBCs.nc
+    O3_c:
+        units: "mmolC m-3"
+        short_name: "DIC"
+        long_name: "dissolved inorganic carbon"
+        method: 'input'
+        input_file: glodap_OBCs.nc
+    O3_TA:
+        units: "mmol m-3"
+        short_name: "totalk"
+        long_name: "Total Alkalinity"
+        method: 'input'
+        input_file: glodap_OBCs.nc
+    O2_o:
+        units: "mmolO m-3"
+        short_name: "oxygen"
+        long_name: "oxygen"
+        method: 'input'
+        input_file: woa_OBCs.nc
+    R2_c:
+        units: "mgC m-3"
+        long_name: "semi-labile Dissolved Organic Carbon"
+        short_name: "semi-labile DOC"
+        method: 'exp_decay'
+        max_value: 240. # 20uM * 12
+        max_depth: 1000.
+        min_value: 0.0033
+    R3_c:
+        units: "mgC m-3"
+        long_name: "semi-refractory Dissolved Organic Carbon"
+        short_name: "semi-refractory DOC"
+        method: 'exp_decay'
+        max_value: 120. # 10uM * 12
+        max_depth: 1000.
+        min_value: 0.0033
+    P1_n:
+        units: "mmolN m-3"
+        short_name: "P1_n"
+        long_name: "diatoms nitrogen"
+        method: 'fixed'
+        fixed_value: 1.26e-6
+    P1_p:
+        units: "mmolP m-3"
+        short_name: "P1_p"
+        long_name: "diatoms phosphorus"
+        method: 'fixed'
+        fixed_value: 7.86e-8
+    P1_c:
+        units: "mgC m-3"
+        short_name: "P1_c"
+        long_name: "diatoms carbon"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P1_Chl:
+        units: "mgChl m-3"
+        short_name: "P1_Chl"
+        long_name: "diatoms chlorophyll a"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P1_s:
+        units: "mmolSi m-3"
+        short_name: "P1_s"
+        long_name: "diatoms silicate"
+        method: 'fixed'
+        fixed_value: 1.18e-6
+    P2_n:
+        units: "mmolN m-3"
+        short_name: "P2_n"
+        long_name: "nanophytoplankton nitrogen"
+        method: 'fixed'
+        fixed_value: 1.26e-6
+    P2_p:
+        units: "mmolP m-3"
+        short_name: "P2_p"
+        long_name: "nanophytoplankton phosphorus"
+        method: 'fixed'
+        fixed_value: 7.86e-8
+    P2_c:
+        units: "mgC m-3"
+        short_name: "P2_c"
+        long_name: "nanophytoplankton carbon"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P2_Chl:
+        units: "mgChl m-3"
+        short_name: "P2_Chl"
+        long_name: "nanophytoplankton chlorophyll a"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P3_n:
+        units: "mmolN m-3"
+        short_name: "P3_n"
+        long_name: "picophytoplankton nitrogen"
+        method: 'fixed'
+        fixed_value: 1.26e-6
+    P3_p:
+        units: "mmolP m-3"
+        short_name: "P3_p"
+        long_name: "picophytoplankton phosphorus"
+        method: 'fixed'
+        fixed_value: 7.86e-8
+    P3_c:
+        units: "mgC m-3"
+        short_name: "P3_c"
+        long_name: "picophytoplankton carbon"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P3_Chl:
+        units: "mgChl m-3"
+        short_name: "P3_Chl"
+        long_name: "picophytoplankton chlorophyll a"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P4_n:
+        units: "mmolN m-3"
+        short_name: "P4_n"
+        long_name: "microphytoplankton nitrogen"
+        method: 'fixed'
+        fixed_value: 1.26e-6
+    P4_p:
+        units: "mmolP m-3"
+        short_name: "P4_p"
+        long_name: "microphytoplankton phosphorus"
+        method: 'fixed'
+        fixed_value: 7.86e-8
+    P4_c:
+        units: "mgC m-3"
+        short_name: "P4_c"
+        long_name: "microphytoplankton diatoms carbon"
+        method: 'fixed'
+        fixed_value: 0.0001
+    P4_Chl:
+        units: "mgChl m-3"
+        short_name: "P4_Chl"
+        long_name: "microphytoplankton chlorophyll a"
+        method: 'fixed'
+        fixed_value: 0.0001
+    R4_c:
+        units: "mgC m-3"
+        short_name: "R4_c"
+        long_name: "small-size pom carbon"
+        method: 'fixed'
+        fixed_value: 0.0033
+    R4_n:
+        units: "mmolN m-3"
+        short_name: "R4_n"
+        long_name: "small-size pom nitrogen"
+        method: 'fixed'
+        fixed_value: 4.158e-5
+    R4_p:
+        units: "mmolP m-3"
+        short_name: "R4_p"
+        long_name: "small-size pom phosphorus"
+        method: 'fixed'
+        fixed_value: 2.5938e-6
+    R6_c:
+        units: "mgC m-3"
+        short_name: "R6_c"
+        long_name: "medium-size pom carbon"
+        method: 'fixed'
+        fixed_value: .0033
+    R6_n:
+        units: "mmolN m-3"
+        short_name: "R6_n"
+        long_name: "medium-size pom nitrogen"
+        method: 'fixed'
+        fixed_value: 4.158e-5
+    R6_p:
+        units: "mmolP m-3"
+        short_name: "R6_p"
+        long_name: "medium-size pom phosphorus"
+        method: 'fixed'
+        fixed_value: 2.5938e-6
+    R6_s:
+        units: "mmolsI m-3"
+        short_name: "R6_s"
+        long_name: "medium-size pom silicate"
+        method: 'fixed'
+        fixed_value: 3.8879e-5
+    R8_c:
+        units: "mgC m-3"
+        short_name: "R8_c"
+        long_name: "large-size pom carbon"
+        method: 'fixed'
+        fixed_value: 0.0033
+    R8_n:
+        units: "mmolN m-3"
+        short_name: "R8_n"
+        long_name: "large-size pom nitrogen"
+        method: 'fixed'
+        fixed_value: 4.158e-5
+    R8_p:
+        units: "mmolP m-3"
+        short_name: "R8_p"
+        long_name: "large-size pom phosphorus"
+        method: 'fixed'
+        fixed_value: 2.5938e-6
+    R8_s:
+        units: "mmolSi m-3"
+        short_name: "R8_s"
+        long_name: "large-size pom silicate"
+        method: 'fixed'
+        fixed_value: 3.8879e-5
+    L2_c:
+        units: "mg m-3"
+        short_name: "L2_c"
+        long_name: "calcite"
+        method: 'fixed'
+        fixed_value: 0.0001

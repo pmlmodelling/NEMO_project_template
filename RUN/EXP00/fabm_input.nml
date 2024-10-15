@@ -6,7 +6,7 @@
 /
 &variable
    name='gelbstoff_absorption_satellite'
-   sn=         'fluxes/ady',192,            'gelbstoff_absorption_satellite', .true.,  .true.,   'yearly',     '',         '',        ''
+   sn=         'fluxes/ady',192,            'ady', .true.,  .true.,   'yearly',     '',         '',        ''
 /
 &variable
    name='N3_flux/flux'

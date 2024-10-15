@@ -1,0 +1,35 @@
+domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
+outfile: woa_OBCs.nc
+variables:
+   N1_p:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_phosphate_monthly_depth.nc
+       varname: p_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   N3_n:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_nitrate_monthly_depth.nc
+       varname: n_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   N5_s:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_silicate_monthly_depth.nc
+       varname: i_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   O2_o:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_oxygen_monthly_depth.nc
+       varname: o_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time

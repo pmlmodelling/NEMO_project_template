@@ -1,0 +1,63 @@
+domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
+outfile: pelagic_ICs.nc
+variables:
+   N1_p:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_phosphate_monthly_depth.nc
+       varname: p_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   N3_n:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_nitrate_monthly_depth.nc
+       varname: n_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   N5_s:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_silicate_monthly_depth.nc
+       varname: i_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   O2_o:
+       input_file: /work/n01/n01/shared/BGC_datasets/WOA23/woa23_oxygen_monthly_depth.nc
+       varname: o_an
+       dim_map:
+            z: depth
+            x: lon
+            y: lat
+            t: time
+   O3_TA:
+       input_file: /work/n01/n01/shared/BGC_datasets/GLODAP/GLODAPv2.2016b.TAlk.reordered.nc
+       varname: TAlk
+       dim_map:
+            z: depth_surface
+            x: lon
+            y: lat
+   O3_c:
+       input_file: /work/n01/n01/shared/BGC_datasets/GLODAP/GLODAPv2.2016b.TCO2.reordered.nc
+       varname: TCO2
+       dim_map:
+            z: depth_surface
+            x: lon
+            y: lat
+   light_ADY:
+       input_file: /work/n01/n01/shared/AMM7-INPUTS/SBC/BGC/ady/AMM7-CCI-ady-8day-broadband_climatology_1998_2023.nc
+       varname: ady
+       has_depth: False
+       dim_map:
+            t: time
+   Chl_Tot:
+       input_file: /work/n01/n01/shared/BGC_datasets/OC-CCI/ESACCI-OC-L3S-CHLOR_A-MERGED-1M_MONTHLY_4km_GEO_PML_OCx-200002-fv6.0.nc
+       varname: chlor_a
+       has_depth: False
+       dim_map:
+            x: lon
+            y: lat
+            t: time

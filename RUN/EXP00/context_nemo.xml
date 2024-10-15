@@ -6,13 +6,10 @@
 <context id="nemo">
 <!-- $id$ -->
 <!-- Fields definition -->
-    <field_definition src="./field_def_nemo-oce.xml"/>   <!--  NEMO ocean dynamics                     -->
-    <field_definition src="./field_def_fabm.xml"/>   <!--  NEMO ocean dynamics                     -->
-    <field_definition src="./field_def_nemo-pisces.xml"/>
+    <field_definition src="./field_def_nemo-oce.xml"/>   <!--  NEMO ocean dynamics                     -->   <field_definition src="./field_def_fabm.xml"/> 
     <field_definition src="./field_def_custom.xml"/>
-
 <!-- Files definition -->
-    <file_definition src="./file_def_nemo.xml"/>     <!--  NEMO ocean dynamics                     -->
+    <file_definition src="./file_def_nemo-oce.xml"/>     <!--  NEMO ocean dynamics                     -->
     <!-- 
 ============================================================================================================
 = grid definition = = DO NOT CHANGE =
@@ -21,6 +18,9 @@
     
     <axis_definition>
       <axis id="deptht" long_name="Vertical T levels" unit="m" positive="down" />
+      <axis id="deptht300" axis_ref="deptht" >
+         <zoom_axis begin="0" n="35" />
+      </axis>
       <axis id="depthu" long_name="Vertical U levels" unit="m" positive="down" />
       <axis id="depthv" long_name="Vertical V levels" unit="m" positive="down" />
       <axis id="depthw" long_name="Vertical W levels" unit="m" positive="down" />
@@ -29,6 +29,9 @@
       <axis id="ncatice" long_name="Ice category"       unit="1"               />
       <axis id="iax_20C" long_name="20 degC isotherm"   unit="degC"            />
       <axis id="iax_28C" long_name="28 degC isotherm"   unit="degC"            />
+      <axis id="deptht_surface" axis_ref="deptht" >
+         <zoom_axis begin=" 0 " n=" 1 " />
+      </axis>
     </axis_definition>
  
     <domain_definition src="./domain_def_nemo.xml"/>

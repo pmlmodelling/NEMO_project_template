@@ -1,0 +1,535 @@
+domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
+shelfmask: /work/n01/n01/shared/AMM7-INPUTS/DOM/amm7_val_subdomains.nc
+outfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/19930101_restart_trc_from_obs.nc
+inputfile: pelagic_ICs.nc
+temfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/glosea_ini_19930101_votemper_domain_cfg_co9amm7_MEsL51r10-07.nc
+salfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/glosea_ini_19930101_vosaline_domain_cfg_co9amm7_MEsL51r10-07.nc
+variables:
+    TRNP1_c: 
+        long_name: "diatom carbon" 
+        units: "mg/m3" 
+    TRNP1_n: 
+        long_name: "diatom nitrogen" 
+        units: "mmol/m3" 
+    TRNP1_p: 
+        long_name: "diatom phosphate" 
+        units: "mmol/m3" 
+    TRNP1_s: 
+        long_name: "diatom silicate" 
+        units: "mmol/m3" 
+    TRNP1_Chl: 
+        long_name: "diatom chlorophyll-a" 
+        units: "mg/m3" 
+    TRNP2_c:
+        long_name: "nanophytoplankton carbon" 
+        units: "mg/m3" 
+    TRNP2_n: 
+        long_name: "nanophytoplankton nitrogen" 
+        units: "mmol/m3" 
+    TRNP2_p: 
+        long_name: "nanophytoplankton phosphate" 
+        units: "mmol/m3" 
+    TRNP2_Chl: 
+        long_name: "nanophytoplankton chlorophyll-a" 
+        units: "mg/m3" 
+    TRNP3_c: 
+        long_name: "picophytoplankton carbon" 
+        units: "mg/m3" 
+    TRNP3_n: 
+        long_name: "picophytoplankton nitrogen" 
+        units: "mmol/m3" 
+    TRNP3_p: 
+        long_name: "picophytoplankton phosphate" 
+        units: "mmol/m3" 
+    TRNP3_Chl: 
+        long_name: "picophytoplankton chlorophyll-a" 
+        units: "mg/m3" 
+    TRNP4_c: 
+        long_name: "microphytoplankton carbon" 
+        units: "mg/m3" 
+    TRNP4_n: 
+        long_name: "microphytoplankton nitrogen" 
+        units: "mmol/m3" 
+    TRNP4_p: 
+        long_name: "microphytoplankton phosphate" 
+        units: "mmol/m3" 
+    TRNP4_Chl: 
+        long_name: "microphytoplankton chlorophyll-a" 
+        units: "mg/m3" 
+    TRNZ4_c: 
+        long_name: "mesozooplankton carbon" 
+        units: "mg/m3" 
+    TRNZ5_c: 
+        long_name: "microzooplankton carbon" 
+        units: "mg/m3" 
+    TRNZ5_n: 
+        long_name: "microzooplankton nitrogen" 
+        units: "mmol/m3" 
+    TRNZ5_p: 
+        long_name: "microzooplankton phosphorus" 
+        units: "mmol/m3" 
+    TRNZ6_c: 
+        long_name: "heteroflagellates carbon" 
+        units: "mg/m3" 
+    TRNZ6_n: 
+        long_name: "heteroflagellates nitrogen" 
+        units: "mmol/m3" 
+    TRNZ6_p: 
+        long_name: "heteroflagellates phosphorus" 
+        units: "mmol/m3" 
+    TRNB1_c: 
+        long_name: "particualte organic carbon" 
+        units: "mg/m3" 
+    TRNB1_n: 
+        long_name: "particualte organic nitrogen" 
+        units: "mmol/m3" 
+    TRNB1_p: 
+        long_name: "particualte organic phosphorus" 
+        units: "mmol/m3" 
+    TRNR1_c: 
+        long_name: "dissolved organic carbon" 
+        units: "mg/m3" 
+    TRNR1_n: 
+        long_name: "dissolved organic nitrogen" 
+        units: "mmol/m3" 
+    TRNR1_p: 
+        long_name: "dissolved organic phosphorus" 
+        units: "mmol/m3" 
+    TRNR2_c: 
+        long_name: "semi-labile organic carbon" 
+        units: "mg/m3" 
+    TRNR3_c: 
+        long_name: "semi-refractory organic carbon" 
+        units: "mg/m3" 
+    TRNR4_c: 
+        long_name: "small particulate organic carbon" 
+        units: "mg/m3" 
+    TRNR4_n: 
+        long_name: "small particulate organic nitrogen" 
+        units: "mmol/m3" 
+    TRNR4_p: 
+        long_name: "small particulate organic phosphorus" 
+        units: "mmol/m3" 
+    TRNR6_c: 
+        long_name: "medium size particulate organic carbon" 
+        units: "mg/m3" 
+    TRNR6_n: 
+        long_name: "medium size particulate organic nitrogen" 
+        units: "mmol/m3" 
+    TRNR6_p: 
+        long_name: "medium size particulate organic phosphorus" 
+        units: "mmol/m3" 
+    TRNR6_s: 
+        long_name: "medium size particulate organic silicate" 
+        units: "mmol/m3" 
+    TRNR8_c: 
+        long_name: "large particulate organic carbon" 
+        units: "mg/m3" 
+    TRNR8_n: 
+        long_name: "large particulate organic nitrogen" 
+        units: "mmol/m3" 
+    TRNR8_p: 
+        long_name: "large particulate organic phosphorus" 
+        units: "mmol/m3" 
+    TRNR8_s: 
+        long_name: "large particulate organic silicate" 
+        units: "mmol/m3" 
+    TRNO2_o: 
+        long_name: "dissolved oxygen" 
+        units: "mmol/m3" 
+    TRNO3_c: 
+        long_name: "dissolved inorganic carbon" 
+        units: "mmol/m3" 
+    TRNO3_TA: 
+        long_name: "total alkalinity" 
+        units: "umol/kg" 
+    TRNN1_p: 
+        long_name: "phosphate" 
+        units: "mmol/m3" 
+    TRNN3_n: 
+        long_name: "oxidised nitrogen" 
+        units: "mmol/m3" 
+    TRNN4_n: 
+        long_name: "ammonium" 
+        units: "mmol/m3" 
+    TRNN5_s: 
+        long_name: "silicate" 
+        units: "mmol/m3" 
+    TRNL2_c: 
+        long_name: "calcite" 
+        units: "mg/m3" 
+    TRNlight_ADY: 
+        long_name: "gelbstoff absoprtion" 
+        units: "1/m" 
+    TRBP1_c: 
+        long_name: "diatom carbon" 
+        units: "mg/m3" 
+    TRBP1_n: 
+        long_name: "diatom nitrogen" 
+        units: "mmol/m3" 
+    TRBP1_p: 
+        long_name: "diatom phosphate" 
+        units: "mmol/m3" 
+    TRBP1_s: 
+        long_name: "diatom silicate" 
+        units: "mmol/m3" 
+    TRBP1_Chl: 
+        long_name: "diatom chlorophyll-a" 
+        units: "mg/m3" 
+    TRBP2_c: 
+        long_name: "nanophytoplankton carbon" 
+        units: "mg/m3" 
+    TRBP2_n: 
+        long_name: "nanophytoplankton nitrogen" 
+        units: "mmol/m3" 
+    TRBP2_p: 
+        long_name: "nanophytoplankton phosphate" 
+        units: "mmol/m3" 
+    TRBP2_Chl: 
+        long_name: "nanophytoplankton chlorophyll-a" 
+        units: "mg/m3" 
+    TRBP3_c: 
+        long_name: "picophytoplankton carbon" 
+        units: "mg/m3" 
+    TRBP3_n: 
+        long_name: "picophytoplankton nitrogen" 
+        units: "mmol/m3" 
+    TRBP3_p: 
+        long_name: "picophytoplankton phosphate" 
+        units: "mmol/m3" 
+    TRBP3_Chl: 
+        long_name: "picophytoplankton chlorophyll-a" 
+        units: "mg/m3" 
+    TRBP4_c: 
+        long_name: "microphytoplankton carbon" 
+        units: "mg/m3" 
+    TRBP4_n: 
+        long_name: "microphytoplankton nitrogen" 
+        units: "mmol/m3" 
+    TRBP4_p: 
+        long_name: "microphytoplankton phosphate" 
+        units: "mmol/m3" 
+    TRBP4_Chl: 
+        long_name: "microphytoplankton chlorophyll-a" 
+        units: "mg/m3" 
+    TRBZ4_c: 
+        long_name: "mesozooplankton carbon" 
+        units: "mg/m3" 
+    TRBZ5_c: 
+        long_name: "microzooplankton carbon" 
+        units: "mg/m3" 
+    TRBZ5_n: 
+        long_name: "microzooplankton nitrogen" 
+        units: "mmol/m3" 
+    TRBZ5_p: 
+        long_name: "microzooplankton phosphorus" 
+        units: "mmol/m3" 
+    TRBZ6_c: 
+        long_name: "heteroflagellates carbon" 
+        units: "mg/m3" 
+    TRBZ6_n: 
+        long_name: "heteroflagellates nitrogen" 
+        units: "mmol/m3" 
+    TRBZ6_p: 
+        long_name: "heteroflagellates phosphorus" 
+        units: "mmol/m3" 
+    TRBB1_c: 
+        long_name: "particualte organic carbon" 
+        units: "mg/m3" 
+    TRBB1_n: 
+        long_name: "particualte organic nitrogen" 
+        units: "mmol/m3" 
+    TRBB1_p: 
+        long_name: "particualte organic phosphorus" 
+        units: "mmol/m3" 
+    TRBR1_c: 
+        long_name: "dissolved organic carbon" 
+        units: "mg/m3" 
+    TRBR1_n: 
+        long_name: "dissolved organic nitrogen" 
+        units: "mmol/m3" 
+    TRBR1_p: 
+        long_name: "dissolved organic phosphorus" 
+        units: "mmol/m3" 
+    TRBR2_c: 
+        long_name: "semi-labile organic carbon" 
+        units: "mg/m3" 
+    TRBR3_c: 
+        long_name: "semi-refractory organic carbon" 
+        units: "mg/m3" 
+    TRBR4_c: 
+        long_name: "small particulate organic carbon" 
+        units: "mg/m3" 
+    TRBR4_n: 
+        long_name: "small particulate organic nitrogen" 
+        units: "mmol/m3" 
+    TRBR4_p: 
+        long_name: "small particulate organic phosphorus" 
+        units: "mmol/m3" 
+    TRBR6_c: 
+        long_name: "medium size particulate organic carbon" 
+        units: "mg/m3" 
+    TRBR6_n: 
+        long_name: "medium size particulate organic nitrogen" 
+        units: "mmol/m3" 
+    TRBR6_p: 
+        long_name: "medium size particulate organic phosphorus" 
+        units: "mmol/m3" 
+    TRBR6_s: 
+        long_name: "medium size particulate organic silicate" 
+        units: "mmol/m3" 
+    TRBR8_c: 
+        long_name: "large particulate organic carbon" 
+        units: "mg/m3" 
+    TRBR8_n: 
+        long_name: "large particulate organic nitrogen" 
+        units: "mmol/m3" 
+    TRBR8_p: 
+        long_name: "large particulate organic phosphorus" 
+        units: "mmol/m3" 
+    TRBR8_s: 
+        long_name: "large particulate organic silicate" 
+        units: "mmol/m3" 
+    TRBO2_o: 
+        long_name: "dissolved oxygen" 
+        units: "mmol/m3" 
+    TRBO3_c: 
+        long_name: "dissolved inorganic carbon" 
+        units: "mmol/m3" 
+    TRBO3_TA: 
+        long_name: "total alkalinity" 
+        units: "umol/kg" 
+    TRBN1_p: 
+        long_name: "phosphate" 
+        units: "mmol/m3" 
+    TRBN3_n: 
+        long_name: "oxidised nitrogen" 
+        units: "mmol/m3" 
+    TRBN4_n: 
+        long_name: "ammonium" 
+        units: "mmol/m3" 
+    TRBN5_s: 
+        long_name: "silicate" 
+        units: "mmol/m3" 
+    TRBL2_c: 
+        long_name: "calcite" 
+        units: "mg/m3" 
+    TRBlight_ADY: 
+        long_name: "gelbstoff absoprtion" 
+        units: "1/m" 
+    fabm_st2DnH1_c: 
+        long_name: "benthic aerobic bacteria" 
+        units: "mmol/m2" 
+    fabm_st2DnH2_c: 
+        long_name: "benthic anaerobic bacteria" 
+        units: "mmol/m2" 
+    fabm_st2DnY2_c: 
+        long_name: "deposit feeders" 
+        units: "mg/m2" 
+    fabm_st2DnY3_c: 
+        long_name: "suspension feeders" 
+        units: "mg/m2" 
+    fabm_st2DnY4_c: 
+        long_name: "meiobenthos" 
+        units: "mg/m2" 
+    fabm_st2DnQ1_c: 
+        long_name: "benthic dissolved organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DnQ1_n: 
+        long_name: "benthic dissolved organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DnQ1_p: 
+        long_name: "benthic dissolved organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DnQ6_c: 
+        long_name: "benthic particulate organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DnQ6_n: 
+        long_name: "benthic particulate organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DnQ6_p: 
+        long_name: "benthic particulate organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DnQ6_s: 
+        long_name: "benthic particulate organic silicate" 
+        units: "mmol/m2" 
+    fabm_st2DnQ6_pen_depth_n: 
+        long_name: "penetration depth of benthic degradable nitrogen" 
+        units: "m" 
+    fabm_st2DnQ6_pen_depth_c: 
+        long_name: "penetration depth of benthic degradable carbon" 
+        units: "m" 
+    fabm_st2DnQ6_pen_depth_p: 
+        long_name: "penetration depth of benthic degradable phosphorus" 
+        units: "m" 
+    fabm_st2DnQ6_pen_depth_s: 
+        long_name: "penetration depth of benthic degradable silicate" 
+        units: "m" 
+    fabm_st2DnQ7_c: 
+        long_name: "benthic refractory organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DnQ7_n: 
+        long_name: "benthic refractory organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DnQ7_p: 
+        long_name: "benthic refractory organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DnQ7_pen_depth_c: 
+        long_name: "penetration depth of benthic refractory carbon" 
+        units: "m" 
+    fabm_st2DnQ7_pen_depth_n: 
+        long_name: "penetration depth of benthic refractory nitrogen" 
+        units: "m" 
+    fabm_st2DnQ7_pen_depth_p: 
+        long_name: "penetration depth of benthic refractory phosphorus" 
+        units: "m" 
+    fabm_st2DnQ17_n: 
+        long_name: "benthic buried organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DnQ17_c: 
+        long_name: "benthic buried organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DnQ17_p: 
+        long_name: "benthic buried organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DnG2_o: 
+        long_name: "benthic dissolved oxygen above oxygenated layer" 
+        units: "mmol/m2" 
+    fabm_st2DnG2_o_deep: 
+        long_name: "benthic dissolved oxygen below oxygenated layer" 
+        units: "mmol/m2" 
+    fabm_st2DnG3_c: 
+        long_name: "benthic dissolved inorganic carbon" 
+        units: "mmol/m2" 
+    fabm_st2DnK1_p: 
+        long_name: "benthic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DnK3_n: 
+        long_name: "benthic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DnK4_n: 
+        long_name: "benthic ammonium" 
+        units: "mmol/m2" 
+    fabm_st2DnK5_s: 
+        long_name: "benthic silicate" 
+        units: "mmol/m2" 
+    fabm_st2DnbL2_c: 
+        long_name: "calcite" 
+        units: "mg/m2" 
+    fabm_st2Dnben_col_D2m: 
+        long_name: "oxidised nitrogen horizon" 
+        units: "m" 
+    fabm_st2Dnben_col_D1m: 
+        long_name: "dissolved oxygen horizon" 
+        units: "m" 
+    fabm_st2Dnben_nit_G4n: 
+        long_name: "benthic dinitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbH1_c: 
+        long_name: "benthic aerobic bacteria" 
+        units: "mmol/m2" 
+    fabm_st2DbH2_c: 
+        long_name: "benthic anaerobic bacteria" 
+        units: "mmol/m2" 
+    fabm_st2DbY2_c: 
+        long_name: "deposit feeders" 
+        units: "mg/m2" 
+    fabm_st2DbY3_c: 
+        long_name: "suspension feeders" 
+        units: "mg/m2" 
+    fabm_st2DbY4_c: 
+        long_name: "meiobenthos" 
+        units: "mg/m2" 
+    fabm_st2DbQ1_c: 
+        long_name: "benthic dissolved organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DbQ1_n: 
+        long_name: "benthic dissolved organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbQ1_p: 
+        long_name: "benthic dissolved organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DbQ6_c: 
+        long_name: "benthic particulate organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DbQ6_n: 
+        long_name: "benthic particulate organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbQ6_p: 
+        long_name: "benthic particulate organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DbQ6_s: 
+        long_name: "benthic particulate organic silicate" 
+        units: "mmol/m2" 
+    fabm_st2DbQ6_pen_depth_n: 
+        long_name: "penetration depth of benthic degradable nitrogen" 
+        units: "m" 
+    fabm_st2DbQ6_pen_depth_c: 
+        long_name: "penetration depth of benthic degradable carbon" 
+        units: "m" 
+    fabm_st2DbQ6_pen_depth_p: 
+        long_name: "penetration depth of benthic degradable phosphorus" 
+        units: "m" 
+    fabm_st2DbQ6_pen_depth_s: 
+        long_name: "penetration depth of benthic degradable silicate" 
+        units: "m" 
+    fabm_st2DbQ7_c: 
+        long_name: "benthic refractory organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DbQ7_n: 
+        long_name: "benthic refractory organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbQ7_p: 
+        long_name: "benthic refractory organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DbQ7_pen_depth_c: 
+        long_name: "penetration depth of benthic refractory carbon" 
+        units: "m" 
+    fabm_st2DbQ7_pen_depth_n: 
+        long_name: "penetration depth of benthic refractory nitrogen" 
+        units: "m" 
+    fabm_st2DbQ7_pen_depth_p: 
+        long_name: "penetration depth of benthic refractory phosphorus" 
+        units: "m" 
+    fabm_st2DbQ17_n: 
+        long_name: "benthic buried organic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbQ17_c: 
+        long_name: "benthic buried organic carbon" 
+        units: "mg/m2" 
+    fabm_st2DbQ17_p: 
+        long_name: "benthic buried organic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DbG2_o: 
+        long_name: "benthic dissolved oxygen above oxygenated layer" 
+        units: "mmol/m2" 
+    fabm_st2DbG2_o_deep: 
+        long_name: "benthic dissolved oxygen below oxygenated layer" 
+        units: "mmol/m2" 
+    fabm_st2DbG3_c: 
+        long_name: "benthic dissolved inorganic carbon" 
+        units: "mmol/m2" 
+    fabm_st2DbK1_p: 
+        long_name: "benthic phosphorus" 
+        units: "mmol/m2" 
+    fabm_st2DbK3_n: 
+        long_name: "benthic nitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbK4_n: 
+        long_name: "benthic ammonium" 
+        units: "mmol/m2" 
+    fabm_st2DbK5_s: 
+        long_name: "benthic silicate" 
+        units: "mmol/m2" 
+    fabm_st2DbbL2_c: 
+        long_name: "calcite" 
+        units: "mg/m2" 
+    fabm_st2Dbben_col_D2m: 
+        long_name: "oxidised nitrogen horizon" 
+        units: "m" 
+    fabm_st2Dbben_col_D1m: 
+        long_name: "dissolved oxygen horizon" 
+        units: "m" 
+    fabm_st2Dbben_nit_G4n: 
+        long_name: "benthic dinitrogen" 
+        units: "mmol/m2" 

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=JOBNAME
+#SBATCH --job-name=AMM7-TEST
 #SBATCH --time=01:30:00
 #SBATCH --account=n01-PML
 #SBATCH --partition=standard

@@ -1,14 +1,21 @@
 #!/bin/bash
 
+mm=$(printf '%02d' $month)
+
 outdir=$OUTPUT_DIR/$year/$mm
 mkdir -p $outdir
 echo "$SLURM_JOB_ID Submitting year/month" $year/$month >> $outdir/jobs.log
 
 # Set namelists
-iter_start=`cat $RUN_DIR/current_iter` #get iteration number
-nday=`cal $month $year | grep -v '[A-Za-z]' | wc -w`
-iter_end=$(($iter_start + 86400*$nday/$dt))
-iter_start=$(($iter_start + 1))
+iter_start=$((($(date -d "$year"0101 +%s) - $(date -d "$START_YEAR"0101 +%s))/$dt))
+# Calculate number of days in run
+if [ "$YEARLY" = true ] ; then
+    nday=`cal $year | grep -v '[A-Za-z]' | wc -w`
+    iter_end=$(($iter_start + 86400*$(($nday-1))/$dt))
+else
+    nday=`cal $month $year | grep -v '[A-Za-z]' | wc -w`
+    iter_end=$(($iter_start + 86400*$nday/$dt))
+fi
 
 mm=$(printf '%02d' $month)
 
@@ -30,13 +37,9 @@ if [ $COLD_START = true ]; then
     --restart false
 fi
 
-# Launch Run
-echo "Launching $year $month at $(date +'%F %T')"
-#srun runscript.slurm
-$RUN_DIR/runscript.slurm
-
-# Archive results
+# Archiving
+outdir=$OUTPUT_DIR/$year/$mm
+mkdir -p $outdir
 mv $NAME*nc *.output $outdir
 cp namelist* $outdir
 
-echo $iter_end > $RUN_DIR/current_iter

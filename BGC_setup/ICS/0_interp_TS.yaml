@@ -1,0 +1,21 @@
+domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
+outfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/19930101_AMM7_TS_ini_glosea6.nc
+variables:
+   vosaline:
+       input_file: /work/n01/n01/shared/BGC_datasets/GLOSEA6/GLOSEA6_TS_19930101.nc
+       varname: vosaline
+       dim_map:
+            z: deptht
+       var_map:
+            lon: nav_lon
+            lat: nav_lat
+            depth: deptht
+   votemper:
+       input_file: /work/n01/n01/shared/BGC_datasets/GLOSEA6/GLOSEA6_TS_19930101.nc
+       varname: votemper
+       dim_map:
+            z: deptht
+       var_map:
+            lon: nav_lon
+            lat: nav_lat
+            depth: deptht

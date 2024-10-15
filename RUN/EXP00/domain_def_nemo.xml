@@ -180,13 +180,14 @@
      <!--   Eq section   -->
      <domain id="EqW" domain_ref="grid_W" > <zoom_domain id="EqW"/> </domain>
 
-	           <!--   zonal mean grid   -->
-     <domain_group id="gznl">
-        <domain id="gznl" long_name="gznl"/>
-        <domain id="ptr" domain_ref="gznl" > 
-            <zoom_domain id="ptr" ibegin="0000" jbegin="0" ni="1" nj="0000" /> 
-        </domain>
-      </domain_group>
+     
+     <!--   zonal mean grid   -->
+     <domain id="gznl" long_name="gznl"/>
+     <domain id="ptr" domain_ref="gznl" >
+	 <zoom_domain id="ptr" ibegin="0000" jbegin="0" ni="1" nj="0000" />
+     </domain>  
+     <domain id="znl_T" domain_ref="gznl" > <zoom_domain id="znl_T"/> </domain>
+     <domain id="znl_W" domain_ref="gznl" > <zoom_domain id="znl_W"/> </domain>
 
      
      <!--   other grids   -->
