@@ -47,7 +47,7 @@ echo "Launching $year $month at $(date +'%F %T')"
 $RUN_DIR/runscript.slurm
 
 # Archiving
-outdir=$OUTPUT_DIR/$year/$mm
+outdir=$OUTPUT_DIR/$EXP_NAME/$year/$mm
 mkdir -p $outdir
 rsync -a namelist* $outdir
 mv *.output $outdir
