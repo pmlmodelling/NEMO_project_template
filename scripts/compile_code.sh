@@ -1,17 +1,6 @@
 #!/bin/bash
 
 #########################################
-#Load netcdf, hdf5 and cmake modules and set environment variables
-#########################################
-
-module restore
-module swap craype-network-ofi craype-network-ucx
-module swap cray-mpich cray-mpich-ucx
-module load cray-hdf5-parallel/1.12.2.1
-module load cray-netcdf-hdf5parallel/4.9.0.1
-module load cmake
-
-#########################################
 # EXPORT PATHS
 #########################################
 

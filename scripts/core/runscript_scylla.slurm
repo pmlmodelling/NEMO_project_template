@@ -1,0 +1,83 @@
+#!/bin/bash 
+#SBATCH --job-name=nemo_stresstest
+#SBATCH --time=02:00:00
+#SBATCH --nodes=12
+#SBATCH --ntasks-per-core=1
+#SBATCH --exclusive
+
+export MODULEPATH=/scyllapfs/sw/modulefiles:$MODULEPATH
+
+
+# SUBMIT WITH: sbatch cycle.slurm
+# If starting from anything other than START_YEAR, month 1
+# then run export year=XXXX and export month=X before submission
+module use /scyllapfs/sw/modulefiles/{apps,libs,toolchains,mpi,compilers,utils}
+module load libfabric
+# Load hdf and netcdf modules
+prgenv=igi
+vprgenv=2024.1
+export I_MPI_OFI_LIBRARY_INTERNAL=0
+module load $prgenv/$vprgenv
+module load hdf5-parallel/1.14.5-${prgenv}-${vprgenv}
+module load netcdf-hdf5parallel/4.9.2-${prgenv}-${vprgenv}
+
+export OMP_NUM_THREADS=1
+source config.sh
+
+# Check if year and month provided
+if [ -z $year ]; then
+   export year=$START_YEAR
+fi
+if [ -z $month ]; then
+   export month=1
+fi
+
+#Setup run
+if [ ! -d $RUN_DIR ]; then
+    $SCRIPTS_DIR/core/setup_initial.sh
+fi
+
+$SCRIPTS_DIR/core/setup_year.sh $year
+
+cd $RUN_DIR
+export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
+
+
+
+if [ $YEARLY = true ]; then
+    for month in {1..12}; do
+        $SCRIPTS_DIR/core/submit_job.sh
+    done
+    if [ $CLEAN_RESTART = true ] ; then
+        echo 'Cleaning all restarts except January for '$year
+        rm -f $RUN_DIR/restarts/${NAME}_${year}0[2-9]*.nc
+        rm -f $RUN_DIR/restarts/${NAME}_${year}1*.nc
+    fi
+    month=1
+    year=$(($year + 1))
+else
+    echo $SCRIPTS_DIR
+    $SCRIPTS_DIR/core/submit_job.sh 
+    if [ $month != 12 ]; then
+        month=$(($month + 1))
+    else
+        if [ $CLEAN_RESTART = true ] ; then
+            echo 'Cleaning all restarts except January for '$year
+            cd $SCRIPTS_DIR
+#            sbatch --export=year=$year -A $account $CYCLE_DIR/clean_restarts.slurm
+        fi
+        month=1
+        year=$(($year + 1))
+    fi
+fi
+
+if [ $year -le $END_YEAR ]; then
+    echo "Submitting $year $month at $(date +'%F %T')"
+    cd $SCRIPTS_DIR
+    export year=$year
+    export month=$month
+    sbatch $SCRIPTS_DIR/runscript.slurm
+    echo "Done."
+else
+    echo "All done."
+fi

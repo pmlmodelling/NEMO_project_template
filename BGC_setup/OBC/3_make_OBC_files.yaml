@@ -1,16 +1,21 @@
-domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
-ystart: 1997
-yend: 2003
+domainfile: /data/thaumus2/scratch/common/AMM7-INPUTS/DOM/domain_cfg.nc
+ystart: 1993
+yend: 2004
 monthly: True
 institution: "Plymouth Marine Laboratory"
 author: "Dale Partridge"
 contact: "dapa@pml.ac.uk"
 boundaries:
     open:
-        coords_file: /work/n01/n01/shared/AMM7-INPUTS/BDY/coordinates.bdy.nc
-        phys_folder: /work/n01/n01/shared/AMM7-INPUTS/BDY/PHY/
-        output_folder: /work/n01/n01/shared/AMM7-INPUTS/BDY/BGC/
+        coords_file: /data/thaumus2/scratch/common/AMM7-INPUTS/BDY/PHY/open/coordinates.bdy.nc
+        phys_folder: /data/thaumus2/scratch/common/AMM7-INPUTS/BDY/PHY/open/
+        output_folder: /data/thaumus2/scratch/common/AMM7-INPUTS/BDY/BGC/
         filename_prefix: amm7_bdytrc
+    skag:
+        coords_file: /data/thaumus2/scratch/common/AMM7-INPUTS/BDY/PHY/skag/coordinates.bdy.nc
+        phys_folder: /data/thaumus2/scratch/common/AMM7-INPUTS/BDY/PHY/skag/
+        output_folder: /data/thaumus2/scratch/common/AMM7-INPUTS/BDY/BGC/
+        filename_prefix: amm7_skagbdytrc
 variables:
     N3_n:
         units: "mmolN m-3"

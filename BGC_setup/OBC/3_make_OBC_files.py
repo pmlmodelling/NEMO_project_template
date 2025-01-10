@@ -32,7 +32,7 @@ for b,bconf in yconf['boundaries'].items():
         # Make density
         ds_phys = xr.open_mfdataset('%s/%s/*bdyT_y%s*.nc' %(bconf['phys_folder'],str(y),str(y)))
         ds_phys['time_counter'] = [np.datetime64('%s-01-01T12:00:00.000000000' %str(y))+ np.timedelta64(i,'D') for i in np.arange(len(ds_phys.time_counter))] # Need to set time to correct year otherwise leap years mess up resampling
-        ds_phys = ds_phys.resample(time_counter='1ME').mean('time_counter').rename({'z':'zb'})
+        ds_phys = ds_phys.resample(time_counter='1M').mean('time_counter').rename({'z':'zb'})
         ds_phys['time_counter'] = ds.time_counter
         ds_phys['abs_pres'] = (('time_counter','zb','yb','xb'),gsw.p_from_z(-ds_phys.deptht.fillna(0),bdy_depth.nav_lat ).data)
         ds_phys['abs_sal'] = (('time_counter','zb','yb','xb'),gsw.SA_from_SP(ds_phys.vosaline, ds_phys.abs_pres, bdy_depth.nav_lon, bdy_depth.nav_lat).data)
@@ -81,14 +81,18 @@ for b,bconf in yconf['boundaries'].items():
                     trend = xr.where(bdy_depth.nav_lat>64, -0.63186*np.exp(-1.27709e-2*ds.gdept),
                                              0.18086*np.exp(-1.81059e-4*ds.gdept))
 
-                # Remove skag boundary from trends with single coord file
-                trend = xr.where((bdy_depth.nav_lon>10) & (bdy_depth.nav_lat<60),0,trend)
-
                 # Apply trend, centered in 2002
                 dat = dat + (trend * ((y+(ds.time_counter-0.5)/12) - (2002.5)))
                 
                 # Convert back to variable salinity
                 ds[v] = dat*ds_phys.vosaline/35.0
+            
+            # Replace baltic DIC and TA with salinity based relationship
+            if b == 'skag' and v in ['O3_c', 'O3_TA']:
+                if v == 'O3_c':
+                    ds[v] = (23.767*ds_phys.vosaline + 1388.0) * ds_phys.density/1000/0 #umol/kg to mmol/m3
+                else:
+                    ds[v] = 25.406*ds_phys.vosaline + 1410.15
 
         print('Saving year '+str(y))
         ds = ds.transpose('time_counter','zb','yb','xb')

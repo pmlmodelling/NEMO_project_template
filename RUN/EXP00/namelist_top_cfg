@@ -227,13 +227,98 @@
    rn_trofac(52) = 1
 /
 !----------------------------------------------------------------------
+&namtrc_bc       !   data for boundary conditions
+!-----------------------------------------------------------------------
+!
+   cn_dir_sbc        =  './'      !  root directory for the location of SURFACE data files
+   cn_dir_cbc        =  './'      !  root directory for the location of COASTAL data files
+   cn_dir_obc        =  'bdy/'      !  root directory for the location of OPEN data files
+!          !  file name  ! frequency (hours) ! variable  ! time interp. !  clim  ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+!          !             !  (if <0  months)  !   name    !   (logical)  !  (T/F) ! 'monthly' ! filename ! pairing  ! filename      !
+   sn_trcobc_dta(2) = 'amm7_skagbdytrc' ,    -1     , 'N1_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(3) = 'amm7_skagbdytrc' ,    -1     , 'N3_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(5) = 'amm7_skagbdytrc' ,    -1     , 'N5_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(6) = 'amm7_skagbdytrc' ,    -1     , 'O2_o' , .true.    , .true. , 'yearly'       , ''       , ''       ,   ''
+
+   sn_trcobc_dta(7) = 'amm7_skagbdytrc' ,    -1     , 'O3_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(8) = 'amm7_skagbdytrc' ,    -1     , 'O3_TA' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(12) = 'amm7_skagbdytrc' ,    -1     , 'R2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(13) = 'amm7_skagbdytrc' ,    -1     , 'R3_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(14) = 'amm7_skagbdytrc' ,    -1     , 'R4_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(15) = 'amm7_skagbdytrc' ,    -1     , 'R4_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(16) = 'amm7_skagbdytrc' ,    -1     , 'R4_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(17) = 'amm7_skagbdytrc' ,    -1     , 'R6_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(18) = 'amm7_skagbdytrc' ,    -1     , 'R6_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(19) = 'amm7_skagbdytrc' ,    -1     , 'R6_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(20) = 'amm7_skagbdytrc' ,    -1     , 'R6_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(21) = 'amm7_skagbdytrc' ,    -1     , 'R8_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(22) = 'amm7_skagbdytrc' ,    -1     , 'R8_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(23) = 'amm7_skagbdytrc' ,    -1     , 'R8_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(24) = 'amm7_skagbdytrc' ,    -1     , 'R8_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(28) = 'amm7_skagbdytrc' ,    -1     , 'P1_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(29) = 'amm7_skagbdytrc' ,    -1     , 'P1_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(30) = 'amm7_skagbdytrc' ,    -1     , 'P1_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(31) = 'amm7_skagbdytrc' ,    -1     , 'P1_Chl' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(32) = 'amm7_skagbdytrc' ,    -1     , 'P1_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(33) = 'amm7_skagbdytrc' ,    -1     , 'P2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(34) = 'amm7_skagbdytrc' ,    -1     , 'P2_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(35) = 'amm7_skagbdytrc' ,    -1     , 'P2_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(36) = 'amm7_skagbdytrc' ,    -1     , 'P2_Chl' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(37) = 'amm7_skagbdytrc' ,    -1     , 'P3_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(38) = 'amm7_skagbdytrc' ,    -1     , 'P3_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(39) = 'amm7_skagbdytrc' ,    -1     , 'P3_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(40) = 'amm7_skagbdytrc' ,    -1     , 'P3_Chl' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(41) = 'amm7_skagbdytrc' ,    -1     , 'P4_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(42) = 'amm7_skagbdytrc' ,    -1     , 'P4_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(43) = 'amm7_skagbdytrc' ,    -1     , 'P4_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(44) = 'amm7_skagbdytrc' ,    -1     , 'P4_Chl' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(52) = 'amm7_skagbdytrc' ,    -1     , 'L2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   rn_trofac(2) = 1
+   rn_trofac(3) = 1
+   rn_trofac(5) = 1
+   rn_trofac(6) = 1
+   rn_trofac(7) = 1
+   rn_trofac(8) = 1
+   rn_trofac(12) = 1
+   rn_trofac(13) = 1
+   rn_trofac(14) = 1
+   rn_trofac(15) = 1
+   rn_trofac(16) = 1
+   rn_trofac(17) = 1
+   rn_trofac(18) = 1
+   rn_trofac(19) = 1
+   rn_trofac(20) = 1
+   rn_trofac(21) = 1
+   rn_trofac(22) = 1
+   rn_trofac(23) = 1
+   rn_trofac(24) = 1
+   rn_trofac(28) = 1
+   rn_trofac(29) = 1
+   rn_trofac(30) = 1
+   rn_trofac(31) = 1
+   rn_trofac(32) = 1
+   rn_trofac(33) = 1
+   rn_trofac(34) = 1
+   rn_trofac(35) = 1
+   rn_trofac(36) = 1
+   rn_trofac(37) = 1
+   rn_trofac(38) = 1
+   rn_trofac(39) = 1
+   rn_trofac(40) = 1
+   rn_trofac(41) = 1
+   rn_trofac(42) = 1
+   rn_trofac(43) = 1
+   rn_trofac(44) = 1
+   rn_trofac(52) = 1
+/
+!----------------------------------------------------------------------
 &namtrc_bdy       !   Setup of tracer boundary conditions
 !-----------------------------------------------------------------------
-   cn_trc_dflt     =  'neumann'   !  OBC applied by default to all tracers
-   cn_trc          =  'frs'   !  Boundary conditions appled to the active tracers (see namtrc)
-   nn_trcdmp_bdy   = 0     !  Use damping timescales defined in nambdy of namelist
+   cn_trc_dflt     =  'neumann','neumann'   !  OBC applied by default to all tracers
+   cn_trc          =  'frs','frs'  !  Boundary conditions appled to the active tracers (see namtrc)
+   nn_trcdmp_bdy   = 0,0     !  Use damping timescales defined in nambdy of namelist
                            !  = 0 NO damping of tracers at open boudaries
                            !  = 1 Only for tracers forced with external data
                            !  = 2 Damping applied to all tracers   
-   nb_trc_jpk_bdy  = -1  ! number of levels in the bdy data (set < 0 if consistent with planned run)
+   nb_trc_jpk_bdy  = -1,-1  ! number of levels in the bdy data (set < 0 if consistent with planned run)
 /

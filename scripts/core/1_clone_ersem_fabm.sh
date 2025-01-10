@@ -3,12 +3,12 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/../config.sh
 
-# Clone code bases for XIOS, ERSEM, FABM and NEMO
-ERSEM_REV=373b142e531736c1845304cd37c2a6002804e98c
+# Clone code bases for ERSEM, FABM
+ERSEM_REV=8510fbf80a4ef8b1f9f827e156531e9e0ce6315b
 git clone https://github.com/pmlmodelling/ersem.git $ERSEM_DIR
 cd $ERSEM_DIR && git checkout $ERSEM_REV
 
-FABM_REV=25c4d1cb3afcaca87dc103cc60f0a9e8abac0796
+FABM_REV=2178e4198586578664ca8db21b508c52cf5d3b83
 git clone https://github.com/fabm-model/fabm.git $FABM_DIR
 cd $FABM_DIR && git checkout $FABM_REV
 

@@ -25,9 +25,15 @@ $SCRIPTS_DIR/core/setup_year.sh $year
 cd $RUN_DIR
 export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
 
-iter_start=`cat $RUN_DIR/current_iter` #get iteration number
-nday=`cal $month $year | grep -v '[A-Za-z]' | wc -w`
-iter_end=$(($iter_start + 86400*$nday/$dt))
+iter_start=$((($(date -d "$year"0101 +%s) - $(date -d "$START_YEAR"0101 +%s))/$dt))
+# Calculate number of days in run
+if [ "$YEARLY" = true ] ; then
+    nday=`cal $year | grep -v '[A-Za-z]' | wc -w`
+    iter_end=$(($iter_start + 86400*$(($nday-1))/$dt))
+else
+    nday=`cal $month $year | grep -v '[A-Za-z]' | wc -w`
+    iter_end=$(($iter_start + 86400*$nday/$dt))
+fi
 iter_start=$(($iter_start + 1))
 
 mm=$(printf '%02d' $month)

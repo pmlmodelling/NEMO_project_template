@@ -370,39 +370,39 @@
 &nambdy        !  unstructured open boundaries                          (default: OFF)
 !-----------------------------------------------------------------------
     ln_bdy         = .true.   !  Use unstructured open boundaries
-    nb_bdy         =  1       !  number of open boundary sets
+    nb_bdy         =  2       !  number of open boundary sets
     !
-    ln_coords_file = .true.                                 !  =T : read bdy coordinates from file
-    cn_coords_file = 'coordinates.bdy.nc' !  bdy coordinates files
+    ln_coords_file = .true., .true.                                 !  =T : read bdy coordinates from file
+    cn_coords_file = 'coordinates.bdy.nc', 'coordinates.skagbdy.nc' !  bdy coordinates files
     ln_mask_file   = .false.                 !  =T : read mask from file
     cn_mask_file   = ''                      !  name of mask file (if ln_mask_file=.TRUE.)
-    cn_dyn2d       = 'flather'    !
-    nn_dyn2d_dta   =  3               !  = 0, bdy data are equal to the initial state
+    cn_dyn2d       = 'flather', 'flather'    !
+    nn_dyn2d_dta   =  3,1               !  = 0, bdy data are equal to the initial state
                                              !  = 1, bdy data are read in 'bdydata   .nc' files
                                              !  = 2, use tidal harmonic forcing data from files
                                              !  = 3, use external data AND tidal harmonic forcing
-    cn_dyn3d      =  'zerograd' ! 'zerograd','zerograd'   !
-    nn_dyn3d_dta  =  1                    !  = 0, bdy data are equal to the initial state
+    cn_dyn3d      =  'zerograd','zerograd' ! 'zerograd','zerograd'   !
+    nn_dyn3d_dta  =  1,1                    !  = 0, bdy data are equal to the initial state
                                              !  = 1, bdy data are read in 'bdydata   .nc' files
-    cn_tra        =  'frs' !'zerograd', 'zerograd'           
-    nn_tra_dta    =  1                    !  = 0, bdy data are equal to the initial state
+    cn_tra        =  'frs' ,'frs'!'zerograd', 'zerograd'           
+    nn_tra_dta    =  1,1                    !  = 0, bdy data are equal to the initial state
                                              !  = 1, bdy data are read in 'bdydata   .nc' files
-    cn_ice        =  'none'          !
-    nn_ice_dta    =  0                    !  = 0, bdy data are equal to the initial state
+    cn_ice        =  'none','none'          !
+    nn_ice_dta    =  0,0                    !  = 0, bdy data are equal to the initial state
                                              !  = 1, bdy data are read in 'bdydata   .nc' files
-    ln_tra_dmp    =.false.  !  open boudaries conditions for tracers
-    ln_dyn3d_dmp  =.false.  !  open boundary condition for baroclinic velocities
-       rn_time_dmp   =  8.                  ! Damping time scale in days
-       rn_time_dmp_out =  64.              ! Outflow damping time scale
-    nn_rimwidth   = 10                   !  width of the relaxation zone
+    ln_tra_dmp    =.false.,.false.  !  open boudaries conditions for tracers
+    ln_dyn3d_dmp  =.false.,.false. !  open boundary condition for baroclinic velocities
+       rn_time_dmp   =  8., 8.                  ! Damping time scale in days
+       rn_time_dmp_out =  64., 64.              ! Outflow damping time scale
+    nn_rimwidth   = 10,10                   !  width of the relaxation zone
     ln_vol        = .false.                  !  total volume correction (see nn_volctl parameter)
     nn_volctl     = 1                        !  = 0, the total water flux across open boundaries is zero
 /
 !-----------------------------------------------------------------------
 &nambdy_ssh 
 !-----------------------------------------------------------------------
-  ln_ssh_bdy   = .true. 
-  rn_ssh_shift =   0.   
+  ln_ssh_bdy   = .true.,.true.
+  rn_ssh_shift =   0.,0.
 /
 !-----------------------------------------------------------------------
 &nambdy_dta    !  open boundaries - external data                       
@@ -422,6 +422,25 @@
    bn_v3d      =    'AMM7_GLOSEA6_bdyV'          ,         24        , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
    bn_tem      =    'AMM7_GLOSEA6_bdyT'          ,         24        , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
    bn_sal      =    'AMM7_GLOSEA6_bdyT'          ,         24        , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+/
+!-----------------------------------------------------------------------
+&nambdy_dta    !  open boundaries - external data                       
+!-----------------------------------------------------------------------
+   ln_zinterp  = .false.       !  T if a vertical interpolation is required. Variables gdep[tuv] and e3[tuv] must exist in the file
+   !                          !  automatically defined to T if the number of vertical levels in bdy dta /= jpk
+   ln_full_vel = .true.       !  T if [uv]3d are "full" velocities and not only its baroclinic components
+   !
+   cn_dir  =    './bdy/'
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   bn_ssh      =    'AMM7skag_GLOSEA6_bdyT'       ,         24        , 'sossheig' ,    .true.     , .false. ,  'monthly'  ,    ''    ,   ''  , ' '
+!   bn_u2d      =    'AMM7skag_GLOSEA6_bdyU'       ,         24        , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+!   bn_v2d      =    'AMM7skag_GLOSEA6_bdyV'       ,         24        , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_u3d      =    'AMM7skag_GLOSEA6_bdyU'          ,         24        , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_v3d      =    'AMM7skag_GLOSEA6_bdyV'          ,         24        , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_tem      =    'AMM7skag_GLOSEA6_bdyT'          ,         24        , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_sal      =    'AMM7skag_GLOSEA6_bdyT'          ,         24        , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
 /
 !-----------------------------------------------------------------------
 &nambdy_tide   !  tidal forcing at open boundaries

@@ -1,0 +1,97 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Getopt::Long;
+use Pod::Usage;
+
+# Arguments:
+my $cfg_file;              # Namelist file to edit
+my $xios_arch;             #XIOS architecture 
+my $nemo_arch;         # NEMO architecture
+my $fabm_compiler;          # FABM compiler
+my $work_dir;		# Working Directory
+my $modules;		# File with modules to use
+my $help;
+
+# Process arguments:
+if (@ARGV > 0) {
+  GetOptions('f|cfg_file=s'          => \$cfg_file,
+             'x|xios_arch=s'        => \$xios_arch,
+             'n|nemo_arch=s'        => \$nemo_arch,
+             'c|fabm_compiler=s'        => \$fabm_compiler,
+             'w|work_dir=s'        => \$work_dir,
+             'm|modules=s'        => \$modules,
+             'help|?'                => \$help) or pod2usage(1);
+
+
+} else {
+# Requires an input file at a minimum
+  pod2usage(1);
+}
+
+pod2usage(1) if $help;
+
+if ($cfg_file){
+print "Updating configuration file $cfg_file\n";
+my @lines = read_file($cfg_file);
+
+foreach my $line (@lines) {
+
+  $line =~ s/^(\s*?export XIOS_ARCH\s*?)=.*/$1=$xios_arch/ if ($xios_arch);
+  
+  $line =~ s/^(\s*?export NEMO_ARCH\s*?)=.*/$1=$nemo_arch/ if ($nemo_arch);
+  
+  $line =~ s/^(\s*?export FABM_COMPILER\s*?)=.*/$1=$fabm_compiler/ if ($fabm_compiler);
+  
+  $line =~ s/^(\s*?export WORK\s*?)=.*/$1=$work_dir/ if ($work_dir);
+
+  $line =~ s/^(\s*?export MODULES\s*?)=.*/$1=$modules/ if ($modules);
+
+}
+
+write_file($cfg_file,@lines);
+}
+
+sub read_file {
+
+  my $file = shift;  # input filename
+  open (my $fh, '<', $file) or die "Cannot read $file: $!\n";
+  my @lines = <$fh>;
+  close $fh;
+  return @lines;
+}
+
+sub write_file {
+
+  my $file = shift;     # Output filename
+  my @lines = @_;       # Data for writing
+  open (my $fh, '>', $file) or die "Cannot write $file: $!\n";
+  print $fh @lines;
+  close $fh;
+  return;
+}
+
+
+__END__
+
+=head1 NAME
+
+update_config - Update the configuration file based on the system
+
+=head1 SYNOPSIS
+
+update_config -f <file> [OPTIONS]
+
+  Arguments:
+    --cfg_file, -f <file>                 File containing config to edit
+    --xios_arch, -x <str>         	XIOS architecture name
+    --nemo_arch, -n <str>         	NEMO architecture name
+    --fabm_compiler, -c <str>         	FABM compiler name
+    --work_dir, -w <str>         	Working Directory
+    --modules, -m <str>         	File to load working modules
+    --help, -?                        Display help
+
+=cut
+

@@ -1,24 +1,19 @@
 #!/bin/bash
 # Link files
 year=$1
-yb=$(( $year-1 ))
-ya=$(( $year+1 ))
 
 # Link lateral boundaries
 rm -rf $RUN_DIR/bdy/*
-ln -s $INPUT_DIR/BDY/BDY-OPEN/$yb/*m12.nc $RUN_DIR/bdy/
-ln -s $INPUT_DIR/BDY/BDY-OPEN/$year/*.nc $RUN_DIR/bdy/
-ln -s $INPUT_DIR/BDY/BDY-SKG/$yb/*m12.nc $RUN_DIR/bdy/
-ln -s $INPUT_DIR/BDY/BDY-SKG/$year/*.nc $RUN_DIR/bdy/
-ln -s $INPUT_DIR/BDY/BDY-BGC/amm7_bdytrc.nc $RUN_DIR/bdy/amm7bdy_trc.nc
-ln -s $INPUT_DIR/BDY/BDY-BGC/amm7_skagbdytrc.nc $RUN_DIR/bdy/amm7skagbdy_trc.nc
-ln -s $INPUT_DIR/BDY/BDY-BGC/amm7_bdytrc_y${year}_DIC_seasonal.nc $RUN_DIR/bdy/amm7bdy_trcseasonal.nc
+ln -s $INPUT_DIR/BDY/PHY/open/$year/*.nc $RUN_DIR/bdy/
+ln -s $INPUT_DIR/BDY/PHY/skag/$year/*.nc $RUN_DIR/bdy/
+ln -s $INPUT_DIR/BDY/BGC/amm7_bdytrc_y$year.nc $RUN_DIR/bdy/amm7_bdytrc.nc
+ln -s $INPUT_DIR/BDY/BGC/amm7_skagbdytrc_y$year.nc $RUN_DIR/bdy/amm7_skagbdytrc.nc
 
 # Link fluxes
 rm -rf $RUN_DIR/fluxes/*
 ln -s $INPUT_DIR/SBC/ATM/ERA5_*_y$year.nc $RUN_DIR/fluxes/
 ln -s $INPUT_DIR/SBC/ATM/ERA5_LSM.nc $RUN_DIR/fluxes/ERA5_LSM.nc
-ln -s $INPUT_DIR/SBC/ATM/weights_era5_bicubic.nc $RUN_DIR/fluxes/weights_era5_amm7_bicubic.nc
+ln -s $INPUT_DIR/SBC/ATM/weights_era5_bicubic.nc $RUN_DIR/fluxes/weights_era5_bicubic.nc
 if [[ $year -lt 1998 ]]; then
     ln -s $INPUT_DIR/SBC/BGC/ady/AMM7-CCI-ady-8day-broadband_climatology_1998_2023.nc $RUN_DIR/fluxes/ady.nc
 else

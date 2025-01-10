@@ -1,1 +1,1 @@
-runscript_archer2.slurm
+/work/dapa/AMM7-Benchmark/scripts/core/runscript_scylla.slurm

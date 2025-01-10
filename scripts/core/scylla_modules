@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export MODULEPATH=/scyllapfs/sw/modulefiles:$MODULEPATH
+
+module use /scyllapfs/sw/modulefiles/{apps,libs,toolchains,mpi,compilers,utils}
+module load libfabric
+# Load hdf and netcdf modules
+prgenv=igi
+vprgenv=2024.1
+export I_MPI_OFI_LIBRARY_INTERNAL=0
+module load $prgenv/$vprgenv
+module load hdf5-parallel/1.14.5-${prgenv}-${vprgenv}
+module load netcdf-hdf5parallel/4.9.2-${prgenv}-${vprgenv}
+
