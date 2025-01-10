@@ -5,9 +5,9 @@ Repository containing the recommended folder structure for an AMM7 NEMO-FABM-BGC
 ## Repository structure/workflow
 
 Clone repository. It is recommended that you clone for a specific project, for example, `NECCTON` rather than `NEMO_project_template`.
-'''
+```
 git clone -b AMM7 https://github.com/pmlmodelling/NEMO_project_template.git <PROJECT_NAME>
-'''
+```
 
 ### Set Environment
 
@@ -32,21 +32,21 @@ The executables for xios and nemo should now be available in `code/executables`
 Before kickstarting a run, its a good idea to check everything is setup correctly. To help with this the script `scripts/dry_run.sh` is provided. This script creates the run folder `RUN/EXP_NAME`, links all the files needed to run from START_YEAR and sets a cfg files as needed. Please check this is as expected. A dry run with the flag `-c` will do perform a clean instance if you make any changes. 
  
 To perform a single cycle, navigate to `RUN/<EXP_NAME>` and submit the job using the testing scripts
-'''
+```
 sbatch runscript_testing.slurm
-'''
+```
 
 To start a cycle run, all you need to do is execute
-'''
+```
 sbatch scripts/runscript.slurm
-'''
+```
 
 If you want to start from a date other than the January of START_YEAR, or the run needs to be restarted you can do so:
-'''
+```
 export year=XXXX
 export month=Y
 sbatch scripts/runscript.slurm
-'''
+```
 
 The cycle run uses the run configuration files in RUN/EXP00. Please make any changes here before running if you want to change the confiugration. 
 
