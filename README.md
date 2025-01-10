@@ -5,7 +5,9 @@ Repository containing the recommended folder structure for an AMM7 NEMO-FABM-BGC
 ## Repository structure/workflow
 
 Clone repository. It is recommended that you clone for a specific project, for example, `NECCTON` rather than `NEMO_project_template`.
+'''
 git clone -b AMM7 https://github.com/pmlmodelling/NEMO_project_template.git <PROJECT_NAME>
+'''
 
 ### Set Environment
 
