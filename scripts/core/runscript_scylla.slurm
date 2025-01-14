@@ -1,5 +1,5 @@
 #!/bin/bash 
-#SBATCH --job-name=nemo_stresstest
+#SBATCH --job-name=nemo_amm7cycle
 #SBATCH --time=02:00:00
 #SBATCH --nodes=12
 #SBATCH --ntasks-per-core=1
