@@ -49,7 +49,7 @@ $RUN_DIR/runscript.slurm
 # Archiving
 outdir=$OUTPUT_DIR/$EXP_NAME/$year/$mm
 mkdir -p $outdir
-rsync -a namelist* $outdir
+rsync -a fabm.yaml fabm_input.nml namelist* $outdir
 mv *.output $outdir
 #for f in $NAME*nc; do
 #  ncks -4 -L6 $f $outdir/$f
