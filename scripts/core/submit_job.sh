@@ -2,7 +2,7 @@
 
 mm=$(printf '%02d' $month)
 
-outdir=$OUTPUT_DIR/$year/$mm
+outdir=$OUTPUT_DIR/$EXP_NAME/$year/$mm
 mkdir -p $outdir
 echo "$SLURM_JOB_ID Submitting year/month" $year/$month >> $outdir/jobs.log
 
@@ -47,7 +47,6 @@ echo "Launching $year $month at $(date +'%F %T')"
 $RUN_DIR/runscript.slurm
 
 # Archiving
-outdir=$OUTPUT_DIR/$EXP_NAME/$year/$mm
 mkdir -p $outdir
 rsync -a fabm.yaml fabm_input.nml namelist* $outdir
 mv *.output $outdir
