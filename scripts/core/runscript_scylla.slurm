@@ -5,21 +5,9 @@
 #SBATCH --ntasks-per-core=1
 #SBATCH --exclusive
 
-export MODULEPATH=/scyllapfs/sw/modulefiles:$MODULEPATH
-
-
-# SUBMIT WITH: sbatch cycle.slurm
+# SUBMIT WITH: sbatch runscript.slurm
 # If starting from anything other than START_YEAR, month 1
 # then run export year=XXXX and export month=X before submission
-module use /scyllapfs/sw/modulefiles/{apps,libs,toolchains,mpi,compilers,utils}
-module load libfabric
-# Load hdf and netcdf modules
-prgenv=igi
-vprgenv=2024.1
-export I_MPI_OFI_LIBRARY_INTERNAL=0
-module load $prgenv/$vprgenv
-module load hdf5-parallel/1.14.5-${prgenv}-${vprgenv}
-module load netcdf-hdf5parallel/4.9.2-${prgenv}-${vprgenv}
 
 export OMP_NUM_THREADS=1
 source config.sh
