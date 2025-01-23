@@ -43,7 +43,7 @@ def main(args):
     string = f"""\
     #!/bin/bash
     #SBATCH --job-name={args.j}
-    #SBATCH --time=00:30:00
+    #SBATCH --time={args.t}
     #SBATCH --exclusive
     """
     slurm = dedent(string)
@@ -63,12 +63,7 @@ def main(args):
     # Environment
     string = f"""
     # Created by: {cmd}
-    
-    module purge
-    module load ogr/2024.10
-    module load libfabric
-    module load netcdf-hdf5parallel/4.9.2-ogr-2024.10
-    module load openmpi/4.1.6-gcc-11.4.1
+    source ../../scripts/core/scylla_modules
 
     export OMP_NUM_THREADS=1
     """
@@ -115,7 +110,7 @@ def main(args):
             + " ./myscript_wrapper.sh"
         ]
         prev_nodes += values["nnodes"]
-    slurm += "\nsrun --mem-bind=local \\\n" + " \\\n: ".join(strings)
+    slurm += "\nsrun --mpi=pmi2 --mem-bind=local \\\n" + " \\\n: ".join(strings)
 
     print(slurm)
 
@@ -247,7 +242,7 @@ def _print_table(hetjob_mapper, ncores_per_node):
 if __name__ == "__main__":
     # Parse arguments
     parser = argparse.ArgumentParser(
-        prog="mkslurm_hetjob",
+        prog="mkslurm_scylla",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description=" ".join(
             [
@@ -263,11 +258,11 @@ if __name__ == "__main__":
     parser.add_argument("-S", help="num_servers", type=int, default=4)
     parser.add_argument("-s", help="server_spacing", type=int, default=1)
     parser.add_argument("-m", help="max_servers_per_node", type=int, default=1)
-    parser.add_argument("-C", help="num_clients", type=int, default=28)
+    parser.add_argument("-C", help="num_clients", type=int, default=252)
     parser.add_argument("-g", help="client_gap_interval", type=int, default=0)
-    parser.add_argument("-N", help="ncores_per_node", type=int, default=63)
-    parser.add_argument("-t", help="time_limit", type=str, default="00:10:00")
-    parser.add_argument("-j", help="job_name", type=str, default="nemo_test")
+    parser.add_argument("-N", help="ncores_per_node", type=int, default=64)
+    parser.add_argument("-t", help="time_limit", type=str, default="01:00:00")
+    parser.add_argument("-j", help="job_name", type=str, default="amm7")
     # Let's go!
     main(parser.parse_args())
 

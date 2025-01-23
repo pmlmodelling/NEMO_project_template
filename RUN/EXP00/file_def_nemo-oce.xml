@@ -24,19 +24,18 @@
       <field id="sbt_pot"           name="votemper_bot"  unit="degC"  />
       <field id="sss_pra"            name="vosaline_top"  unit="psu"   />
       <field id="sbs_pra"            name="vosaline_bot"  unit="psu"   />
-      <field id="ketrd_bfri"            name="ketrd_bfr"     />
    </file>
 
    <file id="file10" name_suffix="_shelftmb_grid_U" description="TMB ocean U grid variables" enabled=".TRUE." >
      <field field_ref="baro_u"        name="vobtcrtx"       operation="instant" />
-     <field field_ref="utrd_bfr"        name="ubfr_exp"       operation="instant" />
-     <field field_ref="utrd_bfri"        name="ubfr_imp"       operation="instant" />
+     <field field_ref="top_u"        name="vobtcrtx_top"       operation="instant" />
+     <field field_ref="bot_u"        name="vobtcrtx_bot"       operation="instant" />
    </file>
 
    <file id="file11" name_suffix="_shelftmb_grid_V" description="TMB ocean V grid variables" enabled=".TRUE." >
      <field field_ref="baro_v"        name="vobtcrty"       operation="instant" />
-     <field field_ref="vtrd_bfr"        name="vbfr_exp"       operation="instant" />
-     <field field_ref="vtrd_bfri"        name="vbfr_imp"       operation="instant" />
+     <field field_ref="top_v"        name="vobtcrty_top"       operation="instant" />
+     <field field_ref="bot_v"        name="vobtcrty_bot"       operation="instant" />
    </file>
       </file_group>
       <file_group id="25h_mean" output_freq="1d" output_level="10" enabled=".TRUE.">
