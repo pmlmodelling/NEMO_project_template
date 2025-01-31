@@ -3,12 +3,13 @@
 export MODULEPATH=/scyllapfs/sw/modulefiles:$MODULEPATH
 
 module use /scyllapfs/sw/modulefiles/{apps,libs,toolchains,mpi,compilers,utils}
-module load libfabric
-export I_MPI_OFI_LIBRARY_INTERNAL=0
-# Load hdf and netcdf modules
 prgenv=igi
 vprgenv=2024.1
-module load $prgenv/$vprgenv
+module load ${prgenv}/${vprgenv}
+module load ucx/1.16.0.mlx
 module load hdf5-parallel/1.14.5-${prgenv}-${vprgenv}
 module load netcdf-hdf5parallel/4.9.2-${prgenv}-${vprgenv}
+
+export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi2.so
+export I_MPI_PMI_VALUE_LENGTH_MAX=512
 

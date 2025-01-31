@@ -10,6 +10,7 @@ cd $XIOS_DIR
 
 # set compile architecture and export compilers
 #export CC=cc export CXX=CC export FC=ftn export F77=ftn export F90=ftn
+export CC=mpiicx export CXX=mpiicpx export FC=mpiifx export F77=mpiifx export F90=mpiifx
 
 # Build xios
 

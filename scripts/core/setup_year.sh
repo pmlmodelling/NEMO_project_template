@@ -25,6 +25,7 @@ ln -s $INPUT_DIR/SBC/BGC/NDep/AMM7-EMEP-NDeposition_y$year.nc $RUN_DIR/fluxes/Nd
 ln -s $INPUT_DIR/SBC/BGC/NDep/AMM7-EMEP-NDeposition_y$year.nc $RUN_DIR/fluxes/Ndep_y$year.nc
 
 #Rivers (linked twice to avoid editing fabm_input each year)
+rm -rf $RUN_DIR/rivers*
 ln -s $INPUT_DIR/RIV/NOWMAPS_rivers.$year.ersem_ncc_dd_zeros_TA.nc $RUN_DIR/rivers.nc 
 ln -s $INPUT_DIR/RIV/NOWMAPS_rivers.$year.ersem_ncc_dd_zeros_TA.nc $RUN_DIR/rivers_y$year.nc 
 
