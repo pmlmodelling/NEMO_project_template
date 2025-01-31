@@ -22,4 +22,4 @@ echo "Linking inputs from /work/shared/AMM7-INPUTS"
 ln -s -T /work/shared/AMM7-INPUTS $INPUT_DIR
 
 echo "Copying XIOS code from /work/shared/xios"
-rsync -a -r /work/shared/xios $XIOS_DIR
+rsync -a -r /work/shared/xios/* $XIOS_DIR
