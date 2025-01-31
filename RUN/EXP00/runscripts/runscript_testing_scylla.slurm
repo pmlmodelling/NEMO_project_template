@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-core=1
 #SBATCH --exclusive
 
-source ../../scripts/core/scylla_modules
+source ../../scripts/core-scripts/scylla_modules
 
 # Created by: mkslurm_hetjob -S 12 -s 1 -m 1 -C 744 -g 0 -N 63 -t 00:10:00 -j nemo_test
 export I_MPI_OFI_LIBRARY_INTERNAL=0

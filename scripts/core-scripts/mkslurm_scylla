@@ -63,7 +63,7 @@ def main(args):
     # Environment
     string = f"""
     # Created by: {cmd}
-    source ../../scripts/core/scylla_modules
+    source ../../scripts/core-scripts/scylla_modules
 
     export OMP_NUM_THREADS=1
     """

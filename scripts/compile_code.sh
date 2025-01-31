@@ -19,13 +19,13 @@ while getopts :x xios; do
             case ${clone} in
                 c) 
                   echo "Cloning XIOS"
-                  bash $SCRIPTS_DIR/core/1_clone_xios.sh
-                  bash $SCRIPTS_DIR/core/2_make_xios.sh
+                  bash $SCRIPTS_DIR/core-scripts/1_clone_xios.sh
+                  bash $SCRIPTS_DIR/core-scripts/2_make_xios.sh
                   ;;
             esac
           done
           echo "Building XIOS"
-          bash $SCRIPTS_DIR/core/2_make_xios.sh
+          bash $SCRIPTS_DIR/core-scripts/2_make_xios.sh
           if [ -f $XIOS_BUILD/bin/xios_server.exe ]; then
             ln -s $XIOS_BUILD/bin/xios_server.exe $EXECUTABLE_DIR/xios_server.exe
           else
@@ -42,12 +42,12 @@ while getopts :f fabm; do
             case ${clone} in
                 c) 
                   echo "Cloning ERSEM and FABM"
-                  bash $SCRIPTS_DIR/core/1_clone_ersem_fabm.sh
+                  bash $SCRIPTS_DIR/core-scripts/1_clone_ersem_fabm.sh
                   ;;
             esac
           done
           echo "Building FABM"
-          bash $SCRIPTS_DIR/core/3_make_fabm.sh
+          bash $SCRIPTS_DIR/core-scripts/3_make_fabm.sh
           ;;
     esac
 done
@@ -59,12 +59,12 @@ while getopts :n nemo; do
             case ${clone} in
                 c) 
                   echo "Cloning NEMO"
-                  bash $SCRIPTS_DIR/core/1_clone_nemo.sh
+                  bash $SCRIPTS_DIR/core-scripts/1_clone_nemo.sh
                   ;;
             esac
           done
           echo "Building NEMO"
-          bash $SCRIPTS_DIR/core/4_make_nemo.sh
+          bash $SCRIPTS_DIR/core-scripts/4_make_nemo.sh
           if [ -f $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe ]; then
             ln -s $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe $EXECUTABLE_DIR/nemo
           else

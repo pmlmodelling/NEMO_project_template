@@ -4,6 +4,7 @@
 #SBATCH --nodes=12
 #SBATCH --ntasks-per-core=1
 #SBATCH --exclusive
+#SBATCH --output=./log/slurm-%j.out
 
 # SUBMIT WITH: sbatch runscript.slurm
 # If starting from anything other than START_YEAR, month 1
@@ -22,10 +23,10 @@ fi
 
 #Setup run
 if [ ! -d $RUN_DIR ]; then
-    $SCRIPTS_DIR/core/setup_initial.sh
+    $SCRIPTS_DIR/core-scripts/setup_initial.sh
 fi
 
-$SCRIPTS_DIR/core/setup_year.sh $year
+$SCRIPTS_DIR/core-scripts/setup_year.sh $year
 
 cd $RUN_DIR
 export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
@@ -34,7 +35,7 @@ export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | 
 
 if [ $YEARLY = true ]; then
     for month in {1..12}; do
-        $SCRIPTS_DIR/core/submit_job.sh
+        $SCRIPTS_DIR/core-scripts/submit_job.sh
     done
     if [ $CLEAN_RESTART = true ] ; then
         echo 'Cleaning all restarts except January for '$year
@@ -45,7 +46,7 @@ if [ $YEARLY = true ]; then
     year=$(($year + 1))
 else
     echo $SCRIPTS_DIR
-    $SCRIPTS_DIR/core/submit_job.sh 
+    $SCRIPTS_DIR/core-scripts/submit_job.sh 
     if [ $month != 12 ]; then
         month=$(($month + 1))
     else

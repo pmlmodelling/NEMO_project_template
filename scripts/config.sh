@@ -3,7 +3,7 @@
 #Config options
 export WORK=/work/dapa/AMM7-Benchmark
 export NAME=AMM7 #Experiment name (used as cn_exp in namelist_cfg)
-export EXP_NAME=EXP_CYCLE # Name for running directory, different to DEFAULT_RUN_DIR
+export EXP_NAME=EXP_cycletest # Name for running directory, different to DEFAULT_RUN_DIR
 
 export START_YEAR=1993 # Start year
 export END_YEAR=2000 # End year 
@@ -38,5 +38,5 @@ export XIOS_DIR=$CODE_DIR/xios
 export XIOS_BUILD=$CODE_DIR/xios-build
 export XIOS_ARCH=GCC_SCYLLA
 
-export MODULES=/work/dapa/AMM7-Benchmark/scripts/core/scylla_modules
+export MODULES=$SCRIPTS_DIR/core-scripts/scylla_modules
 source $MODULES

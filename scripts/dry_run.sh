@@ -15,11 +15,11 @@ done
 
 echo "Creating Run Directory and linking domain files"
 if [ ! -d $RUN_DIR ]; then
-    $SCRIPTS_DIR/core/setup_initial.sh
+    $SCRIPTS_DIR/core-scripts/setup_initial.sh
 fi
 
 echo "Linking forcing files for "$year
-$SCRIPTS_DIR/core/setup_year.sh $year
+$SCRIPTS_DIR/core-scripts/setup_year.sh $year
 
 
 cd $RUN_DIR
@@ -38,7 +38,7 @@ iter_start=$(($iter_start + 1))
 
 mm=$(printf '%02d' $month)
 
-$SCRIPTS_DIR/core/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
+$SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --runid $NAME                 \
     --restart true            \
     --next_step $iter_start           \
@@ -47,12 +47,12 @@ $SCRIPTS_DIR/core/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --trc_file $RUN_DIR/namelist_top_cfg  \
     --trc_restart_file ${NAME}_${year}${mm}01_restart_trc
 if [ $ICE = true ] ; then
-    $SCRIPTS_DIR/core/update_nemo_nl \
+    $SCRIPTS_DIR/core-scripts/update_nemo_nl \
     --ice_file $RUN_DIR/namelist_ice_cfg  \
     --ice_restart_file ${NAME}_${year}${mm}01_restart_ice
 fi
 if [ $COLD_START = true ]; then
-    $SCRIPTS_DIR/core/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
+    $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --restart false
 fi
 

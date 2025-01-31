@@ -24,7 +24,7 @@ if [ "$year" != "$START_YEAR" ] || [ "$month" != "1" ]; then
     COLD_START=false
 fi
 
-$SCRIPTS_DIR/core/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
+$SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --runid $NAME                 \
     --restart true            \
     --next_step $iter_start           \
@@ -33,12 +33,12 @@ $SCRIPTS_DIR/core/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --trc_file $RUN_DIR/namelist_top_cfg  \
     --trc_restart_file ${NAME}_${year}${mm}01_restart_trc
 if [ $ICE = true ] ; then
-    $SCRIPTS_DIR/core/update_nemo_nl \
+    $SCRIPTS_DIR/core-scripts/update_nemo_nl \
     --ice_file $RUN_DIR/namelist_ice_cfg  \
     --ice_restart_file ${NAME}_${year}${mm}01_restart_ice
 fi
 if [ $COLD_START = true ]; then
-    $SCRIPTS_DIR/core/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
+    $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --restart false
 fi
 
