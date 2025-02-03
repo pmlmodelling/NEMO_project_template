@@ -47,6 +47,7 @@ if [ $YEARLY = true ]; then
 else
     echo $SCRIPTS_DIR
     $SCRIPTS_DIR/core-scripts/submit_job.sh 
+    outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     if [ $month != 12 ]; then
         month=$(($month + 1))
     else
@@ -61,7 +62,6 @@ else
 fi
 
 # Check run completed successfully
-outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
 if grep -q "TRACER STAT" "$outdir/ocean.output"; then
   RUN_STATUS=true
 else
