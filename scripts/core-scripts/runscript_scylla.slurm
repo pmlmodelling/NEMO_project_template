@@ -35,7 +35,7 @@ export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | 
 
 if [ $YEARLY = true ]; then
     for month in {1..12}; do
-        $SCRIPTS_DIR/core-scripts/submit_job.sh
+	$SCRIPTS_DIR/core-scripts/submit_job.sh
     done
     if [ $CLEAN_RESTART = true ] ; then
         echo 'Cleaning all restarts except January for '$year
@@ -60,8 +60,16 @@ else
     fi
 fi
 
+# Check run completed successfully
+outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
+if grep -q "TRACER STAT" "$outdir/ocean.output"; then
+  RUN_STATUS=true
+else
+  RUN_STATUS=false
+fi
+
 # Submit next cycle if run completed successfully
-if [ $year -le $END_YEAR ] && [ $RUN_STATUS = true ]; then
+if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
     echo "Submitting $year $month at $(date +'%F %T')"
     cd $SCRIPTS_DIR
     export year=$year
