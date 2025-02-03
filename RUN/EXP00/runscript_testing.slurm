@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=amm7_test
+#SBATCH --job-name=nemo_amm7single
 #SBATCH --time=01:00:00
 #SBATCH --nodes=12
 #SBATCH --ntasks-per-core=1

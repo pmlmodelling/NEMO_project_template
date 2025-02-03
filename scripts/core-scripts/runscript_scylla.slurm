@@ -60,13 +60,16 @@ else
     fi
 fi
 
-if [ $year -le $END_YEAR ]; then
+# Submit next cycle if run completed successfully
+if [ $year -le $END_YEAR ] && [ $RUN_STATUS = true ]; then
     echo "Submitting $year $month at $(date +'%F %T')"
     cd $SCRIPTS_DIR
     export year=$year
     export month=$month
     sbatch $SCRIPTS_DIR/runscript.slurm
     echo "Done."
+elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then
+    echo "Cycle did not complete."
 else
     echo "All done."
 fi

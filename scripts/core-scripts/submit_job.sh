@@ -50,9 +50,15 @@ $RUN_DIR/runscript.slurm
 mkdir -p $outdir
 rsync -a fabm.yaml fabm_input.nml namelist* $outdir
 mv *.output $outdir
+if grep -q "TRACER STAT" "$outdir/ocean.output"; then
+  export RUN_STATUS=true
+else
+  export RUN_STATUS=false
+fi
+
+mv $NAME*nc $outdir
 #for f in $NAME*nc; do
 #  ncks -4 -L6 $f $outdir/$f
 #  rm -f $f
 #done
-mv $NAME*nc $outdir
 
