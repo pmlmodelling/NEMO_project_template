@@ -1,7 +1,7 @@
 #!/bin/bash 
 #SBATCH --job-name=nemo_amm7cycle
 #SBATCH --time=02:00:00
-#SBATCH --nodes=12
+#SBATCH --nodes=8
 #SBATCH --ntasks-per-core=1
 #SBATCH --exclusive
 #SBATCH --output=./log/slurm-%j.out
