@@ -1,83 +1,26 @@
-#!/bin/bash 
-#SBATCH --job-name=nemo_amm7cycle
-#SBATCH --time=02:00:00
-#SBATCH --nodes=12
-#SBATCH --ntasks-per-core=1
+#!/bin/bash
+#SBATCH --job-name=amm7
+#SBATCH --time=01:00:00
 #SBATCH --exclusive
-#SBATCH --output=./log/slurm-%j.out
 
-# SUBMIT WITH: sbatch runscript.slurm
-# If starting from anything other than START_YEAR, month 1
-# then run export year=XXXX and export month=X before submission
+#SBATCH --nodes=8
+#SBATCH --ntasks-per-core=1
+
+# Created by: mkslurm_scylla -S 8 -s 1 -m 1 -C 496 -g 0 -N 63 -t 01:00:00 -j amm7
+source ../../scripts/core-scripts/scylla_modules
 
 export OMP_NUM_THREADS=1
-source config.sh
 
-# Check if year and month provided
-if [ -z $year ]; then
-   export year=$START_YEAR
-fi
-if [ -z $month ]; then
-   export month=1
-fi
+cat > myscript_wrapper.sh << EOFB
+#!/bin/bash
+#
+map=( ./xios_server.exe ./nemo )
+exec_map=( 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 )
+#
+exec \${map[\${exec_map[\$SLURM_PROCID]}]}
+##
+EOFB
+chmod u+x ./myscript_wrapper.sh
 
-#Setup run
-if [ ! -d $RUN_DIR ]; then
-    $SCRIPTS_DIR/core-scripts/setup_initial.sh
-fi
-
-$SCRIPTS_DIR/core-scripts/setup_year.sh $year
-
-cd $RUN_DIR
-export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
-
-
-
-if [ $YEARLY = true ]; then
-    for month in {1..12}; do
-	$SCRIPTS_DIR/core-scripts/submit_job.sh
-    done
-    if [ $CLEAN_RESTART = true ] ; then
-        echo 'Cleaning all restarts except January for '$year
-        rm -f $RUN_DIR/restarts/${NAME}_${year}0[2-9]*.nc
-        rm -f $RUN_DIR/restarts/${NAME}_${year}1*.nc
-    fi
-    month=1
-    year=$(($year + 1))
-else
-    echo $SCRIPTS_DIR
-    $SCRIPTS_DIR/core-scripts/submit_job.sh 
-    outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
-    if [ $month != 12 ]; then
-        month=$(($month + 1))
-    else
-        if [ $CLEAN_RESTART = true ] ; then
-            echo 'Cleaning all restarts except January for '$year
-            cd $SCRIPTS_DIR
-#            sbatch --export=year=$year -A $account $CYCLE_DIR/clean_restarts.slurm
-        fi
-        month=1
-        year=$(($year + 1))
-    fi
-fi
-
-# Check run completed successfully
-if grep -q "TRACER STAT" "$outdir/ocean.output"; then
-  RUN_STATUS=true
-else
-  RUN_STATUS=false
-fi
-
-# Submit next cycle if run completed successfully
-if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
-    echo "Submitting $year $month at $(date +'%F %T')"
-    cd $SCRIPTS_DIR
-    export year=$year
-    export month=$month
-    sbatch $SCRIPTS_DIR/runscript.slurm
-    echo "Done."
-elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then
-    echo "Cycle did not complete."
-else
-    echo "All done."
-fi
+srun --mpi=pmi2 --mem-bind=local \
+--ntasks=504 --ntasks-per-node=63 --cpu-bind=v,mask_cpu:0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80,0x100,0x200,0x400,0x800,0x1000,0x2000,0x4000,0x8000,0x10000,0x20000,0x40000,0x80000,0x100000,0x200000,0x400000,0x800000,0x1000000,0x2000000,0x4000000,0x8000000,0x10000000,0x20000000,0x40000000,0x80000000,0x100000000,0x200000000,0x400000000,0x800000000,0x1000000000,0x2000000000,0x4000000000,0x8000000000,0x10000000000,0x20000000000,0x40000000000,0x80000000000,0x100000000000,0x200000000000,0x400000000000,0x800000000000,0x1000000000000,0x2000000000000,0x4000000000000,0x8000000000000,0x10000000000000,0x20000000000000,0x40000000000000,0x80000000000000,0x100000000000000,0x200000000000000,0x400000000000000,0x800000000000000,0x1000000000000000,0x2000000000000000,0x4000000000000000 ./myscript_wrapper.sh
