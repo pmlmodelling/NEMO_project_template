@@ -101,8 +101,8 @@
 !-----------------------------------------------------------------------
 &namtrc_ldf    !   lateral diffusion scheme for passive tracer
 !-----------------------------------------------------------------------
-   ln_trcldf_tra    =  .false. 
-   ln_trcldf_OFF    =  .true. 
+   ln_trcldf_tra    =  .true. 
+   ln_trcldf_OFF    =  .false. 
 /
 !-----------------------------------------------------------------------
 &namtrc_zdf        !   vertical physics
