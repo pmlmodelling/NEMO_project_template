@@ -11,6 +11,8 @@ my $verbose = 0;       # Verbose output
 my $phy_file;              # Namelist file to edit
 my $runid;             # Job name
 my $l_restart;         # Restart logical indicator
+my $l_tideramp;         # Tide ramping logical indicator
+my $euler;         # Euler first time step (0 use euler, anything else do not)
 my $final_ts;          # End time-step
 my $start_ts;          # Start date
 my $restart_file;      # Physics restart filename 
@@ -25,6 +27,8 @@ if (@ARGV > 0) {
   GetOptions('f|phy_file=s'          => \$phy_file,
              'e|final_step=s'        => \$final_ts,
              'g|restart=s'           => \$l_restart,
+             'h|tide_ramp=s'         => \$l_tideramp,
+             'k|euler=s'             => \$euler,
              'n|next_step=s'         => \$start_ts,
              'p|restart_file=s'      => \$restart_file,
              'r|runid=s'             => \$runid,
@@ -48,6 +52,8 @@ if ($verbose) {
   print "  file = $phy_file\n" if ($phy_file);
   print "  runid = $runid\n" if ($runid);
   print "  l_restart = $l_restart\n" if ($l_restart);
+  print "  tide_ramp = $l_tideramp\n" if ($l_tideramp);
+  print "  euler = $euler\n" if ($euler);
   print "  final_ts = $final_ts\n" if ($final_ts);
   print "  start_ts = $start_ts\n" if ($start_ts);
   print "  restart_file = $restart_file\n" if ($restart_file);
@@ -64,6 +70,11 @@ my @lines = read_file($phy_file);
 foreach my $line (@lines) {
 
   $line =~ s/^(\s*?ln_rstart\s*?)=.*/$1=  .$l_restart./ if ($l_restart);
+  
+  $line =~ s/^(\s*?ln_tide_ramp\s*?)=.*/$1=  .$l_tideramp./ if ($l_tideramp);
+  
+  $line =~ s/^(\s*?nn_euler\s*?)=.*/$1=  0  !  = 0 : start with forward time step if ln_rstart=T/ if ($euler);
+  $line =~ s/^(\s*?nn_euler\s*?)=.*/$1=  1  !  = 0 : start with forward time step if ln_rstart=T/ if not ($euler);
 
   $line =~ s/^(\s*?nn_itend\s*?)=.*/$1=  $final_ts/ if ($final_ts);
 

@@ -26,7 +26,9 @@ fi
 
 $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --runid $NAME                 \
-    --restart true            \
+    --restart true                   \
+    --euler false            \
+    --tide_ramp false        \
     --next_step $iter_start           \
     --final_step $iter_end          \
     --restart_file ${NAME}_${year}${mm}01_restart \
@@ -39,7 +41,9 @@ if [ $ICE = true ] ; then
 fi
 if [ $COLD_START = true ]; then
     $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
-    --restart false
+    --restart false           \
+    --euler true            \
+    --tide_ramp true
 fi
 
 # Launch Run
