@@ -35,7 +35,7 @@ export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | 
 
 if [ $YEARLY = true ]; then
     for month in {1..12}; do
-	$SCRIPTS_DIR/core-scripts/submit_job.sh
+        $SCRIPTS_DIR/core-scripts/submit_job.sh
     done
     if [ $CLEAN_RESTART = true ] ; then
         echo 'Cleaning all restarts except January for '$year
@@ -45,7 +45,6 @@ if [ $YEARLY = true ]; then
     month=1
     year=$(($year + 1))
 else
-    echo $SCRIPTS_DIR
     $SCRIPTS_DIR/core-scripts/submit_job.sh 
     outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     if [ $month != 12 ]; then

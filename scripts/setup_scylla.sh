@@ -3,11 +3,13 @@
 WORK="$(dirname "$PWD")"
 echo "Setting up AMM7 on Scylla"
 
+yes | rsync -a $WORK/scripts/core-scripts/config.sh $WORK/scripts/config.sh
 $WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.sh  \
     --xios_arch GCC_SCYLLA                 \
     --nemo_arch GCC_SCYLLA                 \
     --fabm_compiler mpif90                \
     --modules $WORK/scripts/core-scripts/scylla_modules \
+    --archer2 false \
     --work_dir $WORK
 
 source $WORK/scripts/config.sh
