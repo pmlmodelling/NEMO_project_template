@@ -41,11 +41,10 @@ To start a cycle run, navigate to `scripts` and submit the run:
 sbatch runscript.slurm
 ```
 
-If you want to start from a date other than the January of START_YEAR, or the run needs to be restarted you can do so:
+If you want to start from a date other than the January of START_YEAR, or the run needs to be restarted you can do so. Either export the year/month variables directly in the terminal (Scylla) or create/edit the file scripts/current_date (Archer2) with the following:
 ```
 export year=XXXX
 export month=Y
-sbatch scripts/runscript.slurm
 ```
 
 The cycle run uses the run configuration files in RUN/EXP00. Please make any changes here, or alternatively set a new `DEFAULT_RUN_DIR` in config.sh before running if you want to change the configuration. 
