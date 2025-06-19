@@ -238,15 +238,15 @@ p = 0.4 # From fabm.yaml
 z = 0.3 # benthic thickness (m)
 
 print('   Nutrients')
-ds[pf+'K3_n'] = (1/p)*z*ds.TRNN3_n.isel(z=bl)
-ds[pf+'K4_n'] = (1/p)*z*ds.TRNN4_n.isel(z=bl)
-ds[pf+'K1_p'] = (1/p)*z*ds.TRNN1_p.isel(z=bl)
-ds[pf+'K5_s'] = (1/p)*z*ds.TRNN5_s.isel(z=bl)
-ds[pf+'G2_o'] = (1/p)*z*ds.TRNO2_o.isel(z=bl)
+ds[pf+'K3_n'] = p*z*ds.TRNN3_n.isel(z=bl)
+ds[pf+'K4_n'] = p*z*ds.TRNN4_n.isel(z=bl)
+ds[pf+'K1_p'] = p*z*ds.TRNN1_p.isel(z=bl)
+ds[pf+'K5_s'] = p*z*ds.TRNN5_s.isel(z=bl)
+ds[pf+'G2_o'] = p*z*ds.TRNO2_o.isel(z=bl)
 ds[pf+'G2_o_deep'] = 0*ds[pf+'G2_o']
 
 print('   DIC')
-ds[pf+'G3_c'] = (1/p)*z*ds.TRNO3_c.isel(z=bl)
+ds[pf+'G3_c'] = p*z*ds.TRNO3_c.isel(z=bl)
 
 print('   NO2')
 ds[pf+'ben_nit_G4n'] = 0*ds[pf+'K3_n']
