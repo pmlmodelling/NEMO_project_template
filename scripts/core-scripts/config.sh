@@ -28,6 +28,7 @@ export RUN_DIR=$WORK/RUN/$EXP_NAME
 export EXECUTABLE_DIR=$CODE_DIR/executables
 
 export ERSEM_DIR=$CODE_DIR/ersem
+export SPECTRAL_DIR=$CODE_DIR/fabm-spectral
 export FABM_DIR=$CODE_DIR/fabm
 export FABM_BUILD=$CODE_DIR/fabm-build
 export FABM_COMPILER=mpif90
