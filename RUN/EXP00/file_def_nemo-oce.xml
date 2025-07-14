@@ -142,7 +142,7 @@
 	  <field field_ref="light_Kd_band4" operation="average" />
 	  <field field_ref="light_Kd_band5" operation="average" />
 	  <field field_ref="light_Kd_band6" operation="average" />
-
+          <field field_ref="light_Kd_par" operation="average" />
         </file>
 
 
