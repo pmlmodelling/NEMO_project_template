@@ -129,7 +129,20 @@
           <field field_ref="e3t"      operation="average" />
           <!--field field_ref="light_xEPS" operation="average" /-->
           <field field_ref="O3_wind" operation="average" />
-          <field field_ref="O3_fair" operation="average" />
+	  <field field_ref="O3_fair" operation="average" />
+	  <field field_ref="light_R_band1" operation="average" />
+	  <field field_ref="light_R_band2" operation="average" />
+	  <field field_ref="light_R_band3" operation="average" />
+	  <field field_ref="light_R_band4" operation="average" />
+	  <field field_ref="light_R_band5" operation="average" />
+	  <field field_ref="light_R_band6" operation="average" />
+	  <field field_ref="light_Kd_band1" operation="average" />
+	  <field field_ref="light_Kd_band2" operation="average" />
+	  <field field_ref="light_Kd_band3" operation="average" />
+	  <field field_ref="light_Kd_band4" operation="average" />
+	  <field field_ref="light_Kd_band5" operation="average" />
+	  <field field_ref="light_Kd_band6" operation="average" />
+
         </file>
 
 
