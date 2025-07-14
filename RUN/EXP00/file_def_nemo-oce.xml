@@ -127,7 +127,7 @@
           <field field_ref="K5_s_pb_flux" operation="average" />
           <field field_ref="G2_o_pb_flux" operation="average" />
           <field field_ref="e3t"      operation="average" />
-          <field field_ref="light_xEPS" operation="average" />
+          <!--field field_ref="light_xEPS" operation="average" /-->
           <field field_ref="O3_wind" operation="average" />
           <field field_ref="O3_fair" operation="average" />
         </file>

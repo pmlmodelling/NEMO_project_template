@@ -22,8 +22,8 @@ if [[ $year -lt 1998 ]]; then
     ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-443-8day_climatology_y1998_2023.nc $RUN_DIR/fluxes/ady443.nc
     ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-560-8day_climatology_y1998_2023.nc $RUN_DIR/fluxes/bbp560.nc
 else
-    ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-443-8day-y$year.nc $RUN_DIR/fluxes/ady443.nc
-    ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-560-8day-y$year.nc $RUN_DIR/fluxes/bbp560.nc
+    ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-443-8day_y$year.nc $RUN_DIR/fluxes/ady443.nc
+    ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-560-8day_y$year.nc $RUN_DIR/fluxes/bbp560.nc
 fi
 #Link spectral light fluxesERA5_total_cloud_cover_y1993_regridAMM7.nc
 ln -s $INPUT_DIR/SBC/LIGHT/cloud_cover/ERA5_total_cloud_cover_y"$year"_regridAMM7.nc $RUN_DIR/fluxes/total_cloud_cover.nc
