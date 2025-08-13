@@ -58,8 +58,8 @@ else
     else
         if [ $CLEAN_RESTART = true ] ; then
             echo 'Cleaning all restarts except January for '$year
-            cd $SCRIPTS_DIR
-#            sbatch --export=year=$year -A $account $CYCLE_DIR/clean_restarts.slurm
+            rm -f $RUN_DIR/restarts/${NAME}_${year}0[2-9]*.nc
+            rm -f $RUN_DIR/restarts/${NAME}_${year}1*.nc
         fi
         month=1
         year=$(($year + 1))

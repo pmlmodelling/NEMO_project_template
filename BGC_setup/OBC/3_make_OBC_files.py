@@ -90,9 +90,9 @@ for b,bconf in yconf['boundaries'].items():
             # Replace baltic DIC and TA with salinity based relationship
             if b == 'skag' and v in ['O3_c', 'O3_TA']:
                 if v == 'O3_c':
-                    ds[v] = (23.767*ds_phys.vosaline + 1388.0) * ds_phys.density/1000/0 #umol/kg to mmol/m3
+                    ds[v] = (23.767*ds_phys.vosaline + 1388.0) * ds_phys.density/1000.0 #umol/kg to mmol/m3
                 else:
-                    ds[v] = 25.406*ds_phys.vosaline + 1410.15
+                    ds[v] = (25.406*ds_phys.vosaline + 1410.15) * ds_phys.density/1000.0 #umol/kg to mmol/m3
 
         print('Saving year '+str(y))
         ds = ds.transpose('time_counter','zb','yb','xb')
