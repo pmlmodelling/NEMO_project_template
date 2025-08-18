@@ -129,7 +129,9 @@
           <field field_ref="e3t"      operation="average" />
           <field field_ref="light_xEPS" operation="average" />
           <field field_ref="O3_wind" operation="average" />
-          <field field_ref="O3_fair" operation="average" />
+	  <field field_ref="O3_fair" operation="average" />
+	  <field field_ref="fish_c_tot" operation="average" />
+	  <field field_ref="fish_landings" operation="average" />
         </file>
 
 
