@@ -19,6 +19,10 @@ if [[ $year -lt 1998 ]]; then
 else
     ln -s $INPUT_DIR/SBC/BGC/ady/AMM7-CCI-ady-8day-broadband_y$year.nc $RUN_DIR/fluxes/ady.nc
 fi
+
+ln -s $INPUT_DIR/SBC/fish/fishing_effort_"$year"_AMM7_regrid_interp_rescaled.nc $RUN_DIR/fluxes/fishing_pressure_y$year.nc
+
+
 ln -s $INPUT_DIR/SBC/BGC/pCO2/AMM7-pCO2a_y$year.nc $RUN_DIR/fluxes/pCO2a.nc 
 ln -s $INPUT_DIR/SBC/BGC/pCO2/AMM7-pCO2a_y$year.nc $RUN_DIR/fluxes/pCO2a_y$year.nc 
 ln -s $INPUT_DIR/SBC/BGC/NDep/AMM7-EMEP-NDeposition_y$year.nc $RUN_DIR/fluxes/Ndep.nc

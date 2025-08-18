@@ -11,7 +11,7 @@ export END_YEAR=2000 # End year
 export COLD_START=true # If true, do not use a physics restart file
 export starting_iter=1 # starting iteration number
 export ICE=false # If ice is in the model, will update namelist_ice files with restart filename
-export CLEAN_RESTART=true # If true, remove all restart files after use except those for January of each year
+export CLEAN_RESTART=false # If true, remove all restart files after use except those for January of each year
 export archer2=false
 export YEARLY=false # If true, submit full year on a single job 
 # START/END_MONTH ignored when running yearly
@@ -29,6 +29,7 @@ export EXECUTABLE_DIR=$CODE_DIR/executables
 
 export ERSEM_DIR=$CODE_DIR/ersem
 export FABM_DIR=$CODE_DIR/fabm
+export MIZER_DIR=$CODE_DIR/mizer
 export FABM_BUILD=$CODE_DIR/fabm-build
 export FABM_COMPILER=mpif90
 export NEMO_DIR=$CODE_DIR/nemo
