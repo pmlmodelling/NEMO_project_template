@@ -26,7 +26,6 @@ else
     ln -s $INPUT_DIR/SBC/LIGHT/ady-8day/AMM7-CCI-ady-bbp-560-8day_y$year.nc $RUN_DIR/fluxes/bbp560.nc
 fi
 
-
 #Link spectral light fluxesERA5_total_cloud_cover_y1993_regridAMM7.nc
 ln -s $INPUT_DIR/SBC/LIGHT/cloud_cover/ERA5_total_cloud_cover_y"$year"_regridAMM7.nc $RUN_DIR/fluxes/total_cloud_cover.nc
 ln -s $INPUT_DIR/SBC/LIGHT/cloud_cover/ERA5_total_cloud_cover_y"$year"_regridAMM7.nc $RUN_DIR/fluxes/total_cloud_cover_y$year.nc
