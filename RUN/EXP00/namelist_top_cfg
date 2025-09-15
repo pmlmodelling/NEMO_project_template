@@ -18,7 +18,7 @@
    nn_rsttr      = 2       ! restart control = 0 initial time step is not compared to the restart file value
                            !                  = 1 do not use the value in the restart file
                            !                  = 2 calendar parameters read in the restart file
-   cn_trcrst_in  =  'AMM7_19940101_restart_trc'
+   cn_trcrst_in  =  'AMM7_19930101_restart_trc'
    cn_trcrst_out = "restart_trc"   !  suffix of pass. sn_tracer restart name (output)
    cn_trcrst_indir   = "./restarts"   !  directory of ocean restart name (input)
    cn_trcrst_outdir  = "./restarts"   !  directory of ocean restart name (output)
