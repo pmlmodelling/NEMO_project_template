@@ -29,6 +29,7 @@ export EXECUTABLE_DIR=$CODE_DIR/executables
 
 export ERSEM_DIR=$CODE_DIR/ersem
 export FABM_DIR=$CODE_DIR/fabm
+export SPECTRAL_DIR=$CODE_DIR/fabm-spectral
 export MIZER_DIR=$CODE_DIR/mizer
 export FABM_BUILD=$CODE_DIR/fabm-build
 export FABM_COMPILER=mpif90
