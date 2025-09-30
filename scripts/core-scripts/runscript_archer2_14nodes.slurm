@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=nemo_amm7cycle
-#SBATCH --time=00:05:00
+#SBATCH --time=00:40:00
 #SBATCH --account=n01-PML
 #SBATCH --partition=standard
 #SBATCH --qos=standard
