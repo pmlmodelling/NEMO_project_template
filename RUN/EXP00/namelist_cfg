@@ -209,15 +209,15 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!______________________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename             ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                              ! pairing  !    filename   !
-   sn_humi     =   'ERA5_SPH'            ,        1          ,   'SPH'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_prec     =   'ERA5_MTPR'           ,        1          ,  'MTPR'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_qlw      =   'ERA5_MSDWLWRF'       ,        1          , 'MSDWLWRF',    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_qsr      =   'ERA5_MSDWSWRF'       ,        1          , 'MSDWSWRF',    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_snow     =   'ERA5_MSR'            ,        1          ,   'MSR'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_tair     =   'ERA5_T2M'            ,        1          ,   'T2M'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_wndi     =   'ERA5_U10'            ,        1          ,   'U10'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,  'Uwnd'  ,   'ERA5_LSM'
-   sn_wndj     =   'ERA5_V10'            ,        1          ,   'V10'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,  'Vwnd'  ,   'ERA5_LSM'
-   sn_slp      =   'ERA5_MSL'            ,        1          ,   'MSL'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
+   sn_humi     =   'CMIP_BC_SPH'            ,        3          ,   'SPH'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_prec     =   'CMIP_BC_MTPR'           ,        3          ,  'MTPR'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_qlw      =   'CMIP_BC_MSDWLWRF'       ,        3          , 'MSDWLWRF',    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_qsr      =   'CMIP_BC_MSDWSWRF'       ,        3          , 'MSDWSWRF',    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_snow     =   'CMIP_BC_MSR'            ,        3          ,   'MSR'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_tair     =   'CMIP_BC_T2M'            ,        3          ,   'T2M'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_wndi     =   'CMIP_BC_U10'            ,        3          ,   'U10'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,  'Uwnd'  ,   ''
+   sn_wndj     =   'CMIP_BC_V10'            ,        3          ,   'V10'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,  'Vwnd'  ,   ''
+   sn_slp      =   'CMIP_BC_MSL'            ,        3          ,   'MSL'   ,    .true.   , .false.,  'yearly' ,  'CMIP_weights_bicubic.nc'   ,    ''    ,   ''
 /
 !-----------------------------------------------------------------------
 &namtra_qsr    !   penetrative solar radiation                          (ln_traqsr =T)
@@ -286,7 +286,7 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_apr      = 'ERA5_MSL'              ,          1        ,    'MSL'  ,    .true.   , .false., 'yearly'  ,'weights_era5_bicubic.nc','','ERA5_LSM'
+   sn_apr      = 'CMIP_BC_MSL'              ,          1        ,    'MSL'  ,    .true.   , .false., 'yearly'  ,'CMIP_weights_bicubic.nc','',''
 /
 
 /
@@ -415,13 +415,13 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   bn_ssh      =    'AMM7_GLOSEA6_bdyT'       ,         24        , 'sossheig' ,    .true.     , .false. ,  'monthly'  ,    ''    ,   ''  , ' '
-!   bn_u2d      =    'AMM7_GLOSEA6_bdyU'       ,         24        , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-!   bn_v2d      =    'AMM7_GLOSEA6_bdyV'       ,         24        , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_u3d      =    'AMM7_GLOSEA6_bdyU'          ,         24        , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_v3d      =    'AMM7_GLOSEA6_bdyV'          ,         24        , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_tem      =    'AMM7_GLOSEA6_bdyT'          ,         24        , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_sal      =    'AMM7_GLOSEA6_bdyT'          ,         24        , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_ssh      =     'AMM7_CMIP_BC_bdyT' ,  24   , 'sossheig',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+!   bn_u2d      =    'AMM7_CMIP_BC_bdyU' ,  24   , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+!   bn_v2d      =    'AMM7_CMIP_BC_bdyV' ,  24   , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_u3d      =     'AMM7_CMIP_BC_bdyU' ,  24   , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_v3d      =     'AMM7_CMIP_BC_bdyV' ,  24   , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_tem      =     'AMM7_CMIP_BC_bdyT' ,  24   , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_sal      =     'AMM7_CMIP_BC_bdyT' ,  24   , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
 /
 !-----------------------------------------------------------------------
 &nambdy_dta    !  open boundaries - external data                       
@@ -434,13 +434,13 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   bn_ssh      =    'AMM7skag_GLOSEA6_bdyT'       ,         24        , 'sossheig' ,    .true.     , .false. ,  'monthly'  ,    ''    ,   ''  , ' '
-!   bn_u2d      =    'AMM7skag_GLOSEA6_bdyU'       ,         24        , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-!   bn_v2d      =    'AMM7skag_GLOSEA6_bdyV'       ,         24        , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_u3d      =    'AMM7skag_GLOSEA6_bdyU'          ,         24        , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_v3d      =    'AMM7skag_GLOSEA6_bdyV'          ,         24        , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_tem      =    'AMM7skag_GLOSEA6_bdyT'          ,         24        , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_sal      =    'AMM7skag_GLOSEA6_bdyT'          ,         24        , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_ssh      =     'AMM7skag_CMIP_BC_bdyT' , 24 , 'sossheig',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+!   bn_u2d      =    'AMM7skag_CMIP_BC_bdyU' , 24 , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+!   bn_v2d      =    'AMM7skag_CMIP_BC_bdyV' , 24 , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_u3d      =     'AMM7skag_CMIP_BC_bdyU' , 24 , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_v3d      =     'AMM7skag_CMIP_BC_bdyV' , 24 , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_tem      =     'AMM7skag_CMIP_BC_bdyT' , 24 , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_sal      =     'AMM7skag_CMIP_BC_bdyT' , 24 , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
 /
 !-----------------------------------------------------------------------
 &nambdy_tide   !  tidal forcing at open boundaries
@@ -702,7 +702,7 @@
 !-----------------------------------------------------------------------
 &nam_dia25h    !  25h Mean Output                                       (default F)
 !-----------------------------------------------------------------------
-   ln_dia25h  = .true.    ! Choose 25h mean output or not
+   ln_dia25h  = .false.    ! Choose 25h mean output or not
 /
 !!======================================================================
 !!               ***  Observation & Assimilation  ***                 !!
