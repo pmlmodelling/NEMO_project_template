@@ -4,17 +4,12 @@
 # setting the parent CMIP model passed as argument
 # defulat option CNRM-ESM2
 #
-export MODEL=$1
-if [[ $MODEL == '' ]]
-then
-        echo 'WARNING no model has been specified, setting to CNRM-ESM2'
-        export MODEL='CNRM-ESM2'
-fi
 
 #Config options
 export WORK=/work/n01/n01/yuti//AMM7-$MODEL
 export NAME=AMM7_$MODEL #Experiment name (used as cn_exp in namelist_cfg)
 export EXP_NAME=$MODEL # Name for running directory, different to DEFAULT_RUN_DIR
+export MODEL=GFDL-ESM4
 
 
 export START_YEAR=1993 # Start year

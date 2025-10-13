@@ -11,16 +11,17 @@ then
 	MODEL='CNRM-ESM2'
 fi
 
-yes | rsync -a $WORK/scripts/core-scripts/config.proj.sh $WORK/scripts/config.proj.sh
-$WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.proj.sh  \
+yes | rsync -a $WORK/scripts/core-scripts/config.proj.sh $WORK/scripts/config.sh
+$WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.sh  \
     --xios_arch X86_ARCHER2-Cray                 \
     --nemo_arch X86_ARCHER2-Cray_FABM                 \
     --fabm_compiler ftn                \
     --modules $WORK/scripts/core-scripts/archer2_modules \
     --archer2 true \
+    --model $MODEL \
     --work_dir $WORK
 
-source $WORK/scripts/config.proj.sh $MODEL
+source $WORK/scripts/config.sh $MODEL
 
 echo "Linking runscripts"
 yes | rsync -a $SCRIPTS_DIR/core-scripts/runscript_archer2.proj.slurm $SCRIPTS_DIR/runscript.slurm
