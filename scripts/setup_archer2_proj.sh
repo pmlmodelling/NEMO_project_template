@@ -2,7 +2,7 @@
 
 WORK="$(dirname "$PWD")"
 echo "Setting up AMM7 on ARCHER2"
-
+echo $WORK
 MODEL=$1
 
 if [[ $MODEL == '' ]]
@@ -11,8 +11,8 @@ then
 	MODEL='CNRM-ESM2'
 fi
 
-yes | rsync -a $WORK/scripts/core-scripts/config.proj.sh $WORK/scripts/config.sh
-$WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.sh  \
+yes | rsync -a $WORK/scripts/core-scripts/config.proj.sh $WORK/scripts/config.proj.sh
+$WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.proj.sh  \
     --xios_arch X86_ARCHER2-Cray                 \
     --nemo_arch X86_ARCHER2-Cray_FABM                 \
     --fabm_compiler ftn                \
@@ -20,7 +20,7 @@ $WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.sh  \
     --archer2 true \
     --work_dir $WORK
 
-source $WORK/scripts/config.$MODEL.sh
+source $WORK/scripts/config.proj.sh $MODEL
 
 echo "Linking runscripts"
 yes | rsync -a $SCRIPTS_DIR/core-scripts/runscript_archer2.proj.slurm $SCRIPTS_DIR/runscript.slurm
