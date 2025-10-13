@@ -186,6 +186,13 @@
    sn_trcobc_dta(42) = 'amm7_bdytrc' ,    -1     , 'P4_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(43) = 'amm7_bdytrc' ,    -1     , 'P4_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(44) = 'amm7_bdytrc' ,    -1     , 'P4_Chl',  .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(46) = 'amm7_bdytrc' ,    -1     , 'Z4_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(47) = 'amm7_bdytrc' ,    -1     , 'Z5_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(48) = 'amm7_bdytrc' ,    -1     , 'Z5_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(49) = 'amm7_bdytrc' ,    -1     , 'Z5_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(50) = 'amm7_bdytrc' ,    -1     , 'Z6_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(51) = 'amm7_bdytrc' ,    -1     , 'Z6_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(52) = 'amm7_bdytrc' ,    -1     , 'Z6_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(52) = 'amm7_bdytrc' ,    -1     , 'L2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    rn_trofac(2) = 1
    rn_trofac(3) = 1
@@ -223,6 +230,13 @@
    rn_trofac(42) = 1
    rn_trofac(43) = 1
    rn_trofac(44) = 1
+   rn_trofac(45) = 1
+   rn_trofac(46) = 1
+   rn_trofac(47) = 1
+   rn_trofac(48) = 1
+   rn_trofac(49) = 1
+   rn_trofac(50) = 1
+   rn_trofac(51) = 1
    rn_trofac(52) = 1
 /
 !----------------------------------------------------------------------
@@ -270,6 +284,13 @@
    sn_trcobc_dta(42) = 'amm7_skagbdytrc' ,    -1     , 'P4_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(43) = 'amm7_skagbdytrc' ,    -1     , 'P4_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(44) = 'amm7_skagbdytrc' ,    -1     , 'P4_Chl',  .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(46) = 'amm7_skagbdytrc' ,    -1     , 'Z4_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(47) = 'amm7_skagbdytrc' ,    -1     , 'Z5_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(48) = 'amm7_skagbdytrc' ,    -1     , 'Z5_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(49) = 'amm7_skagbdytrc' ,    -1     , 'Z5_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(50) = 'amm7_skagbdytrc' ,    -1     , 'Z6_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(51) = 'amm7_skagbdytrc' ,    -1     , 'Z6_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(52) = 'amm7_skagbdytrc' ,    -1     , 'Z6_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(52) = 'amm7_skagbdytrc' ,    -1     , 'L2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    rn_trofac(2) = 1
    rn_trofac(3) = 1
@@ -307,6 +328,13 @@
    rn_trofac(42) = 1
    rn_trofac(43) = 1
    rn_trofac(44) = 1
+   rn_trofac(45) = 1
+   rn_trofac(46) = 1
+   rn_trofac(47) = 1
+   rn_trofac(48) = 1
+   rn_trofac(49) = 1
+   rn_trofac(50) = 1
+   rn_trofac(51) = 1
    rn_trofac(52) = 1
 /
 !----------------------------------------------------------------------

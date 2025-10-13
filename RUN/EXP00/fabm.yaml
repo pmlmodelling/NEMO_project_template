@@ -111,7 +111,7 @@ instances:
     model: ersem/pelagic_base
     parameters:
       composition: cnpsf                                   # elemental composition
-      rm: 5.0                                              # sinking velocity (m/d), default = 0.0
+      rm: 10 #5.0                                              # sinking velocity (m/d), default = 0.0
       ndeposition: 2                                           # number of target pools where the sedimentation flux goes (-)
       qxc2: 0.1
       qxn2: 0.1
@@ -131,7 +131,7 @@ instances:
     model: ersem/pelagic_base
     parameters:
       composition: cnps                                    # elemental composition
-      rm: 10.0                                             # sinking velocity (m/d), default = 0.0
+      rm: 50 #10.0                                             # sinking velocity (m/d), default = 0.0
       ndeposition: 2                                       # number of target pools where the sedimentation flux goes (-)
       qxc2: 0.1
       qxn2: 0.1
@@ -222,9 +222,9 @@ instances:
       fsink: 7e-05                                         # scavenging rate for iron (1/d)
       c0: 0.01                                             # background carbon concentration (mg C/m^3)
       nRP: 3                                               # number of substrates, default = 0
-      sRP1R1: 0.01                                         # remineralisation of substrate 1 to DOM (1/d)
-      sRP2R1: 0.0025                                       # remineralisation of substrate 2 to DOM (1/d)
-      sRP3R1: 0.001                                        # remineralisation of substrate 3 to DOM (1/d)
+      sRP1R1: 0.14 #0.01                                         # remineralisation of substrate 1 to DOM (1/d)
+      sRP2R1: 0.03 #0.0025                                       # remineralisation of substrate 2 to DOM (1/d)
+      sRP3R1: 0.007 #0.001                                        # remineralisation of substrate 3 to DOM (1/d)
       rR2: 0.0075                                          # fraction of semi-labile DOC available to bacteria (-)
       rR3: 0.0025                                          # fraction of semi-refractory DOC available to bacteria (-)
       frR3: 0.3                                            # fraction of activity respiration converted to semi-refractory DOC (-)
@@ -265,7 +265,10 @@ instances:
       sum: 1.375                                           # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.04                                            # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                           # excreted fraction of primary production (-)
+      exulim: 0.3
+      xqcpx: 1.3
+      xqcnx: 1.3
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.0042                                         # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.0001                                         # minimum phosphorus to carbon ratio (mmol P/mg C)
@@ -331,10 +334,13 @@ instances:
       sum: 1.625                                           # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.04                                            # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                           # excreted fraction of primary production (-)
+      exulim: 0.3
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.005                                          # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.000225                                       # minimum phosphorus to carbon ratio (mmol P/mg C)
+      xqcpx: 1.3
+      xqcnx: 1.3
       xqcp: 1.0                                            # threshold for phosphorus limitation (relative to Redfield ratio) (-)
       xqcn: 1.0                                            # threshold for nitrogen limitation (relative to Redfield ratio) (-)
       xqp: 2.0                                             # maximum phosphorus to carbon ratio (relative to Redfield ratio) (-)
@@ -394,10 +400,13 @@ instances:
       sum: 2.0                                             # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.045                                           # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                           # excreted fraction of primary production (-)
+      exulim: 0.3 
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.006                                          # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.00035                                        # minimum phosphorus to carbon ratio (mmol P/mg C)
+      xqcpx: 1.3
+      xqcnx: 1.3
       xqcp: 1.0                                            # threshold for phosphorus limitation (relative to Redfield ratio) (-)
       xqcn: 1.0                                            # threshold for nitrogen limitation (relative to Redfield ratio) (-)
       xqp: 1.5                                             # maximum phosphorus to carbon ratio (relative to Redfield ratio) (-)
@@ -454,10 +463,13 @@ instances:
       sum: 1.125                                           # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.035                                           # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                           # excreted fraction of primary production (-)
+      exulim: 0.3
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.0042                                         # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.0001                                         # minimum phosphorus to carbon ratio (mmol P/mg C)
+      xqcpx: 1.3
+      xqcpx: 1.3
       xqcp: 1.0                                            # threshold for phosphorus limitation (relative to Redfield ratio) (-)
       xqcn: 1.0                                            # threshold for nitrogen limitation (relative to Redfield ratio) (-)
       xqp: 2.7                                             # maximum phosphorus to carbon ratio (relative to Redfield ratio) (-)
@@ -514,7 +526,7 @@ instances:
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       minfood: 12.0                                        # Michaelis-Menten constant to perceive food (mg C/m^3)
       chuc: 36.0                                           # Michaelis-Menten constant for food uptake (mg C/m^3)
-      sum: 1.0                                             # maximum specific uptake at reference temperature (1/d)
+      sum: 2.0                                             # maximum specific uptake at reference temperature (1/d)
       pu: 0.6                                              # assimilation efficiency (-)
       pu_ea: 0.5                                           # fraction of unassimilated prey that is excreted (not respired) (-)
       pu_eaR: 0.9                                          # fraction of unassimilated detritus that is excreted (not respired) (-)
@@ -603,7 +615,7 @@ instances:
     initialization:
       c: 7.2                                               # carbon (mg C/m^3)
       n: 0.12                                              # nitrogen (mmol N/m^3)
-      p: 0.0113                                            # phosphorus (mmol P/m^3)
+      p: 0.0072 #0.0113                                            # phosphorus (mmol P/m^3)
     coupling:
       prey1: B1
       prey2: P1
@@ -1189,6 +1201,39 @@ instances:
       target: N4/n
   erosion:
     model: ersem/benthic_erosion
+  db:
+    model: ersem/dvm_upper_lower_boundaries_simple
+    coupling:
+      prey1: P1/c
+      prey2: P2/c
+      prey3: Z6/c
+      prey4: P4/c
+      prey5: Z4/c
+      prey6: Z5/c
+      prey7: R6/c
+    parameters:
+      nprey: 7
+      day_light: 0
+      upper_light: -1
+      lower_light: -15.0
+  dw:
+    model: ersem/dvm_weight_distribution
+    coupling:
+      target: Z4/c
+      present: db/migrator_presence
+      migrator_food: db/migrator_food
+  dm:
+    model: ersem/dvm_move
+    long_name: distribute_migrators
+    parameters:
+      ratioMig: 0.1
+      tstep: 300
+    coupling:
+      target: Z4/c
+      integral: dw/integral
+      migrator_weights: dw/migrator_weights
+      migrator_integral_weights: dw/migrator_integral_weights
+      overwintering: Z4/overwintering
   #Diagnostics:
   PON:
    long_name: particulate organic nitrogen
@@ -1647,7 +1692,7 @@ instances:
       term1: Y2/fYG3c
       term2: Y3/fYG3c
   Ymacro_fYQPc:
-   long_name: benthic macrofauna loass to particulate organic carbon
+   long_name: benthic macrofauna loss to particulate organic carbon
    model: horizontal_weighted_sum
    parameters:
       n: 2
@@ -1663,7 +1708,7 @@ instances:
       term1: Y2/fYQPn
       term2: Y3/fYQPn
   Ymacro_fYQPp:
-   long_name: benthic macrofauna loass to particulate organic phosphorus
+   long_name: benthic macrofauna loss to particulate organic phosphorus
    model: horizontal_weighted_sum
    parameters:
       n: 2
@@ -1671,7 +1716,7 @@ instances:
       term1: Y2/fYQPp
       term2: Y3/fYQPp
   Ymacro_fYKIn:
-   long_name: benthic macrofauna loass to dissolved inorganic nitrogen
+   long_name: benthic macrofauna loss to dissolved inorganic nitrogen
    model: horizontal_weighted_sum
    parameters:
       n: 2
