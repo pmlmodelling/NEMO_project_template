@@ -1297,8 +1297,8 @@ instances:
       Dm: ben_col/D1m                                      # depth of limiting layer for uptake (m)
       benTA: zero_hz
       benTA2: zero_hz
-  dg:
-    model: ersem/dvm_get_dependencies
+    db:
+    model: ersem/dvm_upper_lower_boundaries_simple
     coupling:
       prey1: P1/c
       prey2: P2/c
@@ -1309,9 +1309,6 @@ instances:
       prey7: R6/c
     parameters:
       nprey: 7
-  db:
-    model: ersem/dvm_upper_lower_boundaries_simple
-    parameters:
       day_light: 0
       upper_light: -1
       lower_light: -15.0
@@ -1320,7 +1317,7 @@ instances:
     coupling:
       target: Z4/c
       present: db/migrator_presence
-      migrator_food: dg/migrator_food
+      migrator_food: db/migrator_food
   dm:
     model: ersem/dvm_move
     long_name: distribute_migrators
@@ -1330,8 +1327,8 @@ instances:
     coupling:
       target: Z4/c
       integral: dw/integral
-      migrator_random_weights: dw/migrator_random_weights
-      migrator_integral_random_weights: dw/migrator_integral_random_weights
+      migrator_weights: dw/migrator_weights
+      migrator_integral_weights: dw/migrator_integral_weights
       overwintering: Z4/overwintering
   #Diagnostics:
   PON:
