@@ -73,13 +73,13 @@
    sn_tracer(42)  = 'P4_n     ' , 'microphytoplankton nitrogen  '  ,                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
    sn_tracer(43)  = 'P4_p     ' , 'microphytoplankton phosphorus  ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
    sn_tracer(44)  = 'P4_Chl   ' , 'microphytoplankton chlorophyll ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
-   sn_tracer(45)  = 'Z4_c     ' , 'mesozooplankton carbon         ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
-   sn_tracer(46)  = 'Z5_c     ' , 'microzooplankton carbon        ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
-   sn_tracer(47)  = 'Z5_n     ' , 'microzooplankton nitrogen      ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
-   sn_tracer(48)  = 'Z5_p     ' , 'microzooplankton phosphorus    ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
-   sn_tracer(49)  = 'Z6_c     ' , 'nanoflagellates carbon         ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
-   sn_tracer(50)  = 'Z6_n     ' , 'nanoflagellates nitrogen       ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
-   sn_tracer(51)  = 'Z6_p     ' , 'nanoflagellates phosphorus     ',                   ' '  , .true.  ,  .false. , .false. , .false. , .false.
+   sn_tracer(45)  = 'Z4_c     ' , 'mesozooplankton carbon         ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
+   sn_tracer(46)  = 'Z5_c     ' , 'microzooplankton carbon        ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
+   sn_tracer(47)  = 'Z5_n     ' , 'microzooplankton nitrogen      ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
+   sn_tracer(48)  = 'Z5_p     ' , 'microzooplankton phosphorus    ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
+   sn_tracer(49)  = 'Z6_c     ' , 'nanoflagellates carbon         ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
+   sn_tracer(50)  = 'Z6_n     ' , 'nanoflagellates nitrogen       ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
+   sn_tracer(51)  = 'Z6_p     ' , 'nanoflagellates phosphorus     ',                   ' '  , .true.  ,  .false. , .false. , .true. , .false.
    sn_tracer(52)   = 'L2_c     ' , 'Calcite  ',                      ' '  , .true.  ,  .false. , .false. , .true. , .false.
    ln_trcdta     =  .false.  !  Initialisation from data input file (T) or not (F)
    ln_trcdmp     =  .false.  !  add a damping termn (T) or not (F)
@@ -154,6 +154,7 @@
    sn_trcobc_dta(3) = 'amm7_bdytrc' ,    -1     , 'N3_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(5) = 'amm7_bdytrc' ,    -1     , 'N5_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(6) = 'amm7_bdytrc' ,    -1     , 'O2_o' , .true.    , .true. , 'yearly'       , ''       , ''       ,   ''
+
    sn_trcobc_dta(7) = 'amm7_bdytrc' ,    -1     , 'O3_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(8) = 'amm7_bdytrc' ,    -1     , 'O3_TA' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(12) = 'amm7_bdytrc' ,    -1     , 'R2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
@@ -186,6 +187,13 @@
    sn_trcobc_dta(42) = 'amm7_bdytrc' ,    -1     , 'P4_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(43) = 'amm7_bdytrc' ,    -1     , 'P4_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(44) = 'amm7_bdytrc' ,    -1     , 'P4_Chl' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(45) = 'amm7_bdytrc' ,    -1     , 'Z4_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(46) = 'amm7_bdytrc' ,    -1     , 'Z5_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(47) = 'amm7_bdytrc' ,    -1     , 'Z5_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(48) = 'amm7_bdytrc' ,    -1     , 'Z5_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(49) = 'amm7_bdytrc' ,    -1     , 'Z6_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(50) = 'amm7_bdytrc' ,    -1     , 'Z6_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(51) = 'amm7_bdytrc' ,    -1     , 'Z6_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(52) = 'amm7_bdytrc' ,    -1     , 'L2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    rn_trofac(2) = 1
    rn_trofac(3) = 1
@@ -223,6 +231,13 @@
    rn_trofac(42) = 1
    rn_trofac(43) = 1
    rn_trofac(44) = 1
+   rn_trofac(45) = 1
+   rn_trofac(46) = 1
+   rn_trofac(47) = 1
+   rn_trofac(48) = 1
+   rn_trofac(49) = 1
+   rn_trofac(50) = 1
+   rn_trofac(51) = 1
    rn_trofac(52) = 1
 /
 !----------------------------------------------------------------------
@@ -271,6 +286,13 @@
    sn_trcobc_dta(42) = 'amm7_skagbdytrc' ,    -1     , 'P4_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(43) = 'amm7_skagbdytrc' ,    -1     , 'P4_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(44) = 'amm7_skagbdytrc' ,    -1     , 'P4_Chl' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(45) = 'amm7_skagbdytrc' ,    -1     , 'Z4_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(46) = 'amm7_skagbdytrc' ,    -1     , 'Z5_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(47) = 'amm7_skagbdytrc' ,    -1     , 'Z5_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(48) = 'amm7_skagbdytrc' ,    -1     , 'Z5_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(49) = 'amm7_skagbdytrc' ,    -1     , 'Z6_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(50) = 'amm7_skagbdytrc' ,    -1     , 'Z6_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
+   sn_trcobc_dta(51) = 'amm7_skagbdytrc' ,    -1     , 'Z6_p' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(52) = 'amm7_skagbdytrc' ,    -1     , 'L2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    rn_trofac(2) = 1
    rn_trofac(3) = 1
@@ -308,6 +330,13 @@
    rn_trofac(42) = 1
    rn_trofac(43) = 1
    rn_trofac(44) = 1
+   rn_trofac(45) = 1
+   rn_trofac(46) = 1
+   rn_trofac(47) = 1
+   rn_trofac(48) = 1
+   rn_trofac(49) = 1
+   rn_trofac(50) = 1
+   rn_trofac(51) = 1
    rn_trofac(52) = 1
 /
 !----------------------------------------------------------------------
