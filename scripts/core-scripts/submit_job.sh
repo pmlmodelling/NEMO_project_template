@@ -25,14 +25,16 @@ if [ "$year" != "$START_YEAR" ] || [ "$month" != "1" ]; then
 fi
 
 $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
-    --runid $NAME                 \
-    --restart true                   \
+    --runid $NAME            \
+    --restart true           \
     --euler false            \
     --tide_ramp false        \
-    --next_step $iter_start           \
-    --final_step $iter_end          \
+    --next_step $iter_start  \
+    --final_step $iter_end   \
+    --model $MODEL           \
+    --scenario $SCENARIO     \
     --restart_file ${NAME}_${year}${mm}01_restart \
-    --trc_file $RUN_DIR/namelist_top_cfg  \
+    --trc_file $RUN_DIR/namelist_top_cfg          \
     --trc_restart_file ${NAME}_${year}${mm}01_restart_trc
 if [ $ICE = true ] ; then
     $SCRIPTS_DIR/core-scripts/update_nemo_nl \

@@ -12,6 +12,7 @@ mkdir -p $RUN_DIR/restarts
 mkdir -p $RUN_DIR/bdy
 mkdir -p $RUN_DIR/fluxes
 mkdir -p $RUN_DIR/tides
+mkdir -p $RUN_DIR/rivers
 
 # Restarts
 ln -s $INPUT_DIR/DOM/19930101_restart_trc_30yr_spinup.nc $RUN_DIR/restarts/AMM7_19930101_restart_trc.nc

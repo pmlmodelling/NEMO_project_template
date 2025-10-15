@@ -14,6 +14,7 @@ my $fabm_compiler;          # FABM compiler
 my $work_dir;		# Working Directory
 my $modules;		# File with modules to use
 my $model;		# CMIP model to use 
+my $scenario;		# scenario to use 
 my $archer2;		# Boolean denoting if on archer2
 my $help;
 
@@ -27,6 +28,7 @@ if (@ARGV > 0) {
              'a|archer2=s'        => \$archer2,
              'm|modules=s'        => \$modules,
              'o|model=s'        => \$model,
+             's|scenario=s'        => \$scenario,
              'help|?'                => \$help) or pod2usage(1);
 
 
@@ -56,6 +58,8 @@ foreach my $line (@lines) {
   $line =~ s/^(\s*?export archer2\s*?)=.*/$1=$archer2/ if ($archer2);
 
   $line =~ s/^(\s*?export MODEL\s*?)=.*/$1=$model/ if ($model);
+
+  $line =~ s/^(\s*?export SCENARIO\s*?)=.*/$1=$scenario/ if ($scenario);
 
 }
 
