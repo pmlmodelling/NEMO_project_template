@@ -7,10 +7,10 @@
 
 #Config options
 export WORK=/work/n01/n01/yuti//AMM7-$MODEL
-export NAME=AMM7_$MODEL #Experiment name (used as cn_exp in namelist_cfg)
-export EXP_NAME=$MODEL # Name for running directory, different to DEFAULT_RUN_DIR
 export MODEL=GFDL-ESM4
 export SCENARIO=ssp370
+export NAME=AMM7_$MODEL #Experiment name (used as cn_exp in namelist_cfg)
+export EXP_NAME=$MODEL # Name for running directory, different to DEFAULT_RUN_DIR
 
 export START_YEAR=1993 # Start year
 export END_YEAR=2014 # End year 

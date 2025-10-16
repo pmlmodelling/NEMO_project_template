@@ -50,9 +50,10 @@ fi
 
 # Launch Run
 echo "Launching $year $month at $(date +'%F %T')"
-$RUN_DIR/runscript.slurm
+$RUN_DIR/mapping.slurm
 
 # Archiving
+echo "Archiving in $outdir"
 mkdir -p $outdir
 rsync -a fabm.yaml fabm_input.nml namelist* $outdir
 mv *.output $outdir

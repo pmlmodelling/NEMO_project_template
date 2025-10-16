@@ -20,10 +20,10 @@ ln -s $INPUT_DIR/BDY/BGC/amm7_skagbdytrc_${MODEL}_${SCENARIO}_y${year}.nc $RUN_D
 
 # Link fluxes
 rm -rf $RUN_DIR/fluxes/*
-ln -s $INPUT_DIR/SBC/ATM/${MODEL}_${SCENARIO}_*_y$year.nc $RUN_DIR/fluxes/
+ln -s $INPUT_DIR/SBC/ATM/AMM7_${MODEL}_${SCENARIO}_*_y$year.nc $RUN_DIR/fluxes/
 #ln -s $INPUT_DIR/SBC/ATM/ERA5_LSM.nc $RUN_DIR/fluxes/ERA5_LSM.nc
-ln -s $INPUT_DIR/SBC/ATM/${MODEL}_weights_bicubic_atmos.nc $RUN_DIR/fluxes/${MODEL}_weights_bicubic.nc
-ln -s $INPUT_DIR/SBC/ATM/${MODEL}_weights_bilin_atmos.nc $RUN_DIR/fluxes/${MODEL}_weights_bilin.nc
+ln -s $INPUT_DIR/SBC/ATM/AMM7_${MODEL}_weights_bicubic_atmos.nc $RUN_DIR/fluxes/AMM7_${MODEL}_weights_bicubic.nc
+ln -s $INPUT_DIR/SBC/ATM/AMM7_${MODEL}_weights_bilin_atmos.nc $RUN_DIR/fluxes/AMM7_${MODEL}_weights_bilin.nc
 #if [[ $year -lt 1998 ]]; then
 # forced climatology for ady throughout the whole period
 ln -s $INPUT_DIR/SBC/BGC/ady/AMM7-CCI-ady-8day-broadband_climatology_1998_2023.nc $RUN_DIR/fluxes/ady.nc

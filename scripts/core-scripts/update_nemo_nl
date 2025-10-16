@@ -88,9 +88,9 @@ foreach my $line (@lines) {
 
   $line =~ s/^(\s*?cn_ocerst_in\s*?)=.*/$1=  '$restart_file'/ if ($restart_file);
 
-  $line =~ s/^(\s*?export MODEL\s*?)=.*/$1=$model/ if ($model);
+  $line =~ s/<MODEL>/$model/ if ($model);
 
-  $line =~ s/^(\s*?export SCENARIO\s*?)=.*/$1=$scenario/ if ($scenario);
+  $line =~ s/<SCENARIO>/$scenario/ if ($scenario);
 
 }
 
@@ -117,10 +117,9 @@ foreach my $line3 (@lines3) {
 
   $line3 =~ s/^(\s*?cn_trcrst_in\s*?)=.*/$1=  '$trc_restart_file'/ if ($trc_restart_file);
 
-  $line3 =~ s/^(\s*?export MODEL\s*?)=.*/$1=$model/ if ($model);
+  $line3 =~ s/<MODEL>/$model/ if ($model);
 
-  $line3 =~ s/^(\s*?export SCENARIO\s*?)=.*/$1=$scenario/ if ($scenario);
-
+  $line3 =~ s/<SCENARIO>/$scenario/ if ($scenario);
 
 }
 
