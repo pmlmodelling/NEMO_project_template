@@ -8,11 +8,11 @@ use Pod::Usage;
 
 # Arguments:
 my $verbose = 0;       # Verbose output
-my $phy_file;              # Namelist file to edit
+my $phy_file;          # Namelist file to edit
 my $runid;             # Job name
 my $l_restart;         # Restart logical indicator
-my $l_tideramp;         # Tide ramping logical indicator
-my $euler;         # Euler first time step (0 use euler, anything else do not)
+my $l_tideramp;        # Tide ramping logical indicator
+my $euler;             # Euler first time step (0 use euler, anything else do not)
 my $final_ts;          # End time-step
 my $start_ts;          # Start date
 my $restart_file;      # Physics restart filename 
@@ -20,6 +20,8 @@ my $ice_file;          # Ice Namelist file to edit
 my $ice_restart_file;  # Ice restart filename
 my $trc_file;          # Tracer Namelist file to edit
 my $trc_restart_file;  # Tracer restart filename
+my $model;             # CMIP model to use
+my $scenario;          # scenario to use
 my $help;
 
 # Process arguments:
@@ -32,6 +34,8 @@ if (@ARGV > 0) {
              'n|next_step=s'         => \$start_ts,
              'p|restart_file=s'      => \$restart_file,
              'r|runid=s'             => \$runid,
+             'o|model=s'             => \$model,
+             's|scenario=s'          => \$scenario,
              'i|ice_file=s'          => \$ice_file,
              'j|ice_restart_file=s'  => \$ice_restart_file,
              't|trc_file=s'          => \$trc_file,
@@ -83,6 +87,11 @@ foreach my $line (@lines) {
   $line =~ s/^(\s*?cn_exp\s*?)=.*/$1=  '$runid'/ if ($runid);
 
   $line =~ s/^(\s*?cn_ocerst_in\s*?)=.*/$1=  '$restart_file'/ if ($restart_file);
+
+  $line =~ s/<MODEL>/$model/ if ($model);
+
+  $line =~ s/<SCENARIO>/$scenario/ if ($scenario);
+
 }
 
 write_file($phy_file,@lines);
@@ -107,6 +116,11 @@ my @lines3 = read_file($trc_file);
 foreach my $line3 (@lines3) {
 
   $line3 =~ s/^(\s*?cn_trcrst_in\s*?)=.*/$1=  '$trc_restart_file'/ if ($trc_restart_file);
+
+  $line3 =~ s/<MODEL>/$model/ if ($model);
+
+  $line3 =~ s/<SCENARIO>/$scenario/ if ($scenario);
+
 }
 
 write_file($trc_file,@lines3);

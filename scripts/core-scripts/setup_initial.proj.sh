@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# identical to setup_initial because initial condition will stay the same
+#
 mkdir -p $OUTPUT_DIR
 mkdir -p $RUN_DIR
 rsync -a --exclude runscripts $DEFAULT_RUN_DIR/* $RUN_DIR
@@ -11,9 +12,10 @@ mkdir -p $RUN_DIR/restarts
 mkdir -p $RUN_DIR/bdy
 mkdir -p $RUN_DIR/fluxes
 mkdir -p $RUN_DIR/tides
+mkdir -p $RUN_DIR/rivers
 
 # Restarts
-ln -s $INPUT_DIR/DOM/19930101_restart_trc_30yr_spinup.nc $RUN_DIR/restarts/${NAME}_19930101_restart_trc.nc
+ln -s $INPUT_DIR/DOM/19930101_restart_trc_30yr_spinup.nc $RUN_DIR/restarts/AMM7_19930101_restart_trc.nc
 ln -s $INPUT_DIR/DOM/glosea_ini_19930101_vosaline_domain_cfg_co9amm7_MEsL51r10-07.nc $RUN_DIR/restarts/AMM7_19930101_vosaline.nc
 ln -s $INPUT_DIR/DOM/glosea_ini_19930101_votemper_domain_cfg_co9amm7_MEsL51r10-07.nc $RUN_DIR/restarts/AMM7_19930101_votemper.nc
 

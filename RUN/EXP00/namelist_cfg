@@ -34,7 +34,7 @@
 &namrun        !   parameters of the run
 !-----------------------------------------------------------------------
    nn_no       =       0   !  Assimilation cycle index
-   cn_exp      =  'AMM7'
+   cn_exp      =  'AMM7_<MODEL>'
    nn_it000    =  1
    nn_itend    =  105120
    nn_date0    =  19930101   !  date at nit_0000 (format yyyymmdd) used if ln_rstart=F or (ln_rstart=T and nn_rstctl=0 or 1)
@@ -182,7 +182,7 @@
    ln_tauwoc   = .false.   !  Activate ocean stress modified by external wave induced stress (T => ln_wave=.true. & fill namsbc_wave)
    ln_tauw     = .false.   !  Activate ocean stress components from wave model
    ln_stcor    = .false.   !  Activate Stokes Coriolis term (T => ln_wave=.true. & ln_sdw=.true. & fill namsbc_wave)
-   nn_lsm      = 1         !  =0 land/sea mask for input fields is not applied (keep empty land/sea mask filename field) ,
+   nn_lsm      = 0         !  =0 land/sea mask for input fields is not applied (keep empty land/sea mask filename field) ,
                            !  =1:n number of iterations of land/sea mask application for input fields (fill land/sea mask filename field)
 /
 !-----------------------------------------------------------------------
@@ -209,15 +209,15 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!______________________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename             ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                              ! pairing  !    filename   !
-   sn_humi     =   'ERA5_SPH'            ,        1          ,   'SPH'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_prec     =   'ERA5_MTPR'           ,        1          ,  'MTPR'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_qlw      =   'ERA5_MSDWLWRF'       ,        1          , 'MSDWLWRF',    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_qsr      =   'ERA5_MSDWSWRF'       ,        1          , 'MSDWSWRF',    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_snow     =   'ERA5_MSR'            ,        1          ,   'MSR'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_tair     =   'ERA5_T2M'            ,        1          ,   'T2M'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
-   sn_wndi     =   'ERA5_U10'            ,        1          ,   'U10'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,  'Uwnd'  ,   'ERA5_LSM'
-   sn_wndj     =   'ERA5_V10'            ,        1          ,   'V10'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,  'Vwnd'  ,   'ERA5_LSM'
-   sn_slp      =   'ERA5_MSL'            ,        1          ,   'MSL'   ,    .true.   , .false.,  'yearly' ,  'weights_era5_bicubic.nc'   ,    ''    ,   'ERA5_LSM'
+   sn_humi  =   'AMM7_<MODEL>_<SCENARIO>_SPH'       ,  1     ,   'SPH'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_prec  =   'AMM7_<MODEL>_<SCENARIO>_MTPR'      ,  1     ,  'MTPR'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_qlw   =   'AMM7_<MODEL>_<SCENARIO>_MSDWLWRF'  ,  1     , 'MSDWLWRF',    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_qsr   =   'AMM7_<MODEL>_<SCENARIO>_MSDWSWRF'  ,  1     , 'MSDWSWRF',    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_snow  =   'AMM7_<MODEL>_<SCENARIO>_MSR'       ,  1     ,   'MSR'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_tair  =   'AMM7_<MODEL>_<SCENARIO>_T2M'       ,  1     ,   'T2M'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
+   sn_wndi  =   'AMM7_<MODEL>_<SCENARIO>_U10'       ,  1     ,   'U10'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,  'Uwnd'  ,   ''
+   sn_wndj  =   'AMM7_<MODEL>_<SCENARIO>_V10'       ,  1     ,   'V10'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,  'Vwnd'  ,   ''
+   sn_slp   =   'AMM7_<MODEL>_<SCENARIO>_MSL'       ,  1     ,   'MSL'   ,    .true.   , .false.,  'yearly' ,  'AMM7_<MODEL>_weights_bicubic.nc'   ,    ''    ,   ''
 /
 !-----------------------------------------------------------------------
 &namtra_qsr    !   penetrative solar radiation                          (ln_traqsr =T)
@@ -265,7 +265,7 @@
    ln_rnf_tem    = .false.   !  read in temperature information for runoff
    ln_rnf_sal    = .false.   !  read in salinity information for runoff
    rn_rfact      =  1.e0     !  multiplicative factor for runoff
-   cn_dir = './'  !  root directory for the flux data location
+   cn_dir = './rivers/'  !  root directory for the flux data location
    !___________!_________________________!___________________!___________!_____________!_________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim   ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F)  ! 'monthly' !                  ! pairing  !    filename   !
@@ -286,7 +286,7 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_apr      = 'ERA5_MSL'              ,          1        ,    'MSL'  ,    .true.   , .false., 'yearly'  ,'weights_era5_bicubic.nc','','ERA5_LSM'
+   sn_apr      = 'AMM7_<MODEL>_<SCENARIO>_MSL' ,  1        ,    'MSL'  ,    .true.   , .false., 'yearly'  ,'AMM7_<MODEL>_weights_bicubic.nc','',''
 /
 
 /
@@ -415,13 +415,13 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   bn_ssh      =    'AMM7_GLOSEA6_bdyT'       ,         24        , 'sossheig' ,    .true.     , .false. ,  'monthly'  ,    ''    ,   ''  , ' '
-!   bn_u2d      =    'AMM7_GLOSEA6_bdyU'       ,         24        , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-!   bn_v2d      =    'AMM7_GLOSEA6_bdyV'       ,         24        , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_u3d      =    'AMM7_GLOSEA6_bdyU'          ,         24        , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_v3d      =    'AMM7_GLOSEA6_bdyV'          ,         24        , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_tem      =    'AMM7_GLOSEA6_bdyT'          ,         24        , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_sal      =    'AMM7_GLOSEA6_bdyT'          ,         24        , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_ssh      =  'amm7_bdyT_<MODEL>_<SCENARIO>_bdyT' ,  24   , 'sossheig',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+!   bn_u2d      = 'amm7_bdyU_<MODEL>_<SCENARIO>_bdyU' ,  24   , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+!   bn_v2d      = 'amm7_bdyV_<MODEL>_<SCENARIO>_bdyV' ,  24   , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_u3d      =  'amm7_bdyU_<MODEL>_<SCENARIO>_bdyU' ,  24   , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_v3d      =  'amm7_bdyV_<MODEL>_<SCENARIO>_bdyV' ,  24   , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_tem      =  'amm7_bdyT_<MODEL>_<SCENARIO>_bdyT' ,  24   , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_sal      =  'amm7_bdyT_<MODEL>_<SCENARIO>_bdyT' ,  24   , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
 /
 !-----------------------------------------------------------------------
 &nambdy_dta    !  open boundaries - external data                       
@@ -434,13 +434,13 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   bn_ssh      =    'AMM7skag_GLOSEA6_bdyT'       ,         24        , 'sossheig' ,    .true.     , .false. ,  'monthly'  ,    ''    ,   ''  , ' '
-!   bn_u2d      =    'AMM7skag_GLOSEA6_bdyU'       ,         24        , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-!   bn_v2d      =    'AMM7skag_GLOSEA6_bdyV'       ,         24        , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_u3d      =    'AMM7skag_GLOSEA6_bdyU'          ,         24        , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_v3d      =    'AMM7skag_GLOSEA6_bdyV'          ,         24        , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_tem      =    'AMM7skag_GLOSEA6_bdyT'          ,         24        , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
-   bn_sal      =    'AMM7skag_GLOSEA6_bdyT'          ,         24        , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_ssh      =  'amm7_skagbdyT_<MODEL>_<SCENARIO>' , 24 , 'sossheig',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+!   bn_u2d      = 'amm7_skagbdyU_<MODEL>_<SCENARIO>' , 24 , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+!   bn_v2d      = 'amm7_skagbdyV_<MODEL>_<SCENARIO>' , 24 , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_u3d      =  'amm7_skagbdyU_<MODEL>_<SCENARIO>' , 24 , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_v3d      =  'amm7_skagbdyV_<MODEL>_<SCENARIO>' , 24 , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_tem      =  'amm7_skagbdyT_<MODEL>_<SCENARIO>' , 24 , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
+   bn_sal      =  'amm7_skagbdyT_<MODEL>_<SCENARIO>' , 24 , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,   ''
 /
 !-----------------------------------------------------------------------
 &nambdy_tide   !  tidal forcing at open boundaries
@@ -702,7 +702,7 @@
 !-----------------------------------------------------------------------
 &nam_dia25h    !  25h Mean Output                                       (default F)
 !-----------------------------------------------------------------------
-   ln_dia25h  = .true.    ! Choose 25h mean output or not
+   ln_dia25h  = .false.    ! Choose 25h mean output or not
 /
 !!======================================================================
 !!               ***  Observation & Assimilation  ***                 !!
