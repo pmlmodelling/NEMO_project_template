@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=nemo_amm7cycle
-#SBATCH --time=00:30:00
+#SBATCH --time=24:00:00
 #SBATCH --account=n01-PML
 #SBATCH --partition=standard
 #SBATCH --qos=standard
 #SBATCH --output=./log/slurm-%j.out
 
-#SBATCH --nodes=12
+#SBATCH --nodes=13
 #SBATCH --ntasks-per-core=1
 
 # SUBMIT WITH: sbatch runscript.slurm
@@ -29,7 +29,7 @@ if [ -z $month ]; then
    export month=1
 fi
 if [ -z $N_sub_months ]; then
-   export nmonths=1
+   export N_sub_months=1
 fi
 
 #Setup run
@@ -45,6 +45,7 @@ export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | 
 
 for (( i=1; i<=$N_sub_months; i++ ));
 do
+    echo "Submitted month #$i"
     $SCRIPTS_DIR/core-scripts/submit_job.sh
     outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     # Check run completed successfully
@@ -54,6 +55,10 @@ do
       RUN_STATUS=false
       break
     fi
+    # submit archiving outputs
+    sbatch archive_dailyinorg.slurm $outdir
+    sbatch archive_dailyorg.slurm $outdir
+    sbatch archive_outheroutputs.slurm $outdir
     # Increment month 
     if [ $month != 12 ]; then
         month=$(($month + 1))
