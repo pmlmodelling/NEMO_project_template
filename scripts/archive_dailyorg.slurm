@@ -19,8 +19,9 @@
 source /work/n01/n01/yuti/AMM7_projections/scripts/config.sh
 module load nco
 outdir=$1
+echo"Archiving $outdir"
 
-cd $OUTPUT_DIR/$EXP_NAME/$outdir
+cd $outdir
 
 for f in $NAME*1d*.org_T*
 do

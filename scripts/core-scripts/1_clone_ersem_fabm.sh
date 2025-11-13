@@ -5,7 +5,7 @@ source $SCRIPT_DIR/../config.sh
 
 # Clone code bases for ERSEM, FABM
 ERSEM_REV=combined
-git clone git@github.com:pmlmodelling/ersem-neccton.git $ERSEM_DIR
+git clone https://github.com/pmlmodelling/ersem-neccton.git $ERSEM_DIR
 cd $ERSEM_DIR && git checkout $ERSEM_REV
 
 FABM_REV=2178e4198586578664ca8db21b508c52cf5d3b83

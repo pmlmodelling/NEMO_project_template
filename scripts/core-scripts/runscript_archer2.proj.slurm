@@ -56,9 +56,10 @@ do
       break
     fi
     # submit archiving outputs
-    sbatch archive_dailyinorg.slurm $outdir
-    sbatch archive_dailyorg.slurm $outdir
-    sbatch archive_outheroutputs.slurm $outdir
+     echo "archiving $outdir"
+    sbatch $SCRIPTS_DIR/archive_dailyinorg.slurm $outdir
+    sbatch $SCRIPTS_DIR/archive_dailyorg.slurm $outdir
+    sbatch $SCRIPTS_DIR/archive_otheroutputs.slurm $outdir
     # Increment month 
     if [ $month != 12 ]; then
         month=$(($month + 1))
