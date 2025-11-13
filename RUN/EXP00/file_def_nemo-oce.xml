@@ -87,6 +87,7 @@
                       <field field_ref="O3_wind" operation="average" />
 		      <field field_ref="O3_fair" operation="average" />
                       <field field_ref="e3t"      operation="average" />
+		      <field field_ref="gross_calcification_rate_result" operation="average"/>
                 </file>
 	      <file id="file26" name_suffix=".org_T" description="ocean organic T grid variables" enabled=".TRUE." >
 		      <field field_ref="P1_Chl" operation="average" />
@@ -180,7 +181,6 @@
                       <field field_ref="O3_Om_arg"         operation="average"  />
                       <field field_ref="pel_nit_fN4N3n"    operation="average"  />
 		      <field field_ref="O2_o"              operation="average"  />
-		      <field field_ref="gross_calcification_rate" operation="average"/>
             </file>
 
 	    <file id="file33" name_suffix=".org_T" description="ocean T grid variables" enabled=".TRUE." >
@@ -202,8 +202,6 @@
                       <field field_ref="P2_fPIO3c"        operation="average"   />
                       <field field_ref="P3_fPIO3c"        operation="average"   />
                       <field field_ref="P4_fPIO3c"        operation="average"   />
-                      <field field_ref="Z5_fZIO3c"        operation="average"   />
-                      <field field_ref="Z6_fZIO3c"        operation="average"   />
                       <field field_ref="B1_fR1B1c"        operation="average"   />
                       <field field_ref="B1_fR2B1c"        operation="average"   />
                       <field field_ref="B1_fR3B1c"        operation="average"   />
@@ -211,7 +209,6 @@
                       <field field_ref="B1_fB1R1c"        operation="average"   />
                       <field field_ref="B1_fB1R2c"        operation="average"   />
                       <field field_ref="B1_fB1R3c"        operation="average"   />
-                      <field field_ref="B1_fB1RPc"        operation="average"   />
                       <field field_ref="Z4_fZIO3c"        operation="average"   />
                       <field field_ref="Z4_fZIRPc"        operation="average"   />
                       <field field_ref="Z4_fZIRDc"        operation="average"   />
@@ -349,7 +346,8 @@
                       <field field_ref="ben_col_D2m"             operation="average" />
                       <field field_ref="ben_nit_G4n"             operation="average" />
                       <field field_ref="ben_nit_nrate"           operation="average" />
-                      <field field_ref="H1_fHG3c"                operation="average" />
+                      <field field_ref="benthic_denitrification_ammonification_result"           operation="average" />
+		      <field field_ref="H1_fHG3c"                operation="average" />
                       <field field_ref="H2_fHG3c"                operation="average" />
                       <field field_ref="Y2_c"                    operation="average" />
                       <field field_ref="Y3_c"                    operation="average" />
