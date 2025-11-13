@@ -7,59 +7,11 @@
 ============================================================================================================
     -->
     
-    <file_definition type="one_file" name="@expname@_@freq@_@startdate@_@enddate@" sync_freq="1h" min_digits="4">
+    <file_definition type="one_file" name="@expname@_@freq@_@startdate@_@enddate@" min_digits="4">
     
       <file_group id="1ts" output_freq="1ts"  output_level="10" enabled=".TRUE."/> <!-- 1 time step files -->
-
-<!--old      <file_group id="1h" output_freq="1h"  output_level="10" enabled=".TRUE."/> old --> <!-- 1h files --> 
-   <!-- TMB files -->
-      <file_group id="1h" output_freq="1h"  output_level="10" enabled=".TRUE."  >                      
-
-<!--   <file id="file9" name_suffix="_shelftmb_grid_T" description="ocean T grid variables" enabled=".TRUE." > -->
-      <!-- EOS80 -->
-
-   <file id="file9" name_suffix="_shelftmb_grid_T" description="ocean T grid variables" enabled=".TRUE." >
-     <field field_ref="ssh"         name="sossheig"       operation="instant" enabled=".TRUE." /> 
-      <field id="sst_pot"           name="votemper_top"  unit="degC"  />
-      <field id="sbt_pot"           name="votemper_bot"  unit="degC"  />
-      <field id="sss_pra"            name="vosaline_top"  unit="psu"   />
-      <field id="sbs_pra"            name="vosaline_bot"  unit="psu"   />
-   </file>
-
-   <file id="file10" name_suffix="_shelftmb_grid_U" description="TMB ocean U grid variables" enabled=".TRUE." >
-     <field field_ref="baro_u"        name="vobtcrtx"       operation="instant" />
-     <field field_ref="top_u"        name="vobtcrtx_top"       operation="instant" />
-     <field field_ref="bot_u"        name="vobtcrtx_bot"       operation="instant" />
-   </file>
-
-   <file id="file11" name_suffix="_shelftmb_grid_V" description="TMB ocean V grid variables" enabled=".TRUE." >
-     <field field_ref="baro_v"        name="vobtcrty"       operation="instant" />
-     <field field_ref="top_v"        name="vobtcrty_top"       operation="instant" />
-     <field field_ref="bot_v"        name="vobtcrty_bot"       operation="instant" />
-   </file>
-      </file_group>
-      <file_group id="25h_mean" output_freq="1d" output_level="10" enabled=".TRUE.">
-
-         <file id="file12" name_suffix="_25hourm_grid_T" description="ocean T grid variables, 25h meaned" enabled=".TRUE." >
-            <field field_ref="temper25h"   name="votemper"  operation="instant" enabled=".TRUE."/>
-            <field field_ref="salin25h"    name="vosaline"  operation="instant" enabled=".TRUE."/>
-            <field field_ref="ssh25h"      name="sossheig"  operation="instant" enabled=".TRUE."/>
-            <field field_ref="e3t"                           />
-
-        </file>
-        <file id="file13" name_suffix="_25hourm_grid_U" description="ocean U grid variables, 25h meaned" enabled=".TRUE." >
-           <field field_ref="vozocrtx25h" name="vozocrtx"  operation="instant" enabled=".TRUE."/>
-        </file>
-        <file id="file14" name_suffix="_25hourm_grid_V" description="ocean V grid variables, 25h meaned" enabled=".TRUE." >
-           <field field_ref="vomecrty25h" name="vomecrty"  operation="instant" enabled=".TRUE."/>
-        </file>
-<!--        <file id="file15" name="25hourm_grid_W" description="ocean W grid variables, 25h meaned" enabled=".TRUE." >
-           <field field_ref="vomecrtz25h"          name="vomerctz"  operation="instant" enabled=".TRUE."/>
-       </file>
--->
-    </file_group>
-
- 
+      <file_group id="1h" output_freq="1h"  output_level="10" enabled=".TRUE." />                      
+      <file_group id="25h_mean" output_freq="1d" output_level="10" enabled=".FALSE."/>
 
       <file_group id="2h" output_freq="2h"  output_level="10" enabled=".TRUE."/> <!-- 3h files -->     
       <file_group id="3h" output_freq="3h"  output_level="10" enabled=".TRUE."/> <!-- 3h files -->     
@@ -67,84 +19,354 @@
       <file_group id="6h" output_freq="6h"  output_level="10" enabled=".TRUE."/> <!-- 6h files -->
 
       
-      <file_group id="1d" output_freq="1d"  output_level="10" enabled=".TRUE."/> <!-- 3d files -->    
-      <file_group id="3d" output_freq="3d"  output_level="10" enabled=".TRUE."/> <!-- 3d files -->    
-      <file_group id="5d" output_freq="5d"  output_level="10" enabled=".TRUE.">  <!-- 5d files -->  
-        <file id="file59" name_suffix="_ptrc_T" description="tracer variables"  sync_freq="1d">
-          <field field_ref="N1_p" operation="average" />
-          <field field_ref="N3_n" operation="average" />
-          <field field_ref="N4_n" operation="average" />
-          <field field_ref="N5_s" operation="average" />
-          <field field_ref="O3_c" operation="average" />
-          <field field_ref="O3_TA" operation="average" />
-          <field field_ref="O3_pH" operation="average" />
-          <field field_ref="O3_pCO2" operation="average" />
-          <field field_ref="O3_Om_arg" operation="average" />
-          <field field_ref="O2_o" operation="average" />
-          <field field_ref="P1_Chl" operation="average" />
-          <field field_ref="P2_Chl" operation="average" />
-          <field field_ref="P3_Chl" operation="average" />
-          <field field_ref="P4_Chl" operation="average" />
-          <field field_ref="P1_c" operation="average" />
-          <field field_ref="P2_c" operation="average" />
-          <field field_ref="P3_c" operation="average" />
-          <field field_ref="P4_c" operation="average" />
-          <field field_ref="B1_c" operation="average" />
-          <field field_ref="Z4_c" operation="average" />
-          <field field_ref="Z5_c" operation="average" />
-          <field field_ref="Z6_c" operation="average" />
-          <field field_ref="R4_c" operation="average" />
-          <field field_ref="R6_c" operation="average" />
-          <field field_ref="R8_c" operation="average" />
-          <field field_ref="R1_c" operation="average" />
-          <field field_ref="R2_c" operation="average" />
-          <field field_ref="R3_c" operation="average" />
-          <field field_ref="L2_c" operation="average" />
-          <field field_ref="bL2_c"  operation="average" />
-          <field field_ref="Q1_c" operation="average" />
-          <field field_ref="Q6_c" operation="average" />
-          <field field_ref="Q7_c" operation="average" />
-          <field field_ref="Q17_c"  operation="average" />
-          <field field_ref="H1_c" operation="average" />
-          <field field_ref="H2_c" operation="average" />
-          <field field_ref="Y2_c" operation="average" />
-          <field field_ref="Y3_c" operation="average" />
-          <field field_ref="Y4_c" operation="average" />
-          <field field_ref="ben_col_D1m" operation="average" />
-          <field field_ref="ben_col_D2m" operation="average" />
-          <field field_ref="Q6_pen_depth_c" operation="average" />
-          <field field_ref="Q7_pen_depth_c" operation="average" />
-          <field field_ref="K1_p" operation="average" />
-          <field field_ref="K3_n" operation="average" />
-          <field field_ref="K4_n" operation="average" />
-          <field field_ref="K5_s" operation="average" />
-          <field field_ref="G2_o" operation="average" />
-          <field field_ref="G3_c" operation="average" />
-          <field field_ref="G3_c_pb_flux" operation="average" />
-          <field field_ref="K1_p_pb_flux" operation="average" />
-          <field field_ref="K3_n_pb_flux" operation="average" />
-          <field field_ref="K4_n_pb_flux" operation="average" />
-          <field field_ref="K5_s_pb_flux" operation="average" />
-          <field field_ref="G2_o_pb_flux" operation="average" />
-          <field field_ref="e3t"      operation="average" />
-          <field field_ref="light_xEPS" operation="average" />
-          <field field_ref="O3_wind" operation="average" />
-          <field field_ref="O3_fair" operation="average" />
-        </file>
+      <file_group id="shelftmb" output_freq="1d"  output_level="10" enabled=".TRUE."> <!-- 1d files -->  
 
+             <file id="file9" name_suffix="_tmb.grid_T" description="ocean T grid variables" enabled=".TRUE." >
+               <field field_ref="ssh"         name="sossheig"       operation="instant"/>
+                <field id="sst_pot"           name="votemper_top"   operation="instant" />
+                <field id="sbt_pot"           name="votemper_bot"   operation="instant" />
+                <field id="sss_pra"            name="vosaline_top"  operation="instant"  />
+                <field id="sbs_pra"            name="vosaline_bot"  operation="instant"  />
+             </file>
 
+             <file id="file10" name_suffix="_tmb.grid_U" description="TMB ocean U grid variables" enabled=".TRUE." >
+               <field field_ref="baro_u"        name="vobtcrtx"       operation="instant" />
+               <field field_ref="ssu"        name="vobtcrtx_top"       operation="instant" />
+               <field field_ref="sbu"        name="vobtcrtx_bot"       operation="instant" />
+             </file>
 
-        </file_group>
+             <file id="file11" name_suffix="_tmb.grid_V" description="TMB ocean V grid variables" enabled=".TRUE." >
+               <field field_ref="baro_v"        name="vobtcrty"       operation="instant" />
+               <field field_ref="ssv"        name="vobtcrty_top"       operation="instant" />
+               <field field_ref="sbv"        name="vobtcrty_bot"       operation="instant" />
+             </file>
+      </file_group>
+      <file_group id="mersea" output_freq="1d"  output_level="10" enabled=".TRUE.">
+	      <file id="file19" name_suffix=".grid_T" description="ocean T grid variables">
+                      <field field_ref="e3t"             name="e3t"      operation="average"   />
+                      <field field_ref="toce_pot"        name="votemper" operation="average"   />
+                      <field field_ref="soce_pra"        name="vosaline" operation="average"   />
+                      <field field_ref="ssh"             name="sossheig" operation="average"   />
+                      <field field_ref="mldr10_1"        name="mldr10_1" operation="average"   />
+		      <field field_ref="avt"        name="nutracer"      operation="average"   />
+		      <field field_ref="qsr"        operation="average"   />
+	      </file>
+
+              <file id="file20" name_suffix=".grid_U" description="ocean U grid variables" enabled=".TRUE.">
+                <field field_ref="uoce"      name="vozocrtx" operation="average"  />
+                <field field_ref="e3u"       name="e3u"      operation="average"  />
+              </file>
       
-      <file_group id="1m" output_freq="1mo" output_level="10" enabled=".TRUE."/> <!-- real monthly files -->
-      <file_group id="2m" output_freq="2mo" output_level="10" enabled=".TRUE."/> <!-- real 2m files -->
-      <file_group id="3m" output_freq="3mo" output_level="10" enabled=".TRUE."/> <!-- real 3m files -->
-      <file_group id="4m" output_freq="4mo" output_level="10" enabled=".TRUE."/> <!-- real 4m files -->
-      <file_group id="6m" output_freq="6mo" output_level="10" enabled=".TRUE."/> <!-- real 6m files -->
+              <file id="file21" name_suffix=".grid_V" description="ocean V grid variables" enabled=".TRUE.">
+                <field field_ref="voce"      name="vomecrty" operation="average"/>
+                <field field_ref="e3v"       name="e3v"      operation="average"/>
+              </file>
+      
+              <file id="file22" name_suffix=".grid_W" description="ocean W grid variables" enabled=".TRUE.">
+                <field field_ref="woce"      name="vovecrtz" operation="average"/>
+              </file>
 
-      <file_group id="1y"  output_freq="1y" output_level="10" enabled=".TRUE."/> <!-- real yearly files -->
-      <file_group id="2y"  output_freq="2y" output_level="10" enabled=".TRUE."/> <!-- real 2y files -->
-      <file_group id="5y"  output_freq="5y" output_level="10" enabled=".TRUE."/> <!-- real 5y files -->
-      <file_group id="10y" output_freq="10y" output_level="10" enabled=".TRUE."/> <!-- real 10y files -->
+
+	      <file id="file25" name_suffix=".inorg_T" description="ocean inorganic T grid variables" enabled=".TRUE.">
+		      <field field_ref="N1_p" operation="average" />
+                      <field field_ref="N3_n" operation="average" />
+                      <field field_ref="N4_n" operation="average" />
+                      <field field_ref="N5_s" operation="average" />
+                      <field field_ref="O3_c" operation="average" />
+                      <field field_ref="O3_TA" operation="average" />
+                      <field field_ref="O3_pH" operation="average" />
+                      <field field_ref="O3_pCO2" operation="average" />
+                      <field field_ref="O3_Om_arg" operation="average" />
+                      <field field_ref="O2_o" operation="average" />
+		      <field field_ref="L2_c" operation="average" />
+		      <field field_ref="L2_L2O3c" operation="average" />
+                      <field field_ref="light_xEPS" operation="average" />
+                      <field field_ref="light_secchi" operation="average" />
+                      <field field_ref="light_parEIR" operation="average" />
+                      <field field_ref="light_ADY" operation="average" />
+                      <field field_ref="O3_wind" operation="average" />
+		      <field field_ref="O3_fair" operation="average" />
+                      <field field_ref="e3t"      operation="average" />
+                </file>
+	      <file id="file26" name_suffix=".org_T" description="ocean organic T grid variables" enabled=".TRUE." >
+		      <field field_ref="P1_Chl" operation="average" />
+                      <field field_ref="P2_Chl" operation="average" />
+                      <field field_ref="P3_Chl" operation="average" />
+                      <field field_ref="P4_Chl" operation="average" />
+                      <field field_ref="P1_c" operation="average" />
+                      <field field_ref="P2_c" operation="average" />
+                      <field field_ref="P3_c" operation="average" />
+                      <field field_ref="P4_c" operation="average" />
+                      <field field_ref="P1_netPI" operation="average" />
+                      <field field_ref="P2_netPI" operation="average" />
+                      <field field_ref="P3_netPI" operation="average" />
+                      <field field_ref="P4_netPI" operation="average" />
+                      <field field_ref="P1_fPIO3c" operation="average" />
+                      <field field_ref="P2_fPIO3c" operation="average" />
+                      <field field_ref="P3_fPIO3c" operation="average" />
+                      <field field_ref="P4_fPIO3c" operation="average" />
+                      <field field_ref="B1_c" operation="average" />
+                      <field field_ref="Z4_c" operation="average" />
+                      <field field_ref="Z4_fprey5c" operation="average" />
+                      <field field_ref="Z5_c" operation="average" />
+                      <field field_ref="Z6_c" operation="average" />
+                      <field field_ref="R4_c" operation="average" />
+                      <field field_ref="R6_c" operation="average" />
+                      <field field_ref="R8_c" operation="average" />
+                      <field field_ref="R1_c" operation="average" />
+                      <field field_ref="R2_c" operation="average" />
+		      <field field_ref="R3_c" operation="average" />
+		</file>
+
+	      <file id="file27" name_suffix=".benthos_T" description="benthic T grid variables" enabled=".TRUE." >
+                      <field field_ref="bL2_c"  operation="average" />
+                      <field field_ref="bL2_dissolution"  operation="average" />
+                      <field field_ref="Q1_c" operation="average" />
+                      <field field_ref="Q1_n" operation="average" />
+                      <field field_ref="Q1_p" operation="average" />
+                      <field field_ref="Q6_c" operation="average" />
+                      <field field_ref="Q6_n" operation="average" />
+                      <field field_ref="Q6_p" operation="average" />
+                      <field field_ref="Q6_s" operation="average" />
+                      <field field_ref="Q7_c" operation="average" />
+                      <field field_ref="Q7_n" operation="average" />
+                      <field field_ref="Q7_p" operation="average" />
+                      <field field_ref="Q17_c"  operation="average" />
+                      <field field_ref="Q17_n"  operation="average" />
+                      <field field_ref="Q17_p"  operation="average" />
+                      <field field_ref="H1_c" operation="average" />
+                      <field field_ref="H2_c" operation="average" />
+                      <field field_ref="Y2_c" operation="average" />
+                      <field field_ref="Y3_c" operation="average" />
+                      <field field_ref="Y4_c" operation="average" />
+                      <field field_ref="ben_col_D1m" operation="average" />
+                      <field field_ref="ben_col_D2m" operation="average" />
+                      <field field_ref="Q6_pen_depth_c" operation="average" />
+                      <field field_ref="Q7_pen_depth_c" operation="average" />
+                      <field field_ref="K1_p" operation="average" />
+                      <field field_ref="K3_n" operation="average" />
+                      <field field_ref="K4_n" operation="average" />
+                      <field field_ref="K5_s" operation="average" />
+                      <field field_ref="G2_o" operation="average" />
+                      <field field_ref="G2_o_deep" operation="average" />
+                      <field field_ref="G3_c" operation="average" />
+                      <field field_ref="G3_c_pb_flux" operation="average" />
+                      <field field_ref="K1_p_pb_flux" operation="average" />
+                      <field field_ref="K3_n_pb_flux" operation="average" />
+                      <field field_ref="K4_n_pb_flux" operation="average" />
+                      <field field_ref="K5_s_pb_flux" operation="average" />
+                      <field field_ref="G2_o_pb_flux" operation="average" />
+		      <field field_ref="net_PelBen_POC_result" operation="average" />
+	   </file>
+      </file_group>
+      <file_group id="3d" output_freq="3d"  output_level="10" enabled=".FALSE."/> <!-- 3d files -->    
+      <file_group id="5d" output_freq="5d"  output_level="10" enabled=".FALSE."/>  <!-- 5d files -->  
+      
+      <file_group id="1m" output_freq="1mo" output_level="10" enabled=".TRUE.">
+	     <file id="file31" name_suffix=".grid_T" description="ocean T grid variables" >
+                      <field field_ref="e3t"                 name="e3t"      operation="average"  />
+                      <field field_ref="toce_pot"            name="votemper" operation="average"  />
+		      <field field_ref="soce_pra"            name="vosaline" operation="average"  />
+             </file>
+	     <file id="file32" name_suffix=".inorg_T" description="ocean T grid variables" enabled=".TRUE." >
+                      <field field_ref="N1_p"              operation="average"  />
+                      <field field_ref="N3_n"              operation="average"  />
+                      <field field_ref="N5_s"              operation="average"  />
+                      <field field_ref="N4_n"              operation="average"  />
+                      <field field_ref="O3_TA"             operation="average"  />
+                      <field field_ref="O3_c"              operation="average"  />
+                      <field field_ref="O3_pCO2"           operation="average"  />
+		      <field field_ref="O3_pH"             operation="average"  />
+                      <field field_ref="O3_Om_arg"         operation="average"  />
+                      <field field_ref="pel_nit_fN4N3n"    operation="average"  />
+		      <field field_ref="O2_o"              operation="average"  />
+		      <field field_ref="gross_calcification_rate" operation="average"/>
+            </file>
+
+	    <file id="file33" name_suffix=".org_T" description="ocean T grid variables" enabled=".TRUE." >
+                      <field field_ref="P1_c"             operation="average"   />
+                      <field field_ref="P2_c"             operation="average"   />
+                      <field field_ref="P3_c"             operation="average"   />
+                      <field field_ref="P4_c"             operation="average"   />
+                      <field field_ref="B1_c"             operation="average"   />
+                      <field field_ref="Z4_c"             operation="average"   />
+                      <field field_ref="Z5_c"             operation="average"   />
+                      <field field_ref="Z6_c"             operation="average"   />
+                      <field field_ref="R1_c"             operation="average"   />
+                      <field field_ref="R2_c"             operation="average"   />
+                      <field field_ref="R3_c"             operation="average"   />
+                      <field field_ref="R4_c"             operation="average"   />
+                      <field field_ref="R6_c"             operation="average"   />
+                      <field field_ref="R8_c"             operation="average"   />
+                      <field field_ref="P1_fPIO3c"        operation="average"   />
+                      <field field_ref="P2_fPIO3c"        operation="average"   />
+                      <field field_ref="P3_fPIO3c"        operation="average"   />
+                      <field field_ref="P4_fPIO3c"        operation="average"   />
+                      <field field_ref="Z5_fZIO3c"        operation="average"   />
+                      <field field_ref="Z6_fZIO3c"        operation="average"   />
+                      <field field_ref="B1_fR1B1c"        operation="average"   />
+                      <field field_ref="B1_fR2B1c"        operation="average"   />
+                      <field field_ref="B1_fR3B1c"        operation="average"   />
+                      <field field_ref="B1_fRPB1c"        operation="average"   />
+                      <field field_ref="B1_fB1R1c"        operation="average"   />
+                      <field field_ref="B1_fB1R2c"        operation="average"   />
+                      <field field_ref="B1_fB1R3c"        operation="average"   />
+                      <field field_ref="B1_fB1RPc"        operation="average"   />
+                      <field field_ref="Z4_fZIO3c"        operation="average"   />
+                      <field field_ref="Z4_fZIRPc"        operation="average"   />
+                      <field field_ref="Z4_fZIRDc"        operation="average"   />
+                      <field field_ref="Z4_fprey1c"       operation="average"   />
+                      <field field_ref="Z4_fprey2c"       operation="average"   />
+                      <field field_ref="Z4_fprey3c"       operation="average"   />
+                      <field field_ref="Z4_fprey4c"       operation="average"   />
+                      <field field_ref="Z4_fprey5c"       operation="average"   />
+                      <field field_ref="Z4_fprey6c"       operation="average"   />
+                      <field field_ref="Z4_fprey7c"       operation="average"   />
+                      <field field_ref="Z4_fprey8c"       operation="average"   />
+                      <field field_ref="Z4_fprey9c"       operation="average"   />
+                      <field field_ref="Z5_fZIO3c"        operation="average"   />
+                      <field field_ref="Z5_fZIRPc"        operation="average"   />
+                      <field field_ref="Z5_fZIRDc"        operation="average"   />
+                      <field field_ref="Z5_fprey1c"       operation="average"   />
+                      <field field_ref="Z5_fprey2c"       operation="average"   />
+                      <field field_ref="Z5_fprey3c"       operation="average"   />
+                      <field field_ref="Z5_fprey4c"       operation="average"   />
+                      <field field_ref="Z5_fprey5c"       operation="average"   />
+                      <field field_ref="Z5_fprey6c"       operation="average"   />
+                      <field field_ref="Z5_fprey7c"       operation="average"   />
+                      <field field_ref="Z6_fZIO3c"        operation="average"   />
+                      <field field_ref="Z6_fZIRPc"        operation="average"   />
+                      <field field_ref="Z6_fZIRDc"        operation="average"   />
+                      <field field_ref="Z6_fprey1c"       operation="average"   />
+                      <field field_ref="Z6_fprey2c"       operation="average"   />
+                      <field field_ref="Z6_fprey3c"       operation="average"   />
+                      <field field_ref="Z6_fprey4c"       operation="average"   />
+                      <field field_ref="P1_fO3PIc"        operation="average"   />
+                      <field field_ref="P1_fO3PIc"        operation="average"   />
+                      <field field_ref="P2_fO3PIc"        operation="average"   />
+                      <field field_ref="P3_fO3PIc"        operation="average"   />
+                      <field field_ref="P4_fO3PIc"        operation="average"   />
+                      <field field_ref="P1_fPIR2c"        operation="average"   />
+                      <field field_ref="P2_fPIR2c"        operation="average"   />
+                      <field field_ref="P3_fPIR2c"        operation="average"   />
+                      <field field_ref="P4_fPIR2c"        operation="average"   />
+                      <field field_ref="P1_fPIR1c"        operation="average"   />
+                      <field field_ref="P2_fPIR1c"        operation="average"   />
+                      <field field_ref="P3_fPIR1c"        operation="average"   />
+                      <field field_ref="P4_fPIR1c"        operation="average"   />
+                      <field field_ref="P1_fPIRPc"        operation="average"   />
+                      <field field_ref="P2_fPIRPc"        operation="average"   />
+                      <field field_ref="P3_fPIRPc"        operation="average"   />
+                      <field field_ref="P4_fPIRPc"        operation="average"   />
+                      <field field_ref="P1_netPI"         operation="average"   />
+                      <field field_ref="P2_netPI"         operation="average"   />
+                      <field field_ref="P3_netPI"         operation="average"   />
+                      <field field_ref="P4_netPI"         operation="average"   />
+            </file>
+	    <file id="file34" name_suffix=".benthos_T" description="ocean T grid variables" enabled=".TRUE." >
+		      <field field_ref="K1_p"             operation="average"   />
+                      <field field_ref="K3_n"             operation="average"   />
+                      <field field_ref="K4_n"             operation="average"   />
+                      <field field_ref="K5_s"             operation="average"   />
+                      <field field_ref="G2_o"             operation="average"   />
+                      <field field_ref="H1_c"             operation="average"   />
+                      <field field_ref="H2_c"             operation="average"   />
+                      <field field_ref="Y2_fYG3c"         operation="average"   />
+                      <field field_ref="Y3_fYG3c"         operation="average"   />
+                      <field field_ref="Y4_fYG3c"         operation="average"   />
+                      <field field_ref="Y2_fprey1c"       operation="average"   />
+                      <field field_ref="Y2_fprey2c"       operation="average"   />
+                      <field field_ref="Y2_fprey3c"       operation="average"   />
+                      <field field_ref="Y2_fprey4c"       operation="average"   />
+                      <field field_ref="Y3_fprey1c"       operation="average"   />
+                      <field field_ref="Y3_fprey2c"       operation="average"   />
+                      <field field_ref="Y3_fprey3c"       operation="average"   />
+                      <field field_ref="Y3_fprey4c"       operation="average"   />
+                      <field field_ref="Y3_fprey5c"       operation="average"   />
+                      <field field_ref="Y3_fprey6c"       operation="average"   />
+                      <field field_ref="R4_dep1c"         operation="average"   />
+                      <field field_ref="R4_dep2c"         operation="average"   />
+                      <field field_ref="R4_dep1n"         operation="average"   />
+                      <field field_ref="R4_dep2n"         operation="average"   />
+                      <field field_ref="R4_dep1p"         operation="average"   />
+                      <field field_ref="R4_dep2p"         operation="average"   />
+                      <field field_ref="R6_dep1c"         operation="average"   />
+                      <field field_ref="R6_dep2c"         operation="average"   />
+                      <field field_ref="R6_dep1n"         operation="average"   />
+                      <field field_ref="R6_dep2n"         operation="average"   />
+                      <field field_ref="R6_dep1p"         operation="average"   />
+                      <field field_ref="R6_dep2p"         operation="average"   />
+                      <field field_ref="R6_dep1s"         operation="average"   />
+                      <field field_ref="R8_dep1c"         operation="average"   />
+                      <field field_ref="R8_dep2c"         operation="average"   />
+                      <field field_ref="R8_dep1n"         operation="average"   />
+                      <field field_ref="R8_dep2n"         operation="average"   />
+                      <field field_ref="R8_dep1p"         operation="average"   />
+                      <field field_ref="R8_dep2p"         operation="average"   />
+                      <field field_ref="R8_dep1s"         operation="average"   />
+                      <field field_ref="P1_dep1c"         operation="average"   />
+                      <field field_ref="P1_dep2c"         operation="average"   />
+                      <field field_ref="P1_dep3c"         operation="average"   />
+                      <field field_ref="P1_dep1n"         operation="average"   />
+                      <field field_ref="P1_dep2n"         operation="average"   />
+                      <field field_ref="P1_dep3n"         operation="average"   />
+                      <field field_ref="P1_dep1p"         operation="average"   />
+                      <field field_ref="P1_dep2p"         operation="average"   />
+                      <field field_ref="P1_dep3p"         operation="average"   />
+                      <field field_ref="P1_dep1s"         operation="average"   />
+                      <field field_ref="P2_dep1c"         operation="average"   />
+                      <field field_ref="P2_dep2c"         operation="average"   />
+                      <field field_ref="P2_dep3c"         operation="average"   />
+                      <field field_ref="P2_dep1n"         operation="average"   />
+                      <field field_ref="P2_dep2n"         operation="average"   />
+                      <field field_ref="P2_dep3n"         operation="average"   />
+                      <field field_ref="P2_dep1p"         operation="average"   />
+                      <field field_ref="P2_dep2p"         operation="average"   />
+                      <field field_ref="P2_dep3p"         operation="average"   />
+                      <field field_ref="P3_dep1c"         operation="average"   />
+                      <field field_ref="P3_dep2c"         operation="average"   />
+                      <field field_ref="P3_dep3c"         operation="average"   />
+                      <field field_ref="P3_dep1n"         operation="average"   />
+                      <field field_ref="P3_dep2n"         operation="average"   />
+                      <field field_ref="P3_dep3n"         operation="average"   />
+                      <field field_ref="P3_dep1p"         operation="average"   />
+                      <field field_ref="P3_dep2p"         operation="average"   />
+                      <field field_ref="P3_dep3p"         operation="average"   />
+                      <field field_ref="P4_dep1c"         operation="average"   />
+                      <field field_ref="P4_dep2c"         operation="average"   />
+                      <field field_ref="P4_dep3c"         operation="average"   />
+                      <field field_ref="P4_dep1n"         operation="average"   />
+                      <field field_ref="P4_dep2n"         operation="average"   />
+                      <field field_ref="P4_dep3n"         operation="average"   />
+                      <field field_ref="P4_dep1p"         operation="average"   />
+                      <field field_ref="P4_dep2p"         operation="average"   />
+                      <field field_ref="P4_dep3p"         operation="average"   />
+                      <field field_ref="Q6_resuspension_flux_c"  operation="average" />
+                      <field field_ref="Q6_resuspension_flux_p"  operation="average" />
+                      <field field_ref="Q6_resuspension_flux_n"  operation="average" />
+                      <field field_ref="Q6_resuspension_flux_s"  operation="average" />
+                      <field field_ref="ben_col_D1m"             operation="average" />
+                      <field field_ref="ben_col_D2m"             operation="average" />
+                      <field field_ref="ben_nit_G4n"             operation="average" />
+                      <field field_ref="ben_nit_nrate"           operation="average" />
+                      <field field_ref="H1_fHG3c"                operation="average" />
+                      <field field_ref="H2_fHG3c"                operation="average" />
+                      <field field_ref="Y2_c"                    operation="average" />
+                      <field field_ref="Y3_c"                    operation="average" />
+                      <field field_ref="Y4_c"                    operation="average" />
+                      <field field_ref="net_PelBen_POC_result"   operation="average" />
+      </file>
+      </file_group>
+
+	      /> <!-- real monthly files -->
+      <file_group id="2m" output_freq="2mo" output_level="10" enabled=".FALSE."/> <!-- real 2m files -->
+      <file_group id="3m" output_freq="3mo" output_level="10" enabled=".FALSE."/> <!-- real 3m files -->
+      <file_group id="4m" output_freq="4mo" output_level="10" enabled=".FALSE."/> <!-- real 4m files -->
+      <file_group id="6m" output_freq="6mo" output_level="10" enabled=".FALSE."/> <!-- real 6m files -->
+
+      <file_group id="1y"  output_freq="1y" output_level="10" enabled=".FALSE."/> <!-- real yearly files -->
+      <file_group id="2y"  output_freq="2y" output_level="10" enabled=".FALSE."/> <!-- real 2y files -->
+      <file_group id="5y"  output_freq="5y" output_level="10" enabled=".FALSE."/> <!-- real 5y files -->
+      <file_group id="10y" output_freq="10y" output_level="10" enabled=".FALSE."/> <!-- real 10y files -->
 
    </file_definition>
