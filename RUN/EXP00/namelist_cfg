@@ -415,13 +415,13 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   bn_ssh      =  'amm7_bdyT_<MODEL>_<SCENARIO>_bdyT' ,  24   , 'sossheig',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
-!   bn_u2d      = 'amm7_bdyU_<MODEL>_<SCENARIO>_bdyU' ,  24   , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
-!   bn_v2d      = 'amm7_bdyV_<MODEL>_<SCENARIO>_bdyV' ,  24   , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
-   bn_u3d      =  'amm7_bdyU_<MODEL>_<SCENARIO>_bdyU' ,  24   , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
-   bn_v3d      =  'amm7_bdyV_<MODEL>_<SCENARIO>_bdyV' ,  24   , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
-   bn_tem      =  'amm7_bdyT_<MODEL>_<SCENARIO>_bdyT' ,  24   , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
-   bn_sal      =  'amm7_bdyT_<MODEL>_<SCENARIO>_bdyT' ,  24   , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_ssh      =  'amm7_bdyT_<MODEL>_<SCENARIO>' ,  24   , 'sossheig',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+!   bn_u2d      = 'amm7_bdyU_<MODEL>_<SCENARIO>' ,  24   , 'vobtcrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+!   bn_v2d      = 'amm7_bdyV_<MODEL>_<SCENARIO>' ,  24   , 'vobtcrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_u3d      =  'amm7_bdyU_<MODEL>_<SCENARIO>' ,  24   , 'vozocrtx',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_v3d      =  'amm7_bdyV_<MODEL>_<SCENARIO>' ,  24   , 'vomecrty',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_tem      =  'amm7_bdyT_<MODEL>_<SCENARIO>' ,  24   , 'votemper',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
+   bn_sal      =  'amm7_bdyT_<MODEL>_<SCENARIO>' ,  24   , 'vosaline',    .true.   , .false. ,  'monthly'  ,    ''    ,   ''   ,  ''
 /
 !-----------------------------------------------------------------------
 &nambdy_dta    !  open boundaries - external data                       
