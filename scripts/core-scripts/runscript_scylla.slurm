@@ -14,6 +14,9 @@ export OMP_NUM_THREADS=1
 source config.sh
 
 # Check if year and month provided
+if [ -f $SCRIPTS_DIR/current_date ]; then
+   source $SCRIPTS_DIR/current_date
+fi
 if [ -z $year ]; then
    export year=$START_YEAR
 fi
@@ -52,8 +55,8 @@ else
     else
         if [ $CLEAN_RESTART = true ] ; then
             echo 'Cleaning all restarts except January for '$year
-            cd $SCRIPTS_DIR
-#            sbatch --export=year=$year -A $account $CYCLE_DIR/clean_restarts.slurm
+            rm -f $RUN_DIR/restarts/${NAME}_${year}0[2-9]*.nc
+            rm -f $RUN_DIR/restarts/${NAME}_${year}1*.nc
         fi
         month=1
         year=$(($year + 1))
@@ -71,8 +74,10 @@ fi
 if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
     echo "Submitting $year $month at $(date +'%F %T')"
     cd $SCRIPTS_DIR
-    export year=$year
-    export month=$month
+cat > $SCRIPTS_DIR/current_date <<EOF
+export year=$year
+export month=$month
+EOF
     sbatch $SCRIPTS_DIR/runscript.slurm
     echo "Done."
 elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then

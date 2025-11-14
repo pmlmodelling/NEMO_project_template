@@ -155,7 +155,6 @@
    sn_trcobc_dta(4) = 'amm7_bdytrc' ,    -1     , 'N3_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(6) = 'amm7_bdytrc' ,    -1     , 'N5_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(7) = 'amm7_bdytrc' ,    -1     , 'O2_o' , .true.    , .true. , 'yearly'       , ''       , ''       ,   ''
-
    sn_trcobc_dta(8) = 'amm7_bdytrc' ,    -1     , 'O3_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(9) = 'amm7_bdytrc' ,    -1     , 'O3_TA' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(13) = 'amm7_bdytrc' ,    -1     , 'R2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
@@ -254,7 +253,6 @@
    sn_trcobc_dta(4) = 'amm7_skagbdytrc' ,    -1     , 'N3_n' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(6) = 'amm7_skagbdytrc' ,    -1     , 'N5_s' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(7) = 'amm7_skagbdytrc' ,    -1     , 'O2_o' , .true.    , .true. , 'yearly'       , ''       , ''       ,   ''
-
    sn_trcobc_dta(8) = 'amm7_skagbdytrc' ,    -1     , 'O3_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(9) = 'amm7_skagbdytrc' ,    -1     , 'O3_TA' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
    sn_trcobc_dta(13) = 'amm7_skagbdytrc' ,    -1     , 'R2_c' ,   .true.     , .true. , 'yearly'  , ''       , ''       ,   ''
