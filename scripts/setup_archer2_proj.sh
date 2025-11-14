@@ -12,7 +12,7 @@ then
 fi
 if [[ $SCENARIO == '' ]]
 then
-	echo 'WARNING no scenaio has been specified, setting to historical'
+	echo 'WARNING no scenario has been specified, setting to historical'
 	MODEL='historical'
 fi
 
