@@ -72,7 +72,7 @@ do
         month=1
         year=$(($year + 1))
         if [ $year -gt $END_YEAR ]; then break; fi
-        $SCRIPTS_DIR/core-scripts/setup_year.sh $year
+        $SCRIPTS_DIR/core-scripts/setup_year.proj.sh $year
     fi
 done
 
