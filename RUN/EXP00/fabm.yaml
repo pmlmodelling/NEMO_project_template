@@ -9,7 +9,7 @@ instances:
        w_min: 1e-3             # egg mass
        w_inf: 1e6              # asymptotic mass
        nclass: 100             # number of size classes
-       nprey: 7                # number of prey (pelagic and benthic)
+       nprey: 10                # number of prey (pelagic and benthic)
        w_prey1_min: 4.188e-9   # P1; min ESD = 20 um
        w_prey1_max: 4.188e-6   # P1; max ESD = 200 um
        w_prey2_min: 4.188e-12  # P2; min ESD = 2 um
@@ -24,10 +24,12 @@ instances:
        w_prey6_max: 4.188e-6   # Z5; max ESD = 200 um
        w_prey7_min: 4.188e-12  # Z6; min ESD = 2 um
        w_prey7_max: 4.188e-9   # Z6; max ESD = 20 um
-       #w_prey8_min: 1e-3       # Y3
-       #w_prey8_max: 1e2        # Y3
-       #w_prey9_min: 1e-9       # Y4
-       #w_prey9_max: 1e-3       # Y4       
+       w_prey8_min: 1e-3       # Y3
+       w_prey8_max: 1e2        # Y3
+       w_prey9_min: 1e-9       # Y4
+       w_prey9_max: 1e-3       # Y4              
+       w_prey10_min: 1e-3      # Y2
+       w_prey10_max: 1e2       # Y2
        T_dependence: 1                # Pre-factor for temperature dependence
        T_ref: 13.                     # Reference temperature deg C
        E_a: 0.63                      # Activation energy Blanchard et al 2012: 0.63
@@ -35,7 +37,7 @@ instances:
        sigma: 2.3025                  # Blanchard et al 2009; 2012: 1 in log10 units, here converted to ln units
        gamma: 91.32                   # Blanchard et al 2009 640 m3/yr; Blanchard et al 2012: 64 ?UNITS? [times kappa=0.5 for time spent in pelagic]; Faking giants paper gives 10^14.076 * W^0.926 * exp(-Ea/(kT) L d-1, which is 428 L d-1 = 156 m3 yr-1
        q: 0.776                       # Blanchard et al 2009; 2012: 0.82; Acuna et al 2011: 0.926
-       gammaB: 9.1                    # pre-factor for demersal fish volumetric search rate 
+       gammaB: 1                    # pre-factor for demersal fish volumetric search rate 
        alpha: 0.2                     # assimilation efficiency
        alpha_eg: 0.3                  # fraction of food egested
        z0_type: 1                     # type of background mortality (0: constant, 1: allometric function of size)
@@ -46,13 +48,13 @@ instances:
        z_spre: 0.2                    # pre-factor for senescence mortality (= mortality at w_s g)
        ks: 0                          # pre-factor for standard metabolism
        #p: 0.785                      # exponent of standard metabolism
-       #n: 0.6666                     # exponent of max. consumption (default 2/3)
+       n: 0.75 #6666                     # exponent of max. consumption (default 2/3)
        SRR: 3                         # stock-recruitment relationship (0: constant recruitment, 1: density-independent recruitment, 2: Beverton-Holt)
        R_relax: 5                     # relaxation towards expected egg density
-       h: 1e9 #1000 #30 #100
+       h: 111
        # kappa: 0.1                   # carrying capacity of background resource spectrum
        # lambda: 2.05                 # exponent of background resource spectrum default=2+q-n
-       fishing_type:  1               # fishing regime 0: none, 1: constant/knife-edge, 2: logistic 3: linear
+       fishing_type: 1               # fishing regime 0: none, 1: constant/knife-edge, 2: logistic 3: linear
        w_minF: 80                     # minimum mass affected by fishing # Blanchard et al 2009 J Anim Ecol: 10 g
        #F: 0.8                        # fishing type 1 or 2: fishing effort
        spatial_fishing: true          # whether fishing varies spatially
@@ -60,13 +62,13 @@ instances:
        emergent_omega: true
        omega_size: true               # logical for use of size dependant omega
        omega_threshold: 0.5           # threshold for when fish above this (g wet mass) will spend time in benthos
-       #omega: 0.7
-       nbenprey: 0 #2                 # number of benthic prey
-       #prey8isben: true              # is prey 8 benthic
-       #prey9isben: true              # is prey 9 benthic
+       nbenprey: 3                 # number of benthic prey
+       prey8isben: true              # is prey 8 benthic
+       prey9isben: true              # is prey 9 benthic       
+       prey10isben: true             # is prey 10 benthic       
        #F_a: 0.09                     # only for fishing type 3: scale factor for fishing mortality as function of log10 mass
        #F_b: 0.04                     # only for fishing type 3: offset for fishing mortality as function of log10 mass
-       #resp_o2C: 0                   # oxygen used per carbon respired (mol:mol,constant)
+       xi: 1
     initialization:      
       c1: 0.2804092059588942   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00111 g
       c2: 1.8113182703511093   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00136 g
@@ -177,18 +179,19 @@ instances:
        prey5: Z4
        prey6: Z5
        prey7: Z6
-       # prey8: Y3
-       # prey9: Y4
+       prey8: Y3
+       prey9: Y4
+       prey10: Y2
        egested_matter: R8
        respired_carbon: O3
        oxygen_consumed: O2
        excreted_nitrogen: N4
        excreted_phosphorus: N1
-       bendiscards: R8
-       Benthic_excreted_nitrogen: N4
-       Benthic_excreted_phosphorus: N1
-       Benthic_respired_carbon: O3
-       Benthic_oxygen_consumed: O2
+       ben_egested_matter: R8
+       ben_excreted_nitrogen: N4
+       ben_excreted_phosphorus: N1
+       ben_respired_carbon: O3
+       ben_oxygen_consumed: O2
        #total_alk_change: O3
   light:
     model: spectral/spectral
@@ -787,14 +790,14 @@ instances:
       pu_eaR: 0.9                                          # fraction of unassimilated detritus that is excreted (not respired) (-)
       pe_R1: 0.5                                           # dissolved fraction of excreted/dying matter (-)
       srs: 0.015                                           # specific rest respiration at reference temperature (1/d)
-      sd: 0 #0.05                                             # basal mortality (1/d)
+      sd: 0.005                                             # basal mortality (1/d)
       sdo: 0.2                                             # maximum mortality due to oxygen limitation (1/d)
       chro: 7.81                                           # Michaelis-Menten constant for oxygen limitation (-)
       qpc: 0.000786                                        # phosphorus to carbon ratio (mmol P/mg C)
       qnc: 0.0126                                          # nitrogen to carbon ratio (mmol N/mg C)
       Minprey: 300.0                                       # food threshold for overwintering state (mg C/m^2)
       repw: 0.0025                                         # specific overwintering respiration (1/d)
-      mort: 0 #0.0025                                         # specific overwintering mortality (1/d)
+      mort: 0.0025                                         # specific overwintering mortality (1/d)
       R1R2: 1.0                                            # labile fraction of produced dissolved organic carbon (-)
       xR1p: 1.2                                            # transfer of phosphorus to DOM, relative to POM (-), default = 0.0
       xR1n: 1.0                                            # transfer of nitrogen to DOM, relative to POM (-), default = 0.0
@@ -1248,7 +1251,7 @@ instances:
       xcl: 2500.0                                          # abundance above which crowding reduces food uptake (mg C/m^2)
       xcs: 3000.0                                          # Michaelis-Menten constant for the impact of crowding (mg C/m^2)
       xch: 5000.0                                          # abundance determining asymptotic threshold of crowding limitation (-> xch/(Yc+xch) for Yc-> inf) (mg C/m^2)
-      su: 0.11                                             # specific maximum uptake at reference temperature (1/d)
+      su: 0.4                                             # specific maximum uptake at reference temperature (1/d)
       lu: 250.0                                            # Michaelis-Menten constant for food preference as function of food concentration (mg C/m^2)
       hu: 3000.0                                           # Michaelis-Menten constant for gross carbon uptake (mg C/m^2)
       pue: 0.35                                            # fraction of carbon in consumed live food that goes to faeces (-)
@@ -1330,35 +1333,40 @@ instances:
       xcl: 2500.0                                          # abundance above which crowding reduces food uptake (mg C/m^2)
       xcs: 3000.0                                          # Michaelis-Menten constant for the impact of crowding (mg C/m^2)
       xch: 5000.0                                          # abundance determining asymptotic threshold of crowding limitation (-> xch/(Yc+xch) for Yc-> inf) (mg C/m^2)
-      su: 0.09                                             # specific maximum uptake at reference temperature (1/d)
+      su: 0.09                                              # specific maximum uptake at reference temperature (1/d)
       lu: 10.0                                             # Michaelis-Menten constant for food preference as function of food concentration (mg C/m^2)
       hu: 300.0                                            # Michaelis-Menten constant for gross carbon uptake (mg C/m^2)
       pue: 0.35                                            # fraction of carbon in consumed live food that goes to faeces (-)
       pueQ: 0.85                                           # fraction of carbon in consumed detritus that goes to faeces (-)
       pudil: 0.8                                           # relative nutrient content of faeces (-)
-      sd: 0.001                                            # specific mortality at reference temperature (1/d)
+      sd: 0.005                                            # specific mortality at reference temperature (1/d)
       sdmO2: 1.0                                           # specific maximum additional mortality due to oxygen stress (1/d)
       sdc: 0.022                                           # specific maximum additional mortality induced by cold temperature (1/d)
       xdc: -0.7                                            # e-folding temperature factor of cold mortality response (1/degree_C)
       sr: 0.0027                                           # specific rest respiration at reference temperature (1/d)
       pur: 0.4                                             # fraction of assimilated food that is respired (-)
-      nfood: 6                                             # number of food sources, default = 0
+      nfood: 9                                             # number of food sources, default = 9 
       food1ispel: true                                     # food source 1 is pelagic, default = false
       food2ispel: true                                     # food source 2 is pelagic, default = false
       food3ispel: true                                     # food source 3 is pelagic, default = false
-      food4ispel: true                                     # food source 4 is pelagic, default = false
-        #  food7ispel: true                                     # food source 4 is pelagic, default = false
-      food5_ll: true                                       # availability of food source 5 is limited by aerobic layer height, default = false
+      food4ispel: true                                     # food source 4 is pelagic, default = false      
+      food5ispel: true                                     # food source 5 is pelagic, default = false
+      food6ispel: true                                     # food source 6 is pelagic, default = false
+      food7ispel: true                                     # food source 7 is pelagic, default = false
+      food8_ll: true                                       # availability of food source 5 is limited by aerobic layer height, default = false
       pufood1: 1.0                                         # preference for food source 1 (-)
       pufood2: 1.0                                         # preference for food source 2 (-)
       pufood3: 1.0                                         # preference for food source 3 (-)
       pufood4: 1.0                                         # preference for food source 4 (-)
       pufood5: 1.0                                         # preference for food source 5 (-)
-      pufood6: 0.1                                         # preference for food source 6 (-)
-        #  pufood7: 1.0                                         # preference for food source 6 (-)
-      food4ispom: true                                     # food source 4 is detritus, default = false
+      pufood6: 1.0                                         # preference for food source 6 (-)      
+      pufood7: 1.0                                         # preference for food source 7 (-)
+      pufood8: 1.0                                         # preference for food source 8 (-)
+      pufood9: 0.1                                         # preference for food source 9 (-)
+
+      food5ispom: true                                     # food source 5 is detritus, default = false
       food6ispom: true                                     # food source 6 is detritus, default = false
-        # food7ispom: true
+      food7ispom: true                                     # food source 7 is detritus, default = false
       dwat: 1.0                                            # water layer accessible for pelagic food uptake (m), default = 1.0
       dQ6: 0.0025                                          # depth of available sediment layer (m), default = 0.0
     initialization:
@@ -1367,10 +1375,12 @@ instances:
       food1: P1
       food2: P2
       food3: P3
-      food4: R6
-      food5: H1
-      food6: Y3_Q6
-        # food7: R8
+      food4: P4
+      food5: R4
+      food6: R6
+      food7: R8
+      food8: H1
+      food9: Y3_Q6
       Q: Y3_Q6
       Dm: ben_col/D1m                                      # depth of limiting layer for uptake (m)
       O2o: O2/o                                            # pelagic oxygen (mmol O_2/m^3)
