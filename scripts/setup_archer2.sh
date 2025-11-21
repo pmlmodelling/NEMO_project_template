@@ -15,10 +15,10 @@ $WORK/scripts/core-scripts/update_config --cfg_file $WORK/scripts/config.sh  \
 source $WORK/scripts/config.sh
 
 echo "Linking runscripts"
-yes | rsync -a $SCRIPTS_DIR/core-scripts/runscript_archer2.slurm $SCRIPTS_DIR/runscript.slurm
+yes | rsync -a $SCRIPTS_DIR/core-scripts/runscript_archer2_14node.slurm $SCRIPTS_DIR/runscript.slurm
 
-yes | rsync -a $WORK/RUN/EXP00/runscripts/runscript_archer2.slurm $WORK/RUN/EXP00/runscript.slurm
-yes | rsync -a $WORK/RUN/EXP00/runscripts/runscript_testing_archer2.slurm $WORK/RUN/EXP00/runscript_testing.slurm
+yes | rsync -a $WORK/RUN/EXP00/runscripts/runscript_archer2_14node.slurm $WORK/RUN/EXP00/runscript.slurm
+yes | rsync -a $WORK/RUN/EXP00/runscripts/runscript_testing_archer2_14nodes.slurm $WORK/RUN/EXP00/runscript_testing.slurm
 
 echo "Linking inputs from /work/n01/n01/shared/AMM7-INPUTS"
 ln -s -T /work/n01/n01/shared/AMM7-INPUTS $INPUT_DIR
