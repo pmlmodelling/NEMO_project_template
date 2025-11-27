@@ -1,8 +1,16 @@
 #!/bin/bash
 source config.sh
 
-year=$START_YEAR
-month=1
+# Check if year and month provided
+if [ -f $SCRIPTS_DIR/current_date ]; then
+   source $SCRIPTS_DIR/current_date
+fi
+if [ -z $year ]; then
+   export year=$START_YEAR
+fi
+if [ -z $month ]; then
+   export month=1
+fi
 
 while getopts :c clean; do
   case ${clean} in
