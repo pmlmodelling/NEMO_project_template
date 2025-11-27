@@ -69,6 +69,10 @@ instances:
        #F_a: 0.09                     # only for fishing type 3: scale factor for fishing mortality as function of log10 mass
        #F_b: 0.04                     # only for fishing type 3: offset for fishing mortality as function of log10 mass
        xi: 1
+       w_threshold: 80
+       w_threshold2: 250
+       w_threshold3: 360
+       #lfi_w_threshold: 865
     initialization:      
       c1: 0.2804092059588942   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00111 g
       c2: 1.8113182703511093   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00136 g
@@ -170,7 +174,7 @@ instances:
       c98: 3.0302037564660714e-22   # biomass (8.333333333 * g/m2) for bin with individual mass of 5.96e+05 g
       c99: 5.8061450745279515e-24   # biomass (8.333333333 * g/m2) for bin with individual mass of 7.33e+05 g
       c100: 8.904257435301952e-26   # biomass (8.333333333 * g/m2) for bin with individual mass of 9.02e+05 g
-      landings: 0
+      totlandings: 0
     coupling:
        prey1: P1
        prey2: P2
@@ -1819,72 +1823,72 @@ instances:
    coupling:
       term1: Z6/fprey2p
       term2: Z6/fprey3p
-  total_microzooplankton_loss_to_POC:
-   long_name: total microzooplankton loss to particulate organic carbon
+  total_smallzooplankton_loss_to_POC:
+   long_name: total small zooplankton loss to particulate organic carbon
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIRPc
       term2: Z6/fZIRPc
-  total_microzooplankton_loss_to_PON:
-   long_name: total microzooplankton loss to particulate organic nitrogen
+  total_smallzooplankton_loss_to_PON:
+   long_name: total small zooplankton loss to particulate organic nitrogen
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIRPn
       term2: Z6/fZIRPn
-  total_microzooplankton_loss_to_POP:
-   long_name: total microzooplankton loss to particulate organic phosphorus
+  total_smallzooplankton_loss_to_POP:
+   long_name: total small zooplankton loss to particulate organic phosphorus
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIRPp
       term2: Z6/fZIRPp
-  total_microzooplankton_loss_to_DOC:
-   long_name: total microzooplankton loss to dissolved organic carbon
+  total_smallzooplankton_loss_to_DOC:
+   long_name: total small zooplankton loss to dissolved organic carbon
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIRDc
       term2: Z6/fZIRDc
-  total_microzooplankton_loss_to_DON:
-   long_name: total microzooplankton loss to dissolved organic nitrogen
+  total_smallzooplankton_loss_to_DON:
+   long_name: total small zooplankton loss to dissolved organic nitrogen
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIRDn
       term2: Z6/fZIRDn
-  total_microzooplankton_loss_to_DOP:
-   long_name: total microzooplankton loss to dissolved organic phosphorus
+  total_smallzooplankton_loss_to_DOP:
+   long_name: total small zooplankton loss to dissolved organic phosphorus
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIRDp
       term2: Z6/fZIRDp
-  total_microzooplankton_respiration:
-   long_name: total microzooplankton respiration
+  total_smallzooplankton_respiration:
+   long_name: total small zooplankton respiration
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZIO3c
       term2: Z6/fZIO3c
-  total_microzooplankton_loss_to_DIN:
-   long_name: total microzooplankton loss to dissolved inorganic nitrogen
+  total_smallzooplankton_loss_to_DIN:
+   long_name: total small zooplankton loss to dissolved inorganic nitrogen
    model: weighted_sum
    parameters:
       n: 2
    coupling:
       term1: Z5/fZINIn
       term2: Z6/fZINIn
-  total_microzooplankton_loss_to_DIP:
-   long_name: total microzooplankton loss to dissolved inorganic phosphorus
+  total_smallzooplankton_loss_to_DIP:
+   long_name: total small zooplankton loss to dissolved inorganic phosphorus
    model: weighted_sum
    parameters:
       n: 2
