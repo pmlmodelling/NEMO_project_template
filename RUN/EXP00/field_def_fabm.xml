@@ -155,7 +155,7 @@
   <field id="fish_c98" long_name="fish carbon in size class 98" unit="mmol m-2" default_value="-.200E+21" />
   <field id="fish_c99" long_name="fish carbon in size class 99" unit="mmol m-2" default_value="-.200E+21" />
   <field id="fish_c100" long_name="fish carbon in size class 100" unit="mmol m-2" default_value="-.200E+21" />
-  <field id="fish_landings" long_name="fish landed biomass" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_totlandings" long_name="fish total landed biomass" unit="g m-2" default_value="-.200E+21" />
   <field id="Q1_c" long_name="benthic dissolved organic matter carbon" unit="mg C/m^2" default_value="-.200E+21" />
   <field id="Q1_p" long_name="benthic dissolved organic matter phosphorus" unit="mmol P/m^2" default_value="-.200E+21" />
   <field id="Q1_n" long_name="benthic dissolved organic matter nitrogen" unit="mmol N/m^2" default_value="-.200E+21" />
@@ -1270,18 +1270,19 @@
   <field id="Z6_fphytoc_result" long_name="heterotrophic flagellate grazing of phytoplankton carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="Z6_fphyton_result" long_name="heterotrophic flagellate grazing of phytoplankton nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="Z6_fphytop_result" long_name="heterotrophic flagellate grazing of phytoplankton phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_POC_result" long_name="total microzooplankton loss to particulate organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_PON_result" long_name="total microzooplankton loss to particulate organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_POP_result" long_name="total microzooplankton loss to particulate organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_DOC_result" long_name="total microzooplankton loss to dissolved organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_DON_result" long_name="total microzooplankton loss to dissolved organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_DOP_result" long_name="total microzooplankton loss to dissolved organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_respiration_result" long_name="total microzooplankton respiration result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_DIN_result" long_name="total microzooplankton loss to dissolved inorganic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="total_microzooplankton_loss_to_DIP_result" long_name="total microzooplankton loss to dissolved inorganic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_POC_result" long_name="total small zooplankton loss to particulate organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_PON_result" long_name="total small zooplankton loss to particulate organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_POP_result" long_name="total small zooplankton loss to particulate organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_DOC_result" long_name="total small zooplankton loss to dissolved organic carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_DON_result" long_name="total small zooplankton loss to dissolved organic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_DOP_result" long_name="total small zooplankton loss to dissolved organic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_respiration_result" long_name="total small zooplankton respiration result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_DIN_result" long_name="total small zooplankton loss to dissolved inorganic nitrogen result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="total_smallzooplankton_loss_to_DIP_result" long_name="total small zooplankton loss to dissolved inorganic phosphorus result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="gross_calcification_rate_result" long_name="gross calcification rate result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="phytoplankton_fO3PIc_result" long_name="phytoplankton gross primary production of carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
-  <field id="phytoplankton_fPIO3c_result" long_name="phytoplankton gross primary production of carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_fPIO3c_result" long_name="phytoplankton respiration of carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
+  <field id="phytoplankton_netPI_result" long_name="phytoplankton net primary production of carbon result" unit="" default_value="-.200E+21" grid_ref="grid_T_3D" />
   <field id="zero" long_name="zero" unit="" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="fish_pelprey1_depth_average_loss_distributor_target_state1_sms" long_name="fish pelprey1_depth_average loss_distributor target state variable 1 sources-sinks" unit="mg C/m^3 s-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
   <field id="fish_pelprey1_depth_average_loss_distributor_target_state1_w" long_name="fish pelprey1_depth_average loss_distributor target state variable 1 vertical velocity" unit="m s-1" default_value="0.000E+00" grid_ref="grid_T_3D" />
@@ -1972,26 +1973,26 @@
   <field id="fish_prey8_n_sms" long_name="fish average encountered concentration of nitrogen in prey 8 sources-sinks" unit="mmol N m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey8_p_sms" long_name="fish average encountered concentration of phosphorus in prey 8 sources-sinks" unit="mmol P m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey8_s_sms" long_name="fish average encountered concentration of silicate in prey 8 sources-sinks" unit="mmol Si m-3 s-1" default_value="0.000E+00" />
-  <field id="fish_bprey8c" long_name="fish uptake of carbon in food source 8" unit="mg C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey8n" long_name="fish uptake of nitrogen in food source 8" unit="mmol C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey8p" long_name="fish uptake of phosphorus in food source 8" unit="mmol C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey8s" long_name="fish uptake of silicon in food source 8" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey8_c" long_name="fish uptake of carbon in food source 8" unit="mg C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey8_n" long_name="fish uptake of nitrogen in food source 8" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey8_p" long_name="fish uptake of phosphorus in food source 8" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey8_s" long_name="fish uptake of silicon in food source 8" unit="mmol C/m^2/d" default_value="-.200E+21" />
   <field id="fish_prey9_c_sms" long_name="fish average encountered concentration of carbon in prey 9 sources-sinks" unit="mmol C m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey9_n_sms" long_name="fish average encountered concentration of nitrogen in prey 9 sources-sinks" unit="mmol N m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey9_p_sms" long_name="fish average encountered concentration of phosphorus in prey 9 sources-sinks" unit="mmol P m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey9_s_sms" long_name="fish average encountered concentration of silicate in prey 9 sources-sinks" unit="mmol Si m-3 s-1" default_value="0.000E+00" />
-  <field id="fish_bprey9c" long_name="fish uptake of carbon in food source 9" unit="mg C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey9n" long_name="fish uptake of nitrogen in food source 9" unit="mmol C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey9p" long_name="fish uptake of phosphorus in food source 9" unit="mmol C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey9s" long_name="fish uptake of silicon in food source 9" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey9_c" long_name="fish uptake of carbon in food source 9" unit="mg C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey9_n" long_name="fish uptake of nitrogen in food source 9" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey9_p" long_name="fish uptake of phosphorus in food source 9" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey9_s" long_name="fish uptake of silicon in food source 9" unit="mmol C/m^2/d" default_value="-.200E+21" />
   <field id="fish_prey10_c_sms" long_name="fish average encountered concentration of carbon in prey 10 sources-sinks" unit="mmol C m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey10_n_sms" long_name="fish average encountered concentration of nitrogen in prey 10 sources-sinks" unit="mmol N m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey10_p_sms" long_name="fish average encountered concentration of phosphorus in prey 10 sources-sinks" unit="mmol P m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey10_s_sms" long_name="fish average encountered concentration of silicate in prey 10 sources-sinks" unit="mmol Si m-3 s-1" default_value="0.000E+00" />
-  <field id="fish_bprey10c" long_name="fish uptake of carbon in food source 10" unit="mg C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey10n" long_name="fish uptake of nitrogen in food source 10" unit="mmol C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey10p" long_name="fish uptake of phosphorus in food source 10" unit="mmol C/m^2/d" default_value="-.200E+21" />
-  <field id="fish_bprey10s" long_name="fish uptake of silicon in food source 10" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey10_c" long_name="fish uptake of carbon in food source 10" unit="mg C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey10_n" long_name="fish uptake of nitrogen in food source 10" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey10_p" long_name="fish uptake of phosphorus in food source 10" unit="mmol C/m^2/d" default_value="-.200E+21" />
+  <field id="fish_benprey10_s" long_name="fish uptake of silicon in food source 10" unit="mmol C/m^2/d" default_value="-.200E+21" />
   <field id="fish_prey11_c_sms" long_name="fish average encountered concentration of carbon in prey 11 sources-sinks" unit="mmol C m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey11_n_sms" long_name="fish average encountered concentration of nitrogen in prey 11 sources-sinks" unit="mmol N m-3 s-1" default_value="0.000E+00" />
   <field id="fish_prey11_p_sms" long_name="fish average encountered concentration of phosphorus in prey 11 sources-sinks" unit="mmol P m-3 s-1" default_value="0.000E+00" />
@@ -3495,24 +3496,28 @@
   <field id="fish_benwaste_n_bfl" long_name="fish organic nitrogen discards bottom flux" unit="mmol N m-2 m s-1" default_value="0.000E+00" />
   <field id="fish_benwaste_p_sfl" long_name="fish organic phosphorus discards surface flux" unit="mmol P m-2 m s-1" default_value="0.000E+00" />
   <field id="fish_benwaste_p_bfl" long_name="fish organic phosphorus discards bottom flux" unit="mmol P m-2 m s-1" default_value="0.000E+00" />
-  <field id="fish_fish_benDIP" long_name="fish benthic fish excretion to DIP" unit="mmol m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_fish_benDIN" long_name="fish benthic fish excretion to DIN" unit="mmol m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_fish_benDIC" long_name="fish benthic fish production of DIC from respiration" unit="mmol m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_benO2_fish" long_name="fish benthic fish consumption of O2 during repisration" unit="mmol m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_fish_benPOC" long_name="fish benthic fish egestion of POC" unit="mg m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_fish_benPON" long_name="fish benthic fish egestion of PON" unit="mmol m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_fish_benPOP" long_name="fish benthic fish egestion of POP" unit="mmol m-2 d-1" default_value="-.200E+21" />
-  <field id="fish_fish_benPOS" long_name="fish benthic fish egestion of POS" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demDIP" long_name="fish demersal excretion to DIP" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demDIN" long_name="fish demersal excretion to DIN" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demDIC" long_name="fish demersal production of DIC from respiration" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demO2" long_name="fish demersal consumption of O2 during repisration" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demPOC" long_name="fish demersal egestion of POC" unit="mg m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demPON" long_name="fish demersal egestion of PON" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demPOP" long_name="fish demersal egestion of POP" unit="mmol m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demPOS" long_name="fish demersal egestion of POS" unit="mmol m-2 d-1" default_value="-.200E+21" />
   <field id="fish_total_ben_prey" long_name="fish integral of benthic prey" unit="mmol m-2" default_value="-.200E+21" />
   <field id="fish_w_int_diag" long_name="fish depth integral of pelagic prey" unit="mmol m-2" default_value="-.200E+21" />
-  <field id="fish_landings_sms" long_name="fish landed biomass sources-sinks" unit="g m-2 s-1" default_value="0.000E+00" />
+  <field id="fish_omega_diag_con100" long_name="fish time spent in the pelagic" unit="-" default_value="-.200E+21" />
+  <field id="fish_totlandings_sms" long_name="fish total landed biomass sources-sinks" unit="g m-2 s-1" default_value="0.000E+00" />
+  <field id="fish_pellandings" long_name="fish pelagic rate of landed biomass" unit="g m-2 d-1" default_value="-.200E+21" />
+  <field id="fish_demlandings" long_name="fish demersal rate of landed biomass" unit="g m-2 d-1" default_value="-.200E+21" />
   <field id="fish_R" long_name="fish recruitment" unit="# m-2 d-1" default_value="-.200E+21" />
   <field id="fish_c_tot" long_name="fish total biomass" unit="g m-2" default_value="-.200E+21" />
-  <field id="fish_c_size1" long_name="fish fish biomass smaller than threshold1" unit="g m-2" default_value="-.200E+21" />
-  <field id="fish_c_size2" long_name="fish fish biomass smaller than threshold2" unit="g m-2" default_value="-.200E+21" />
-  <field id="fish_c_size3" long_name="fish fish biomass smaller than threshold3" unit="g m-2" default_value="-.200E+21" />
-  <field id="fish_c_lfi" long_name="fish Large fish index" unit="g m-2" default_value="-.200E+21" />
-  <field id="fish_test" long_name="fish test" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_c_pel" long_name="fish total pelagic biomass" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_c_dem" long_name="fish total demersal biomass" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_c_size1" long_name="fish pelagic biomass smaller than threshold1" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_c_size2" long_name="fish pelagic biomass smaller than threshold2" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_c_size3" long_name="fish pelagic biomass smaller than threshold3" unit="g m-2" default_value="-.200E+21" />
+  <field id="fish_c_lfi" long_name="fish large fish index" unit="-" default_value="-.200E+21" />
   <field id="fish__surface_albedo" long_name="fish albedo contribution computed by get_albedo" unit="-" default_value="0.000E+00" />
   <field id="fish__surface_drag_coefficient_in_air" long_name="fish surface drag contribution computed by get_drag" unit="-" default_value="0.000E+00" />
   <field id="light_zen" long_name="light zenith angle" unit="degrees" default_value="-.200E+21" />
@@ -5938,7 +5943,7 @@
   <field id="fish_c98_sms_tot_calculator_result" long_name="fish c98_sms_tot_calculator result" unit="mmol m-2 s-1" default_value="0.000E+00" />
   <field id="fish_c99_sms_tot_calculator_result" long_name="fish c99_sms_tot_calculator result" unit="mmol m-2 s-1" default_value="0.000E+00" />
   <field id="fish_c100_sms_tot_calculator_result" long_name="fish c100_sms_tot_calculator result" unit="mmol m-2 s-1" default_value="0.000E+00" />
-  <field id="fish_landings_sms_tot_calculator_result" long_name="fish landings_sms_tot_calculator result" unit="g m-2 s-1" default_value="-.200E+21" />
+  <field id="fish_totlandings_sms_tot_calculator_result" long_name="fish totlandings_sms_tot_calculator result" unit="g m-2 s-1" default_value="-.200E+21" />
   <field id="fish_pelprey1_depth_average_c_sms_tot_calculator_result" long_name="fish pelprey1_depth_average c_sms_tot_calculator result" unit="mmol C/m^3 s-1" default_value="-.200E+21" />
   <field id="fish_pelprey1_depth_average_n_sms_tot_calculator_result" long_name="fish pelprey1_depth_average n_sms_tot_calculator result" unit="mmol N/m^3 s-1" default_value="-.200E+21" />
   <field id="fish_pelprey1_depth_average_p_sms_tot_calculator_result" long_name="fish pelprey1_depth_average p_sms_tot_calculator result" unit="mmol P/m^3 s-1" default_value="-.200E+21" />
@@ -7648,18 +7653,19 @@
   <field id="Z6_fphytoc_result_VINT" long_name="depth-integrated heterotrophic flagellate grazing of phytoplankton carbon result" unit="*m" default_value="0.0" />
   <field id="Z6_fphyton_result_VINT" long_name="depth-integrated heterotrophic flagellate grazing of phytoplankton nitrogen result" unit="*m" default_value="0.0" />
   <field id="Z6_fphytop_result_VINT" long_name="depth-integrated heterotrophic flagellate grazing of phytoplankton phosphorus result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_POC_result_VINT" long_name="depth-integrated total microzooplankton loss to particulate organic carbon result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_PON_result_VINT" long_name="depth-integrated total microzooplankton loss to particulate organic nitrogen result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_POP_result_VINT" long_name="depth-integrated total microzooplankton loss to particulate organic phosphorus result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_DOC_result_VINT" long_name="depth-integrated total microzooplankton loss to dissolved organic carbon result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_DON_result_VINT" long_name="depth-integrated total microzooplankton loss to dissolved organic nitrogen result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_DOP_result_VINT" long_name="depth-integrated total microzooplankton loss to dissolved organic phosphorus result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_respiration_result_VINT" long_name="depth-integrated total microzooplankton respiration result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_DIN_result_VINT" long_name="depth-integrated total microzooplankton loss to dissolved inorganic nitrogen result" unit="*m" default_value="0.0" />
-  <field id="total_microzooplankton_loss_to_DIP_result_VINT" long_name="depth-integrated total microzooplankton loss to dissolved inorganic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_POC_result_VINT" long_name="depth-integrated total small zooplankton loss to particulate organic carbon result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_PON_result_VINT" long_name="depth-integrated total small zooplankton loss to particulate organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_POP_result_VINT" long_name="depth-integrated total small zooplankton loss to particulate organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_DOC_result_VINT" long_name="depth-integrated total small zooplankton loss to dissolved organic carbon result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_DON_result_VINT" long_name="depth-integrated total small zooplankton loss to dissolved organic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_DOP_result_VINT" long_name="depth-integrated total small zooplankton loss to dissolved organic phosphorus result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_respiration_result_VINT" long_name="depth-integrated total small zooplankton respiration result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_DIN_result_VINT" long_name="depth-integrated total small zooplankton loss to dissolved inorganic nitrogen result" unit="*m" default_value="0.0" />
+  <field id="total_smallzooplankton_loss_to_DIP_result_VINT" long_name="depth-integrated total small zooplankton loss to dissolved inorganic phosphorus result" unit="*m" default_value="0.0" />
   <field id="gross_calcification_rate_result_VINT" long_name="depth-integrated gross calcification rate result" unit="*m" default_value="0.0" />
   <field id="phytoplankton_fO3PIc_result_VINT" long_name="depth-integrated phytoplankton gross primary production of carbon result" unit="*m" default_value="0.0" />
-  <field id="phytoplankton_fPIO3c_result_VINT" long_name="depth-integrated phytoplankton gross primary production of carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_fPIO3c_result_VINT" long_name="depth-integrated phytoplankton respiration of carbon result" unit="*m" default_value="0.0" />
+  <field id="phytoplankton_netPI_result_VINT" long_name="depth-integrated phytoplankton net primary production of carbon result" unit="*m" default_value="0.0" />
   <field id="zero_VINT" long_name="depth-integrated zero" unit="*m" default_value="0.0" />
   <field id="fish_pelprey1_depth_average_loss_distributor_target_state1_sms_VINT" long_name="depth-integrated fish pelprey1_depth_average loss_distributor target state variable 1 sources-sinks" unit="mg C/m^3 s-1*m" default_value="0.0" />
   <field id="fish_pelprey1_depth_average_loss_distributor_target_state1_w_VINT" long_name="depth-integrated fish pelprey1_depth_average loss_distributor target state variable 1 vertical velocity" unit="m s-1*m" default_value="0.0" />

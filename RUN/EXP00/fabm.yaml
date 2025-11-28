@@ -72,7 +72,7 @@ instances:
        w_threshold: 80
        w_threshold2: 250
        w_threshold3: 360
-       #lfi_w_threshold: 865
+       lfi_w_threshold: 865
     initialization:      
       c1: 0.2804092059588942   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00111 g
       c2: 1.8113182703511093   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00136 g
@@ -2126,7 +2126,7 @@ instances:
       term3: P3/fO3PIc
       term4: P4/fO3PIc
   phytoplankton_fPIO3c:
-   long_name: phytoplankton gross primary production of carbon
+   long_name: phytoplankton respiration of carbon
    model: weighted_sum
    parameters:
       n: 4
@@ -2135,3 +2135,13 @@ instances:
       term2: P2/fPIO3c
       term3: P3/fPIO3c
       term4: P4/fPIO3c
+  phytoplankton_netPI:
+   long_name: phytoplankton net primary production of carbon
+   model: weighted_sum
+   parameters:
+      n: 4
+   coupling:
+      term1: P1/netPI
+      term2: P2/netPI
+      term3: P3/netPI
+      term4: P4/netPI
