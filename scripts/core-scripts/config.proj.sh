@@ -20,7 +20,7 @@ export starting_iter=1 # starting iteration number
 export ICE=false # If ice is in the model, will update namelist_ice files with restart filename
 export CLEAN_RESTART=true # If true, remove all restart files after use except those for January of each year
 export archer2=false
-export N_sub_monthly=24 # Number of months to run before submitting next slurm script 
+export N_sub_months=24 # Number of months to run before submitting next slurm script 
 # START/END_MONTH ignored when running yearly
 export START_MONTH=1 # Start month
 export END_MONTH=12 # End month

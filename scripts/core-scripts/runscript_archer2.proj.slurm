@@ -84,7 +84,7 @@ cat > $SCRIPTS_DIR/current_date <<EOF
 export year=$year
 export month=$month
 EOF
-     sbatch $SCRIPTS_DIR/runscript_archer2.slurm
+     sbatch $SCRIPTS_DIR/runscript.slurm
      echo "Done."
 elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then
      echo "Cycle did not complete."

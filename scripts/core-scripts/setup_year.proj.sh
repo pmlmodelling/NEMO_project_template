@@ -40,6 +40,7 @@ ln -s $INPUT_DIR/SBC/BGC/NDep/AMM7_Ndep_BC-EMEP_${SCENARIO}_y$year.nc $RUN_DIR/f
 
 #Rivers (linked twice to avoid editing fabm_input each year)
 rm -rf $RUN_DIR/rivers/*
+mkdir -p $RUN_DIR/rivers/
 ln -s $INPUT_DIR/RIV/amm7_rivers_${MODEL}_${SCENARIO}_y${year}.nc $RUN_DIR/rivers/rivers.nc 
 ln -s $INPUT_DIR/RIV/amm7_rivers_${MODEL}_${SCENARIO}_y${year}.nc $RUN_DIR/rivers/rivers_y$year.nc 
 
