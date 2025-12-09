@@ -33,9 +33,9 @@ source /work/n01/n01/yuti/AMM7_projections/scripts/config.sh
 #cd /work/n01/n01/yuti/AMM7_projections/RUN/CNRM-ESM2/restarts/
 
 /work/n01/n01/yuti/clean_projections/scripts/rebuild_nemo.exe nam_rebuild_trc 
-#/work/n01/n01/yuti/clean_projections/scripts/rebuild_nemo.exe nam_rebuild 
-#nccopy -k 4 -d 9 restart.nc $ARCHIVEDIR/restart.nc && echo "   restart.nc" || echo '   restart.nc failed!!!'
-#nccopy -k 4 -d 9 restart_trc.nc $ARCHIVEDIR/restart_trc.nc && echo "   restart_trc.nc" || echo '   restart_trc.nc failed!!!' 
+/work/n01/n01/yuti/clean_projections/scripts/rebuild_nemo.exe nam_rebuild 
+#nccopy -k 4 -d 5 restart.nc $ARCHIVEDIR/restart.nc && echo "   restart.nc" || echo '   restart.nc failed!!!'
+#nccopy -k 4 -d 5 restart_trc.nc $ARCHIVEDIR/restart_trc.nc && echo "   restart_trc.nc" || echo '   restart_trc.nc failed!!!' 
 
 
 

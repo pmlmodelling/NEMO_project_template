@@ -22,7 +22,7 @@ module load nco
 outdir=$1
 cd $outdir
 
-echo"Archiving $outdir"
+echo "Archiving $outdir"
 
 for f in $NAME*1d*grid_*
 do
