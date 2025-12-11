@@ -48,6 +48,7 @@
                       <field field_ref="soce_pra"        name="vosaline" operation="average"   />
                       <field field_ref="ssh"             name="sossheig" operation="average"   />
                       <field field_ref="mldr10_1"        name="mldr10_1" operation="average"   />
+		      <field field_ref="avt"        name="nutracer"      operation="average"   />
 		      <field field_ref="qsr"        operation="average"   />
 	      </file>
 
@@ -63,7 +64,6 @@
       
               <file id="file22" name_suffix=".grid_W" description="ocean W grid variables" enabled=".TRUE.">
                 <field field_ref="woce"      name="vovecrtz" operation="average"/>
-		<field field_ref="avt"        name="nutracer"      operation="average"   />
               </file>
 
 
@@ -102,6 +102,10 @@
                       <field field_ref="P2_netPI" operation="average" />
                       <field field_ref="P3_netPI" operation="average" />
                       <field field_ref="P4_netPI" operation="average" />
+                      <field field_ref="P1_fO3PIc" operation="average" />
+                      <field field_ref="P2_fO3PIc" operation="average" />
+                      <field field_ref="P3_fO3PIc" operation="average" />
+                      <field field_ref="P4_fO3PIc" operation="average" />
                       <field field_ref="P1_fPIO3c" operation="average" />
                       <field field_ref="P2_fPIO3c" operation="average" />
                       <field field_ref="P3_fPIO3c" operation="average" />
@@ -238,6 +242,7 @@
                       <field field_ref="Z6_fprey2c"       operation="average"   />
                       <field field_ref="Z6_fprey3c"       operation="average"   />
                       <field field_ref="Z6_fprey4c"       operation="average"   />
+                      <field field_ref="P1_fO3PIc"        operation="average"   />
                       <field field_ref="P1_fO3PIc"        operation="average"   />
                       <field field_ref="P2_fO3PIc"        operation="average"   />
                       <field field_ref="P3_fO3PIc"        operation="average"   />
