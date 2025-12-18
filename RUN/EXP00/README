@@ -1,1 +1,0 @@
-This directory contains a 'clean' version of the run configuration files. It is recommended you use this folder as a reference experiment set up, the file runscript.slurm should also be included here without the SBATCH options at the top
