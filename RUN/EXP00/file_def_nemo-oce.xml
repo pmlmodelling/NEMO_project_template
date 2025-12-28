@@ -243,7 +243,6 @@
                       <field field_ref="Z6_fprey3c"       operation="average"   />
                       <field field_ref="Z6_fprey4c"       operation="average"   />
                       <field field_ref="P1_fO3PIc"        operation="average"   />
-                      <field field_ref="P1_fO3PIc"        operation="average"   />
                       <field field_ref="P2_fO3PIc"        operation="average"   />
                       <field field_ref="P3_fO3PIc"        operation="average"   />
                       <field field_ref="P4_fO3PIc"        operation="average"   />
