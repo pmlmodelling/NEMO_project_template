@@ -3,12 +3,12 @@
 #Config options
 export WORK=/work/dapa/AMM7-Benchmark
 export NAME=AMM7 #Experiment name (used as cn_exp in namelist_cfg)
-export EXP_NAME=EXP_cycletest # Name for running directory, different to DEFAULT_RUN_DIR
+export EXP_NAME=EXP_EBMtest # Name for running directory, different to DEFAULT_RUN_DIR
 
 export START_YEAR=1993 # Start year
-export END_YEAR=2000 # End year 
+export END_YEAR=2016 # End year 
 
-export COLD_START=true # If true, do not use a physics restart file
+export COLD_START=false # If true, do not use a physics restart file
 export starting_iter=1 # starting iteration number
 export ICE=false # If ice is in the model, will update namelist_ice files with restart filename
 export CLEAN_RESTART=true # If true, remove all restart files after use except those for January of each year
