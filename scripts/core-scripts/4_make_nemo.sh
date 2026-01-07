@@ -12,7 +12,7 @@ export XIOS_HOME=$XIOS_BUILD
 cd $NEMO_DIR
 
 #Define architecture
-REF=AMM7_FABM
+REF=AMM7
 
 printf 'y\nn\nn\ny\nn\nn\nn\nn\n' |./makenemo -n $NEMO_CFG -r $REF -m $NEMO_ARCH -j 0
 ./makenemo -n $NEMO_CFG -r $REF -m $NEMO_ARCH -j 4 clean
