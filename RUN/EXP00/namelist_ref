@@ -216,14 +216,15 @@
    ln_ice_embd = .false.   !  =T embedded sea-ice (pressure + mass and salt exchanges)
       !                    !  =F levitating ice (no pressure, mass and salt exchanges)
                      ! Misc. options of sbc : 
-   ln_traqsr   = .true.   !  Light penetration in the ocean            (T => fill namtra_qsr)
+   ln_traqsr   = .true.    !  Light penetration in the ocean            (T => fill namtra_qsr)
    ln_dm2dc    = .false.   !  daily mean to diurnal cycle on short wave
    ln_ssr      = .false.   !  Sea Surface Restoring on T and/or S       (T => fill namsbc_ssr)
    nn_fwb      = 0         !  FreshWater Budget: =0 unchecked
       !                    !     =1 global mean of e-p-r set to zero at each time step
       !                    !     =2 annual global mean of e-p-r set to zero
-   ln_rnf      = .true.   !  runoffs                                   (T => fill namsbc_rnf)
-   ln_apr_dyn  = .true.   !  Patm gradient added in ocean & ice Eqs.   (T => fill namsbc_apr )
+   ln_rnf      = .true.    !  runoffs                                   (T => fill namsbc_rnf)
+   ln_rnfebm   = .false.   ! Use EBMs on runoffs                                   (T => fill namsbc_rnfebm)
+   ln_apr_dyn  = .true.    !  Patm gradient added in ocean & ice Eqs.   (T => fill namsbc_apr )
    ln_isf      = .false.   !  ice shelf                                 (T   => fill namsbc_isf & namsbc_iscpl)
    ln_wave     = .false.   !  Activate coupling with wave  (T => fill namsbc_wave)
    ln_cdgw     = .false.   !  Neutral drag coefficient read from wave model (T => ln_wave=.true. & fill namsbc_wave)
@@ -430,6 +431,19 @@
    sn_s_rnf    = 'runoffs'               ,        24.        , 'rosaline',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
    sn_t_rnf    = 'runoffs'               ,        24.        , 'rotemper',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
    sn_dep_rnf  = 'runoffs'               ,         0.        , 'rodepth' ,   .false.   , .true. , 'yearly'  , ''               , ''       , ''
+/
+!-----------------------------------------------------------------------
+&namsbc_rnfebm    !   EBM runoffs                                              (ln_rnfebm =T)
+!-----------------------------------------------------------------------
+    cn_dir = './'  !  root directory for the flux data location
+    !___________!_________________________!___________________!___________!_____________!_________!___________!__________________!__________!_______________!
+    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim   ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F)  ! 'monthly' !                  ! pairing  !    filename   !
+    sn_ebm_msk      = 'ebm_parameters'      ,         0         , 'ebm_flag',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
+    sn_ebm_L      = 'ebm_parameters'      ,         0         , 'ebm_L',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
+    sn_ebm_H      = 'ebm_parameters'      ,         0         , 'ebm_H',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
+    sn_ebm_W      = 'ebm_parameters'      ,         0         , 'ebm_W',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
+    sn_ebm_uH      = 'ebm_parameters'      ,         0         , 'ebm_h',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
 /
 !-----------------------------------------------------------------------
 &namsbc_apr    !   Atmospheric pressure used as ocean forcing           (ln_apr_dyn =T)
