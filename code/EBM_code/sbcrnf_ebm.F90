@@ -111,7 +111,7 @@ CONTAINS
       ebm_L_tide(:,:)  = 0._wp
 
       ! Convert runoff to discharge (m3/s). Guard against negative/outflow values.
-      ebm_Q_river(:,:) = MAX( 0._wp, rnf(:,:) * e1t(:,:) * e2t(:,:) )
+      ebm_Q_river(:,:) = MAX( 0._wp, rnf(:,:) * e1t(:,:) * e2t(:,:) / 1000.0 )
 
       ! Empirical a0 field: set to 0 to trigger model-default a_0 inside EBM
       ebm_a0(:,:) = 0._wp
@@ -133,6 +133,10 @@ CONTAINS
 
       CALL ebm%evaluate_box_model( Q_UM_out=ebm_Q_UM, Q_LM_out=ebm_Q_LM, S_UM_out=ebm_S_UM, &
          &                        const_out=ebm_const, rho_UM_out=ebm_rho_UM )
+        
+
+      ! Convert EBM outflow into discharge load
+      ebm_Q_UM = 1000.0 * ebm_Q_UM(:,:) / (e1t(:,:) * e2t(:,:)) 
 
       ! Diagnostics (optional, if configured in IOM)
       CALL iom_put( 'ebm_msk',    sf_ebm(jp_msk)%fnow(:,:,1) )
