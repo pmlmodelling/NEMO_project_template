@@ -3,7 +3,7 @@ MODULE sbcrnf_ebm
    !!                       ***  MODULE  sbcrnf_ebm  ***
    !! Ocean forcing:  estuary box model river runoff
    !!=====================================================================
-   !! History :  
+   !! History :
    !!   NEMO     4.0  ! 2026    (D. Partridge, M. Wathen)
    !!----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ MODULE sbcrnf_ebm
    !!----------------------------------------------------------------------
    USE oce            ! ocean dynamics and tracers
    USE dom_oce        ! ocean space and time domain
-   USE phycst         ! physical constants
+   USE par_kind, ONLY: wp
    USE sbc_oce        ! surface boundary condition variables
    USE sbcrnf         ! River runoff
    !
@@ -22,12 +22,14 @@ MODULE sbcrnf_ebm
    USE iom            ! I/O module
    USE lib_mpp        ! MPP library
 
+   USE estuary_box_physics, ONLY: Estuary_box_model  ! Estuary Box Model physics
+
    IMPLICIT NONE
    PRIVATE
 
    PUBLIC   sbc_rnfebm       ! called in sbcmod module
    PUBLIC   sbc_rnfebm_init  ! called in sbcmod module
-   
+
    INTEGER , PARAMETER ::  jpfld = 5            ! Number of EBM parameters
    INTEGER , PARAMETER ::  jp_msk = 1           ! index of msk parameter
    INTEGER , PARAMETER ::  jp_L = 2           ! index of L parameter
@@ -36,14 +38,23 @@ MODULE sbcrnf_ebm
    INTEGER , PARAMETER ::  jp_uH = 5           ! index of uH parameter
    TYPE(FLD), ALLOCATABLE, DIMENSION(:) ::   sf_ebm       ! structure: EBM data
    TYPE(FLD_N), DIMENSION(jpfld) ::   sn_ebm         ! array of namelist information on files to be read
-   
+
    CHARACTER(len=100)         ::   cn_dir            !: Root directory for location of ebm files
    TYPE(FLD_N)                ::   sn_ebm_msk            !: information about the mask for EBM locations to be read
    TYPE(FLD_N)                ::   sn_ebm_L          !: information about the EBM estuary lengths to be read
    TYPE(FLD_N)                ::   sn_ebm_W          !: information about the EBM estuary widths to be read
    TYPE(FLD_N)                ::   sn_ebm_H          !: information about the EBM estuary heights to be read
    TYPE(FLD_N)                ::   sn_ebm_uH          !: information about the EBM estuary upper layer heights to be read
-   REAL(wp), ALLOCATABLE, DIMENSION(:,:,:) :: ebm_sal, ebm_u, ebm_v ! Ocean side salinity, u and v at estuary mouths
+
+   REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_H_ocean, ebm_H_chan, ebm_L_chan, ebm_W_mouth, ebm_V_est
+   REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_u_tide, ebm_L_tide, ebm_Q_river, ebm_S_ocean, ebm_T_ocean, ebm_a0
+   LOGICAL , ALLOCATABLE, DIMENSION(:,:) :: ebm_wide_mouth, ebm_river_mask
+
+   REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_Q_UM, ebm_Q_LM, ebm_S_UM, ebm_const, ebm_rho_UM
+
+   ! Persistent EBM instance used across time steps
+   TYPE(Estuary_box_model), SAVE :: ebm
+   LOGICAL,                SAVE :: ll_ebm_ready = .FALSE.
 
 CONTAINS
 
@@ -51,8 +62,13 @@ CONTAINS
       !!----------------------------------------------------------------------
       !!                ***  ROUTINE sbc_rnf_alloc  ***
       !!----------------------------------------------------------------------
-      ALLOCATE( ebm_sal(jpi,jpj,jpk)         , ebm_u(jpi,jpj,jpk)          ,     &
-         &      ebm_v(jpi,jpj,jpk) , STAT=sbc_rnfebm_alloc )
+      ALLOCATE( &
+         & ebm_H_ocean(jpi,jpj), ebm_H_chan(jpi,jpj), ebm_L_chan(jpi,jpj), ebm_W_mouth(jpi,jpj), ebm_V_est(jpi,jpj), &
+         & ebm_u_tide(jpi,jpj), ebm_L_tide(jpi,jpj), ebm_Q_river(jpi,jpj), ebm_S_ocean(jpi,jpj), &
+         & ebm_T_ocean(jpi,jpj), ebm_a0(jpi,jpj), &
+         & ebm_wide_mouth(jpi,jpj), ebm_river_mask(jpi,jpj), &
+         & ebm_Q_UM(jpi,jpj), ebm_Q_LM(jpi,jpj), ebm_S_UM(jpi,jpj), ebm_const(jpi,jpj), ebm_rho_UM(jpi,jpj), &
+         & STAT=sbc_rnfebm_alloc )
          !
       CALL mpp_sum ( 'sbcrnf_ebm', sbc_rnfebm_alloc )
       IF( sbc_rnfebm_alloc > 0 )   CALL ctl_warn('sbc_rnfebm_alloc: allocation of arrays failed')
@@ -67,41 +83,64 @@ CONTAINS
       !! ** Purpose :   Update river runoff using estuary box model
       !!
       !! ** Method  :   Take river runoff values and use EBM from XXXX
-      !!                      
+      !!
       !! ** Action  :   runoff/salinity updated fields at time-step kt
       !!----------------------------------------------------------------------
       INTEGER, INTENT(in) ::   kt          ! ocean time step
       !
-      INTEGER  ::   ji, jj    ! dummy loop indices
-      INTEGER  ::   z_err = 0 ! dummy integer for error handling
-      
+
       !!----------------------------------------------------------------------
       !
       CALL fld_read ( kt, nn_fsbc, sf_ebm )
-     
+
       ! Initialise ocean side variables
-      ebm_sal(:,:,:) = 0._wp
-      ebm_u(:,:,:) = 0._wp
-      ebm_v(:,:,:) = 0._wp
 
-      ! Fill ocean side variables at estuary mouths
-      DO jj = 1, jpj
-        DO ji = 1, jpi
-           IF ( sf_ebm(jp_msk)%fnow(ji,jj,1) == 1 ) THEN
-              ebm_sal(ji,jj,:) = tsn(ji,jj,:,jp_sal) 
-              ebm_u(ji,jj,:) = un(ji,jj,:)
-              ebm_v(ji,jj,:) = vn(ji,jj,:)
-           ENDIF
-        ENDDO
-      ENDDO
+      ebm_L_chan(:,:)  = sf_ebm(jp_L )%fnow(:,:,1)
+      ebm_W_mouth(:,:) = sf_ebm(jp_W )%fnow(:,:,1)
+      ebm_H_ocean(:,:) = sf_ebm(jp_H )%fnow(:,:,1)
+      ebm_H_chan(:,:)  = sf_ebm(jp_uH)%fnow(:,:,1)
 
-      ! Temporary output 
-      CALL iom_put( 'ebm_msk', sf_ebm(jp_msk)%fnow(:,:,1) )
-      CALL iom_put( 'ebm_sal', ebm_sal )
-      CALL iom_put( 'ebm_u', ebm_v )
-      CALL iom_put( 'ebm_v', ebm_u )
+      ebm_V_est(:,:)   = ebm_L_chan(:,:) * ebm_W_mouth(:,:) * ebm_H_ocean(:,:)
 
-      
+      ! Ocean-side T/S at the mouth: use deepest model level as a pragmatic default
+      ebm_S_ocean(:,:) = tsn(:,:,jpk,jp_sal)
+      ebm_T_ocean(:,:) = tsn(:,:,jpk,jp_tem)
+
+      ! Approximate tidal velocity amplitude from instantaneous near-surface currents
+      ebm_u_tide(:,:)  = SQRT( un(:,:,1)**2 + vn(:,:,1)**2 )
+      ebm_L_tide(:,:)  = 0._wp
+
+      ! Convert runoff to discharge (m3/s). Guard against negative/outflow values.
+      ebm_Q_river(:,:) = MAX( 0._wp, rnf(:,:) * e1t(:,:) * e2t(:,:) )
+
+      ! Empirical a0 field: set to 0 to trigger model-default a_0 inside EBM
+      ebm_a0(:,:) = 0._wp
+
+      ! Wide-mouth flag currently disabled
+      ebm_wide_mouth(:,:) = .FALSE.
+
+      ! Authoritative mask: only compute where the external mask is active and runoff is positive
+      ebm_river_mask(:,:) = ( sf_ebm(jp_msk)%fnow(:,:,1) == 1._wp ) .AND. ( ebm_Q_river(:,:) > 0._wp )
+
+      IF( .NOT. ll_ebm_ready ) THEN
+         CALL ebm%init()
+         ll_ebm_ready = .TRUE.
+      ENDIF
+
+      CALL ebm%load_estuary( ebm_H_ocean, ebm_H_chan, ebm_L_chan, ebm_W_mouth, ebm_V_est, &
+         &                 ebm_u_tide, ebm_L_tide, ebm_Q_river, ebm_S_ocean, ebm_T_ocean, ebm_a0, &
+         &                 ebm_wide_mouth, ebm_river_mask )
+
+      CALL ebm%evaluate_box_model( Q_UM_out=ebm_Q_UM, Q_LM_out=ebm_Q_LM, S_UM_out=ebm_S_UM, &
+         &                        const_out=ebm_const, rho_UM_out=ebm_rho_UM )
+
+      ! Diagnostics (optional, if configured in IOM)
+      CALL iom_put( 'ebm_msk',    sf_ebm(jp_msk)%fnow(:,:,1) )
+      CALL iom_put( 'ebm_Q_UM',   ebm_Q_UM   )
+      CALL iom_put( 'ebm_Q_LM',   ebm_Q_LM   )
+      CALL iom_put( 'ebm_S_UM',   ebm_S_UM   )
+      CALL iom_put( 'ebm_const',  ebm_const  )
+      CALL iom_put( 'ebm_rho_UM', ebm_rho_UM )
 
    END SUBROUTINE sbc_rnfebm
 
@@ -116,9 +155,9 @@ CONTAINS
       !! ** Action  : - read parameters
       !!----------------------------------------------------------------------
       INTEGER           ::   jp    ! dummy loop indices
-      INTEGER           ::   ierror, inum  ! temporary integer
+      INTEGER           ::   ierror  ! temporary integer
       INTEGER           ::   ios           ! Local integer output status for namelist read
-      
+
       !!
       NAMELIST/namsbc_rnfebm/ cn_dir,  &
          &                 sn_ebm_msk, sn_ebm_L, sn_ebm_W, sn_ebm_H, sn_ebm_uH
