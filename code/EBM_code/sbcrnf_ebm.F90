@@ -214,6 +214,10 @@ CONTAINS
       CALL iom_put( 'ebm_const',  ebm_const   )
       CALL iom_put( 'ebm_rho_UM', ebm_rho_UM  )
 
+      ! Update runoff and salinity
+      rnf(:,:) = rnf(:,:)
+      rnf_tsc(:,:,jp_sal) = rnf_tsc(:,:,jp_sal)
+
    END SUBROUTINE sbc_rnfebm
 
    SUBROUTINE sbc_rnfebm_init
