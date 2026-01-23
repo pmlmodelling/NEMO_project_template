@@ -48,9 +48,9 @@ MODULE sbcrnf_ebm
 
    REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_H_ocean, ebm_H_chan, ebm_L_chan, ebm_W_mouth, ebm_V_est
    REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_u_tide, ebm_L_tide, ebm_Q_river, ebm_S_ocean, ebm_T_ocean, ebm_a0
-   LOGICAL , ALLOCATABLE, DIMENSION(:,:) :: ebm_wide_mouth, ebm_river_mask
+   INTEGER , ALLOCATABLE, DIMENSION(:,:) :: ebm_wide_mouth, ebm_river_mask
 
-   REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_Q_UM, ebm_Q_LM, ebm_S_UM, ebm_const, ebm_rho_UM
+   REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_Q_UM, ebm_Q_LM, ebm_S_UM, ebm_const, ebm_rho_UM, ebm_S_diff
 
    ! Persistent EBM instance used across time steps
    TYPE(Estuary_box_model), SAVE :: ebm
@@ -67,7 +67,7 @@ CONTAINS
          & ebm_u_tide(jpi,jpj), ebm_L_tide(jpi,jpj), ebm_Q_river(jpi,jpj), ebm_S_ocean(jpi,jpj), &
          & ebm_T_ocean(jpi,jpj), ebm_a0(jpi,jpj), &
          & ebm_wide_mouth(jpi,jpj), ebm_river_mask(jpi,jpj), &
-         & ebm_Q_UM(jpi,jpj), ebm_Q_LM(jpi,jpj), ebm_S_UM(jpi,jpj), ebm_const(jpi,jpj), ebm_rho_UM(jpi,jpj), &
+         & ebm_Q_UM(jpi,jpj), ebm_Q_LM(jpi,jpj), ebm_S_UM(jpi,jpj), ebm_const(jpi,jpj), ebm_rho_UM(jpi,jpj), ebm_S_diff(jpi,jpj), &
          & STAT=sbc_rnfebm_alloc )
          !
       CALL mpp_sum ( 'sbcrnf_ebm', sbc_rnfebm_alloc )
@@ -87,6 +87,11 @@ CONTAINS
       !! ** Action  :   runoff/salinity updated fields at time-step kt
       !!----------------------------------------------------------------------
       INTEGER, INTENT(in) ::   kt          ! ocean time step
+      INTEGER :: ji, jj, jk
+      INTEGER :: k_chan, k_bot
+      REAL(wp) :: wsum, ssum, tsum
+
+
       !
 
       !!----------------------------------------------------------------------
@@ -99,12 +104,57 @@ CONTAINS
       ebm_W_mouth(:,:) = sf_ebm(jp_W )%fnow(:,:,1)
       ebm_H_ocean(:,:) = sf_ebm(jp_H )%fnow(:,:,1)
       ebm_H_chan(:,:)  = sf_ebm(jp_uH)%fnow(:,:,1)
+      ebm_S_diff(:,:) = 0._wp
 
       ebm_V_est(:,:)   = ebm_L_chan(:,:) * ebm_W_mouth(:,:) * ebm_H_ocean(:,:)
 
-      ! Ocean-side T/S at the mouth: use deepest model level as a pragmatic default
-      ebm_S_ocean(:,:) = tsn(:,:,jpk,jp_sal)
-      ebm_T_ocean(:,:) = tsn(:,:,jpk,jp_tem)
+      DO jj = 1, jpj
+         DO ji = 1, jpi
+
+            ! Skip expensive vertical averaging where EBM is inactive
+            IF ( sf_ebm(jp_msk)%fnow(ji,jj,1) < 0.5_wp ) THEN
+               ebm_S_ocean(ji,jj) = 0._wp
+               ebm_T_ocean(ji,jj) = 0._wp
+               CYCLE
+            END IF
+            k_bot = mbkt(ji,jj)
+            IF ( k_bot < 1 ) THEN
+               ebm_S_ocean(ji,jj) = 0._wp
+               ebm_T_ocean(ji,jj) = 0._wp
+               CYCLE
+            END IF
+
+            ! Find first T-level deeper than ebm_H_chan; if none, fall back to bottom level
+            k_chan = k_bot
+            DO jk = 1, k_bot
+               IF ( gdept_0(ji,jj,jk) >= ebm_H_chan(ji,jj) ) THEN
+                  k_chan = jk
+                  EXIT
+               END IF
+            END DO
+
+            wsum = 0._wp
+            ssum = 0._wp
+            tsum = 0._wp
+
+            DO jk = k_chan, k_bot
+               IF ( tmask(ji,jj,jk) == 1._wp ) THEN
+                  wsum = wsum + e3t_0(ji,jj,jk)
+                  ssum = ssum + tsn(ji,jj,jk,jp_sal) * e3t_0(ji,jj,jk)
+                  tsum = tsum + tsn(ji,jj,jk,jp_tem) * e3t_0(ji,jj,jk)
+               END IF
+            END DO
+
+            IF ( wsum > 0._wp ) THEN
+               ebm_S_ocean(ji,jj) = ssum / wsum
+               ebm_T_ocean(ji,jj) = tsum / wsum
+            ELSE
+               ebm_S_ocean(ji,jj) = tsn(ji,jj,k_bot,jp_sal)
+               ebm_T_ocean(ji,jj) = tsn(ji,jj,k_bot,jp_tem)
+            END IF
+
+         END DO
+      END DO
 
       ! Approximate tidal velocity amplitude from instantaneous near-surface currents
       ebm_u_tide(:,:)  = SQRT( un(:,:,1)**2 + vn(:,:,1)**2 )
@@ -117,10 +167,12 @@ CONTAINS
       ebm_a0(:,:) = 0._wp
 
       ! Wide-mouth flag currently disabled
-      ebm_wide_mouth(:,:) = .FALSE.
+      ebm_wide_mouth(:,:) = 1._wp
 
       ! Authoritative mask: only compute where the external mask is active and runoff is positive
-      ebm_river_mask(:,:) = ( sf_ebm(jp_msk)%fnow(:,:,1) == 1._wp ) .AND. ( ebm_Q_river(:,:) > 0._wp )
+      !ebm_river_mask(:,:) = ( sf_ebm(jp_msk)%fnow(:,:,1) == 1._wp ) .AND. ( ebm_Q_river(:,:) > 0._wp )
+      ebm_river_mask(:,:) = sf_ebm(jp_msk)%fnow(:,:,1)
+        
 
       IF( .NOT. ll_ebm_ready ) THEN
          CALL ebm%init()
@@ -138,13 +190,29 @@ CONTAINS
       ! Convert EBM outflow into discharge load
       ebm_Q_UM = 1000.0 * ebm_Q_UM(:,:) / (e1t(:,:) * e2t(:,:)) 
 
+
+      DO jj = 1, jpj
+          DO ji = 1, jpi
+
+            ! Prefer a mouth/river mask if available
+            IF ( ebm_river_mask(ji,jj) == 1 ) THEN
+              ebm_S_diff(ji,jj) = ebm_S_ocean(ji,jj) - ebm_S_UM(ji,jj)
+            END IF
+
+          END DO
+      END DO
+
       ! Diagnostics (optional, if configured in IOM)
       CALL iom_put( 'ebm_msk',    sf_ebm(jp_msk)%fnow(:,:,1) )
-      CALL iom_put( 'ebm_Q_UM',   ebm_Q_UM   )
-      CALL iom_put( 'ebm_Q_LM',   ebm_Q_LM   )
-      CALL iom_put( 'ebm_S_UM',   ebm_S_UM   )
-      CALL iom_put( 'ebm_const',  ebm_const  )
-      CALL iom_put( 'ebm_rho_UM', ebm_rho_UM )
+
+      CALL iom_put( 'ebm_Q_R',   ebm_Q_river    )
+      CALL iom_put( 'ebm_S_diff',   ebm_S_diff    )
+      CALL iom_put( 'ebm_Q_UM',   ebm_Q_UM    )
+      CALL iom_put( 'ebm_Q_LM',   ebm_Q_LM    )
+      CALL iom_put( 'ebm_S_UM',   ebm_S_UM    )
+      CALL iom_put( 'ebm_S_LM',   ebm_S_ocean )
+      CALL iom_put( 'ebm_const',  ebm_const   )
+      CALL iom_put( 'ebm_rho_UM', ebm_rho_UM  )
 
    END SUBROUTINE sbc_rnfebm
 

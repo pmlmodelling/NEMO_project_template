@@ -28,7 +28,7 @@ MODULE estuary_box_physics
       ! ---- scalar cell state (Python names in comments) ----
       REAL(wp) :: H_ocean = 0._wp   ! Python H
       REAL(wp) :: H_chan  = 0._wp   ! Python h
-      REAL(wp) :: L_chan  = 0._wp   ! Python L 
+      REAL(wp) :: L_chan  = 0._wp   ! Python L
       REAL(wp) :: W_mouth = 0._wp   ! Python W
       REAL(wp) :: V_est   = 0._wp   ! Python V
       REAL(wp) :: u_tide  = 0._wp   ! Python u_t
@@ -36,7 +36,7 @@ MODULE estuary_box_physics
       REAL(wp) :: Q_river = 0._wp   ! Python Q_R
       REAL(wp) :: S_ocean = 0._wp   ! Python S_LM
       REAL(wp) :: T_ocean = 0._wp   ! Python T_LM
-      LOGICAL  :: wide_mouth = .FALSE.
+      INTEGER  :: wide_mouth = 0._wp
 
       ! ---- scalar outputs ----
       REAL(wp) :: Q_LM       = 0._wp
@@ -52,7 +52,7 @@ MODULE estuary_box_physics
       REAL(wp), ALLOCATABLE :: H_ocean2(:,:), H_chan2(:,:), L_chan2(:,:), W_mouth2(:,:), V_est2(:,:)
       REAL(wp), ALLOCATABLE :: u_tide2(:,:), L_tide2(:,:)
       REAL(wp), ALLOCATABLE :: a0_2(:,:), S_ocean2(:,:), T_ocean2(:,:), Q_river2(:,:)
-      LOGICAL,  ALLOCATABLE :: wide_mouth2(:,:), river_mask(:,:)
+      INTEGER, ALLOCATABLE :: wide_mouth2(:,:), river_mask(:,:)
 
    CONTAINS
       PROCEDURE, PUBLIC :: init
@@ -117,7 +117,7 @@ CONTAINS
       CLASS(Estuary_box_model), INTENT(INOUT) :: EBM
       REAL(wp), INTENT(IN) :: H_ocean_in(:,:), H_chan_in(:,:), L_chan_in(:,:), W_mouth_in(:,:), V_est_in(:,:)
       REAL(wp), INTENT(IN) :: u_tide_in(:,:),  L_tide_in(:,:), Q_river_in(:,:), S_ocean_in(:,:), T_ocean_in(:,:), a0_in(:,:)
-      LOGICAL,  INTENT(IN) :: wide_mouth_in(:,:), river_mask_in(:,:)
+      INTEGER, INTENT(IN) :: wide_mouth_in(:,:), river_mask_in(:,:)
 
       INTEGER :: ni_loc, nj_loc
 
@@ -152,9 +152,8 @@ CONTAINS
       CALL alloc_or_realloc_r2(EBM%S_ocean2, ni_loc, nj_loc)
       CALL alloc_or_realloc_r2(EBM%T_ocean2, ni_loc, nj_loc)
       CALL alloc_or_realloc_r2(EBM%a0_2,     ni_loc, nj_loc)
-
-      CALL alloc_or_realloc_l2(EBM%wide_mouth2, ni_loc, nj_loc)
-      CALL alloc_or_realloc_l2(EBM%river_mask,  ni_loc, nj_loc)
+      CALL alloc_or_realloc_i2(EBM%wide_mouth2, ni_loc, nj_loc)
+      CALL alloc_or_realloc_i2(EBM%river_mask,  ni_loc, nj_loc)
 
       EBM%H_ocean2 = H_ocean_in
       EBM%H_chan2  = H_chan_in
@@ -187,7 +186,8 @@ CONTAINS
       INTEGER :: i, j, ni_loc, nj_loc
       REAL(wp) :: H_ocean_cell, H_chan_cell, W_mouth_cell, L_tide_cell, u_tide_cell
       REAL(wp) :: Q_river_cell, S_ocean_cell, a0_cell
-      LOGICAL  :: wide_cell, ok
+      INTEGER  :: wide_cell
+      LOGICAL  :: ok
       REAL(wp) :: qlm, qum, rhoum, sum_out, cst, a_t_out
       REAL(wp) :: pi_val
 
@@ -215,13 +215,13 @@ CONTAINS
       DO j = 1, nj_loc
          DO i = 1, ni_loc
 
-            IF (.NOT. EBM%river_mask(i,j)) CYCLE
+            IF (EBM%river_mask(i,j) == 0._wp) CYCLE
 
             Q_river_cell = EBM%Q_river2(i,j)
-            IF (Q_river_cell == 0._wp) CYCLE
+            !IF (Q_river_cell == 0._wp) CYCLE
             S_ocean_cell = EBM%S_ocean2(i,j)
 
-            IF (Q_river_cell == 0._wp) CYCLE
+            !IF (Q_river_cell == 0._wp) CYCLE
 
 
             H_ocean_cell = EBM%H_ocean2(i,j)
@@ -246,12 +246,12 @@ CONTAINS
             IF (PRESENT(rho_UM_out)) rho_UM_out(i,j) = EBM%rho_R
 
             ! Gate: if parameters missing/invalid, keep fallback
-            IF (H_ocean_cell <= 0._wp) CYCLE
-            IF (W_mouth_cell <= 0._wp) CYCLE
-            IF (L_tide_cell <= 0._wp)  CYCLE
-            IF (u_tide_cell == 0._wp)  CYCLE
-            IF (S_ocean_cell == 0._wp) CYCLE
-            IF (H_chan_cell < 0._wp .OR. H_chan_cell >= H_ocean_cell) CYCLE
+            !IF (H_ocean_cell <= 0._wp) CYCLE
+            !IF (W_mouth_cell <= 0._wp) CYCLE
+            !IF (L_tide_cell <= 0._wp)  CYCLE
+            !IF (u_tide_cell == 0._wp)  CYCLE
+            !IF (S_ocean_cell == 0._wp) CYCLE
+            !IF (H_chan_cell < 0._wp .OR. H_chan_cell >= H_ocean_cell) CYCLE
 
             IF (a0_cell == 0._wp) a0_cell = EBM%a_0
 
@@ -261,7 +261,7 @@ CONTAINS
                                   Q_river_cell, S_ocean_cell, wide_cell, &
                                   qlm, qum, rhoum, sum_out, cst, a_t_out, ok)
 
-            IF (.NOT. ok) CYCLE
+            !IF (.NOT. ok) CYCLE
 
             Q_UM_out(i,j)  = qum
             Q_LM_out(i,j)  = qlm
@@ -274,7 +274,7 @@ CONTAINS
    END SUBROUTINE evaluate_box_model_2d
 
    !============================================================
-   ! Diagnostics 
+   ! Diagnostics
    !============================================================
    PURE REAL(wp) FUNCTION B_UM(EBM, const, N_R, N_LM) RESULT(N_UM)
       IMPLICIT NONE
@@ -448,7 +448,7 @@ CONTAINS
       IMPLICIT NONE
       REAL(wp), INTENT(IN)  :: a0, a1, Sc, beta, g, S, rho_R, rho_LM
       REAL(wp), INTENT(IN)  :: H_ocean, H_lower, W_mouth, L_tide, u_tide, Q_river, S_ocean
-      LOGICAL,  INTENT(IN)  :: wide_mouth
+      INTEGER,  INTENT(IN)  :: wide_mouth
       REAL(wp), INTENT(OUT) :: Q_LM, Q_UM, rho_UM, S_UM, const, a_t_out
       LOGICAL,  INTENT(OUT) :: ok
 
@@ -496,7 +496,7 @@ CONTAINS
       r_cos = (L_tide - r_2) * COS(pi_val - 2._wp*theta)
       r_sin = (L_tide - r_2) * SIN(pi_val - 2._wp*theta)
 
-      IF (wide_mouth) THEN
+      IF (wide_mouth == 1._wp) THEN
          Fgeom = (L_tide*r_2) * ( theta + ATAN( r_sin / MAX(TINY(1._wp), (L_tide + r_2 + r_cos)) ) )
          Rgeom = r_s
       ELSE
@@ -577,9 +577,9 @@ CONTAINS
       END IF
    END SUBROUTINE alloc_or_realloc_r2
 
-   SUBROUTINE alloc_or_realloc_l2(A, ni_in, nj_in)
+   SUBROUTINE alloc_or_realloc_i2(A, ni_in, nj_in)
       IMPLICIT NONE
-      LOGICAL, ALLOCATABLE, INTENT(INOUT) :: A(:,:)
+      INTEGER, ALLOCATABLE, INTENT(INOUT) :: A(:,:)
       INTEGER, INTENT(IN) :: ni_in, nj_in
       IF (.NOT. ALLOCATED(A)) THEN
          ALLOCATE(A(ni_in, nj_in))
@@ -587,7 +587,7 @@ CONTAINS
          DEALLOCATE(A)
          ALLOCATE(A(ni_in, nj_in))
       END IF
-   END SUBROUTINE alloc_or_realloc_l2
+   END SUBROUTINE alloc_or_realloc_i2
 
 END MODULE estuary_box_physics
 
