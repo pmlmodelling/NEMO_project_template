@@ -24,7 +24,7 @@ MODULE diahsb
    USE trabbc         ! bottom boundary condition
    USE restart        ! ocean restart
    USE bdy_oce , ONLY : ln_bdy
-   USE sbcmod , ONLY : ln_rnfebm
+   USE sbcmod
    !
    USE iom            ! I/O manager
    USE in_out_manager ! I/O manager
@@ -96,7 +96,7 @@ CONTAINS
       z_frc_trd_s =           glob_sum( 'diahsb', sbc_tsc(:,:,jp_sal) * surf(:,:) )                       ! salt fluxes
       !                    !  Add runoff    heat & salt input
       IF( ln_rnf    )   z_frc_trd_t = z_frc_trd_t + glob_sum( 'diahsb', rnf_tsc(:,:,jp_tem) * surf(:,:) )
-      IF( ln_rnf_sal) .OR. ( ln_rnfebm ) THEN
+      IF ( ln_rnf_sal .OR. ln_rnfebm ) THEN
               z_frc_trd_s = z_frc_trd_s + glob_sum( 'diahsb', rnf_tsc(:,:,jp_sal) * surf(:,:) )
       ENDIF
       !                    ! Add ice shelf heat & salt input

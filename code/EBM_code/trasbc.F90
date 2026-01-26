@@ -200,7 +200,7 @@ CONTAINS
                   DO jk = 1, nk_rnf(ji,jj)
                                         tsa(ji,jj,jk,jp_tem) = tsa(ji,jj,jk,jp_tem)                                 &
                                            &                 +  ( rnf_tsc_b(ji,jj,jp_tem) + rnf_tsc(ji,jj,jp_tem) ) * zdep
-                     IF( ln_rnf_sal ) .OR. ( ln_rnfebm ) THEN
+                     IF ( ln_rnf_sal .OR. ln_rnfebm ) THEN
                                         tsa(ji,jj,jk,jp_sal) = tsa(ji,jj,jk,jp_sal)                                 &
                                            &                 +  ( rnf_tsc_b(ji,jj,jp_sal) + rnf_tsc(ji,jj,jp_sal) ) * zdep 
                      ENDIF
@@ -220,7 +220,7 @@ CONTAINS
       !----------------------------------------
       !
       IF( ln_sshinc ) THEN         ! input of heat and salt due to assimilation
-      	 !
+         !
          IF( ln_linssh ) THEN 
             DO jj = 2, jpj 
                DO ji = fs_2, fs_jpim1
