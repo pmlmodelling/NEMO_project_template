@@ -89,14 +89,10 @@ CONTAINS
       INTEGER, INTENT(in) ::   kt          ! ocean time step
       INTEGER :: ji, jj, jk
       INTEGER :: k_chan, k_bot
-      REAL(wp) :: wsum, ssum, tsum
-
-
-      !
+      REAL(wp) :: wsum, ssum, tsum, hsum
 
       !!----------------------------------------------------------------------
       !
-      CALL fld_read ( kt, nn_fsbc, sf_ebm )
 
       ! Initialise ocean side variables
 
@@ -139,9 +135,9 @@ CONTAINS
 
             DO jk = k_chan, k_bot
                IF ( tmask(ji,jj,jk) == 1._wp ) THEN
-                  wsum = wsum + e3t_0(ji,jj,jk)
-                  ssum = ssum + tsn(ji,jj,jk,jp_sal) * e3t_0(ji,jj,jk)
-                  tsum = tsum + tsn(ji,jj,jk,jp_tem) * e3t_0(ji,jj,jk)
+                  wsum = wsum + e3t_n(ji,jj,jk)
+                  ssum = ssum + tsn(ji,jj,jk,jp_sal) * e3t_n(ji,jj,jk)
+                  tsum = tsum + tsn(ji,jj,jk,jp_tem) * e3t_n(ji,jj,jk)
                END IF
             END DO
 
@@ -153,6 +149,13 @@ CONTAINS
                ebm_T_ocean(ji,jj) = tsn(ji,jj,k_bot,jp_tem)
             END IF
 
+            ! Set depth to spread the river input over based on EBM parameters
+            hsum = 0._wp
+            DO jk = 1, k_chan
+                hsum = hsum + e3t_n(ji,jj,jk)
+            END DO
+            nk_rnf(ji,jj) = k_chan
+            h_rnf(ji,jj) = hsum
          END DO
       END DO
 
@@ -173,11 +176,6 @@ CONTAINS
       !ebm_river_mask(:,:) = ( sf_ebm(jp_msk)%fnow(:,:,1) == 1._wp ) .AND. ( ebm_Q_river(:,:) > 0._wp )
       ebm_river_mask(:,:) = sf_ebm(jp_msk)%fnow(:,:,1)
         
-
-      IF( .NOT. ll_ebm_ready ) THEN
-         CALL ebm%init()
-         ll_ebm_ready = .TRUE.
-      ENDIF
 
       CALL ebm%load_estuary( ebm_H_ocean, ebm_H_chan, ebm_L_chan, ebm_W_mouth, ebm_V_est, &
          &                 ebm_u_tide, ebm_L_tide, ebm_Q_river, ebm_S_ocean, ebm_T_ocean, ebm_a0, &
@@ -215,8 +213,8 @@ CONTAINS
       CALL iom_put( 'ebm_rho_UM', ebm_rho_UM  )
 
       ! Update runoff and salinity
-      rnf(:,:) = rnf(:,:)
-      rnf_tsc(:,:,jp_sal) = rnf_tsc(:,:,jp_sal)
+      rnf(:,:) = ebm_Q_UM(:,:)
+      rnf_tsc(:,:,jp_sal) = ebm_S_UM(:,:) * rnf(:,:) / 1000.0 
 
    END SUBROUTINE sbc_rnfebm
 
@@ -283,6 +281,14 @@ CONTAINS
               ALLOCATE( sf_ebm(jp)%fnow(jpi,jpj,1)   )
               IF( sn_ebm(jp)%ln_tint ) ALLOCATE( sf_ebm(jp)%fdta(jpi,jpj,1,2) )
       ENDDO
+
+      CALL fld_read ( 1, nn_fsbc, sf_ebm )
+      
+      IF( .NOT. ll_ebm_ready ) THEN
+         CALL ebm%init()
+         ll_ebm_ready = .TRUE.
+      ENDIF
+
 
    END SUBROUTINE sbc_rnfebm_init
 
