@@ -236,8 +236,7 @@ CONTAINS
                IF (H_ocean_cell > 0._wp) u_tide_cell = daily_tidal_amp(i,j) * SQRT(EBM%g / MAX(TINY(1._wp), H_ocean_cell))
             END IF
 
-            !IF (L_tide_cell == 0._wp .AND. u_tide_cell /= 0._wp) 
-            L_tide_cell = EBM%tidal_period * u_tide_cell / pi_val
+            IF (L_tide_cell == 0._wp .AND. u_tide_cell /= 0._wp) L_tide_cell = EBM%tidal_period * u_tide_cell / pi_val
 
             ! Fallback: simple river for this river cell
             Q_UM_out(i,j)  = Q_river_cell
@@ -255,7 +254,6 @@ CONTAINS
             !IF (H_chan_cell < 0._wp .OR. H_chan_cell >= H_ocean_cell) CYCLE
 
             IF (a0_cell == 0._wp) a0_cell = EBM%a_0
-            a0_cell = 1.2_wp
 
             CALL compute_one_cell(a0_cell, EBM%a_1, EBM%Sc, EBM%beta, EBM%g, EBM%S, &
                                   EBM%rho_R, EBM%rho_LM, &
@@ -453,12 +451,10 @@ CONTAINS
       INTEGER,  INTENT(IN)  :: wide_mouth
       REAL(wp), INTENT(OUT) :: Q_LM, Q_UM, rho_UM, S_UM, const, a_t_out
       LOGICAL,  INTENT(OUT) :: ok
-      LOGICAL :: found_neg
 
       REAL(wp) :: pi_val, H_upper
       REAL(wp) :: r_2, r_s, theta, r_cos, r_sin, Fgeom, Rgeom
       REAL(wp) :: a_t_loc, Q_Ut, c, cbrtval, Qmix
-      REAL(wp) :: denom, twoHmh, r
       REAL(wp) :: lambda0, lambda1, lambda2, lambda3
       REAL(wp) :: coef(4)
       COMPLEX(wp) :: roots(3)
@@ -474,13 +470,13 @@ CONTAINS
       const = 0._wp
       a_t_out = 0._wp
 
-      !IF (H_ocean <= 0._wp) RETURN
-      !IF (W_mouth <= 0._wp) RETURN
-      !IF (L_tide  <= 0._wp) RETURN
-      !IF (u_tide  == 0._wp) RETURN
-      !IF (Q_river == 0._wp) RETURN
-      !IF (H_lower < 0._wp .OR. H_lower >= H_ocean) RETURN
-      !IF (S_ocean < 0._wp) RETURN
+      IF (H_ocean <= 0._wp) RETURN
+      IF (W_mouth <= 0._wp) RETURN
+      IF (L_tide  <= 0._wp) RETURN
+      IF (u_tide  == 0._wp) RETURN
+      IF (Q_river == 0._wp) RETURN
+      IF (H_lower < 0._wp .OR. H_lower >= H_ocean) RETURN
+      IF (S_ocean < 0._wp) RETURN
 
       pi_val  = ACOS(-1._wp)
       H_upper = H_ocean - H_lower
@@ -493,14 +489,15 @@ CONTAINS
 
       r_s = SQRT( MAX(0._wp, L_tide**2 - W_mouth**2 * (L_tide**2 - r_2**2) / &
                        MAX(TINY(1._wp), 4._wp*r_2**2)) )
-      !IF (r_s <= 0._wp) RETURN
+      IF (r_s <= 0._wp) RETURN
 
       theta = ASIN( clamp( W_mouth / MAX(TINY(1._wp), 2._wp*r_s), -1._wp, 1._wp ) )
+      !theta = ASIN(W_mouth / (2._wp * r_s))
 
       r_cos = (L_tide - r_2) * COS(pi_val - 2._wp*theta)
       r_sin = (L_tide - r_2) * SIN(pi_val - 2._wp*theta)
 
-      IF (wide_mouth == 1) THEN
+      IF (wide_mouth == 1._wp) THEN
          Fgeom = (L_tide*r_2) * ( theta + ATAN( r_sin / MAX(TINY(1._wp), (L_tide + r_2 + r_cos)) ) )
          Rgeom = r_s
       ELSE
@@ -512,64 +509,55 @@ CONTAINS
                         MAX(TINY(1._wp), (W_mouth*L_tide))
       a_t_out = a_t_loc
 
-      Q_Ut = 2._wp * W_mouth *(H_ocean - H_lower) * ABS(u_tide) / pi_val
+      Q_Ut = 2._wp * W_mouth * (H_upper - H_lower) * u_tide / pi_val
       c    = SQRT( MAX(0._wp, g * beta * S_ocean * H_ocean) )
 
-      denom   = MAX(TINY(1._wp), Q_river * Sc**2)
-      cbrtval = cbrt_real( (W_mouth * H_ocean * c**4) / denom )
+      cbrtval = cbrt_real( (W_mouth*H_ocean*c**4) / MAX(TINY(1._wp), (Q_river*Sc**2)) )
+      Qmix    = Q_river + a0*a_t_out*Q_Ut
 
-      ! Paper uses (Q_R + a0 a_t Q_Ut)
-      Qmix   = Q_river + a0 * a_t_loc * Q_Ut
-
-      ! Paper uses (2H - h)
-      twoHmh = 2._wp * H_ocean - H_lower
-
-      lambda3 = -H_ocean
-      lambda2 = 2._wp * Q_river * twoHmh + (a0 * a_t_loc * Q_Ut) * H_ocean
-
-      lambda1 = 0.096_wp * a1 * cbrtval * H_ocean**2 * W_mouth * Q_river &
-                - Q_river * twoHmh * Qmix &
-                - (a0 * a_t_loc * Q_Ut)**2 * H_ocean / 4._wp
-  
       lambda0 = -0.048_wp * a1 * cbrtval * H_ocean**2 * W_mouth * Qmix * Q_river
+      lambda1 =  0.096_wp  * a1 * cbrtval * H_ocean**2 * W_mouth * Q_river &
+              -  Q_river * (2._wp*H_ocean - H_lower) * Qmix &
+              - (a0*a_t_loc*Q_Ut)**2 * H_ocean / 4._wp
+      lambda2 =  2._wp*Q_river * (2._wp*H_ocean - H_lower) + a0*a_t_loc*Q_Ut*H_ocean
+      lambda3 = -H_ocean
 
       coef = (/ lambda3, lambda2, lambda1, lambda0 /)
       CALL cubic_roots(coef, roots)
 
-      ! --- Paper rule: pick the negative real root only ---
-      found_neg = .FALSE.
-      r = 0._wp
-  
-      DO k = 1, 3
-        IF (ABS(AIMAG(roots(k))) <= 1.e-10_wp) THEN
-          IF (REAL(roots(k), wp) < 0._wp) THEN
-            IF (.NOT. found_neg) THEN
-              r = REAL(roots(k), wp)
-              found_neg = .TRUE.
-            ELSE
-              ! Defensive: if roundoff produces >1 negative real root, keep the most negative
-              r = MIN(r, REAL(roots(k), wp))
-            END IF
-          END IF
-        END IF
-      END DO
-  
-!      IF (.NOT. found_neg) THEN
-!        ok = .FALSE.
-!        RETURN
-!      END IF
+      have_real = .FALSE.
+      qlm_candidate = HUGE(1._wp)
 
-      Q_LM = r
+      DO k = 1, 3
+         IF (ABS(AIMAG(roots(k))) <= 1.e-10_wp) THEN
+            have_real = .TRUE.
+            qlm_candidate = MIN(qlm_candidate, REAL(roots(k), wp))
+         END IF
+      END DO
+
+      IF (.NOT. have_real) THEN
+         ! Fallback: take the root with smallest |Im|.
+         qlm_candidate = REAL(roots(1), wp)
+         min_im = ABS(AIMAG(roots(1)))
+         DO k = 2, 3
+            IF (ABS(AIMAG(roots(k))) < min_im) THEN
+               min_im = ABS(AIMAG(roots(k)))
+               qlm_candidate = REAL(roots(k), wp)
+            END IF
+         END DO
+      END IF
+
+      Q_LM = qlm_candidate
       Q_UM = Q_river - Q_LM
 
-      !IF ( (Q_UM + a0*a1*Q_Ut/2._wp) == 0._wp ) RETURN
-
       const = (a0 * a_t_loc * Q_Ut) / 2._wp
-      rho_UM = ( rho_R*Q_river - rho_LM*Q_LM + rho_LM*const ) / &
+      IF ( (Q_UM + a0*a1*Q_Ut/2._wp) == 0._wp ) RETURN
+
+      rho_UM = ( rho_R*Q_river - rho_LM*Q_LM + rho_LM * const ) / &
                ( Q_UM + const )
 
-      !const = (a0 * a_t_loc * Q_Ut) / 2._wp
-      !IF ( (Q_UM + const) == 0._wp ) RETURN
+
+      IF ( (Q_UM + const) == 0._wp ) RETURN
 
       S_UM = S_ocean * (-Q_LM + const) / (Q_UM + const)
 
@@ -604,4 +592,5 @@ CONTAINS
    END SUBROUTINE alloc_or_realloc_i2
 
 END MODULE estuary_box_physics
+
 

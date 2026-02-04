@@ -170,7 +170,7 @@ CONTAINS
       ebm_a0(:,:) = 0._wp
 
       ! Wide-mouth flag currently disabled
-      ebm_wide_mouth(:,:) = 1._wp
+      ebm_wide_mouth(:,:) = 1
 
       ! Authoritative mask: only compute where the external mask is active and runoff is positive
       !ebm_river_mask(:,:) = ( sf_ebm(jp_msk)%fnow(:,:,1) == 1._wp ) .AND. ( ebm_Q_river(:,:) > 0._wp )
