@@ -22,6 +22,15 @@
         <field id="e3t_surf"     long_name="T-cell thickness"   field_ref="e3t"  standard_name="cell_thickness"     unit="m"   grid_ref="grid_T_surface_extract"/>
         <field id="e3t_0"        long_name="Initial T-cell thickness"            standard_name="ref_cell_thickness" unit="m"   grid_ref="grid_T_3D" />
         <field id="e3tb"         long_name="bottom T-cell thickness"             standard_name="bottom_cell_thickness" unit="m"   grid_ref="grid_T_2D"/>
+        <field id="ebm_msk"         long_name="EBM Mask"             standard_name="ebm_msk" unit=""   grid_ref="grid_T_2D"/>
+        <field id="ebm_const"         long_name="EBM Constant"             standard_name="ebm_const" unit=""   grid_ref="grid_T_2D"/>
+	<field id="ebm_rho_UM"         long_name="EBM runoff density"             standard_name="ebm_rho_UM" unit="kg/m3"   grid_ref="grid_T_2D"/>
+        <field id="ebm_S_diff"         long_name="EBM salinity diff"             standard_name="ebm_S_diff" unit=""   grid_ref="grid_T_2D"/>
+        <field id="ebm_S_UM"         long_name="EBM salinity"             standard_name="ebm_S_UM" unit=""   grid_ref="grid_T_2D"/>
+        <field id="ebm_S_LM"         long_name="EBM salinity"             standard_name="ebm_S_LM" unit=""   grid_ref="grid_T_2D"/>
+	<field id="ebm_Q_R"         long_name="EBM runoff input"             standard_name="ebm_Q_R" unit="kg/m2/s"   grid_ref="grid_T_2D"/>
+	<field id="ebm_Q_UM"         long_name="EBM runoff"             standard_name="ebm_Q_UM" unit="kg/m2/s"   grid_ref="grid_T_2D"/>
+	<field id="ebm_Q_LM"         long_name="EBM ocean side flux"             standard_name="ebm_Q_LM" unit="m2/s"   grid_ref="grid_T_2D"/>
         <field id="e3t_300"      field_ref="e3t"                grid_ref="grid_T_zoom_300"       detect_missing_value="true" />
 	<field id="e3t_vsum300"  field_ref="e3t_300"            grid_ref="grid_T_vsum"   detect_missing_value="true" />
 	<field id="masscello"    long_name="Sea Water Mass per unit area"   standard_name="sea_water_mass_per_unit_area"   unit="kg/m2"   grid_ref="grid_T_3D"/>

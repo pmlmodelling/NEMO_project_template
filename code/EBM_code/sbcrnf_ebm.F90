@@ -282,7 +282,7 @@ CONTAINS
               IF( sn_ebm(jp)%ln_tint ) ALLOCATE( sf_ebm(jp)%fdta(jpi,jpj,1,2) )
       ENDDO
 
-      CALL fld_read ( 1, nn_fsbc, sf_ebm )
+      CALL fld_read ( nit000, nn_fsbc, sf_ebm )
       
       IF( .NOT. ll_ebm_ready ) THEN
          CALL ebm%init()
