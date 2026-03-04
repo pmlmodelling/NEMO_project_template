@@ -88,6 +88,7 @@ CONTAINS
       !!----------------------------------------------------------------------
       INTEGER, INTENT(in) ::   kt          ! ocean time step
       INTEGER :: ji, jj, jk
+      REAL(wp) :: uT, vT
       INTEGER :: k_chan, k_bot
       REAL(wp) :: wsum, ssum, tsum, hsum
 
@@ -160,7 +161,15 @@ CONTAINS
       END DO
 
       ! Approximate tidal velocity amplitude from instantaneous near-surface currents
-      ebm_u_tide(:,:)  = SQRT( un(:,:,1)**2 + vn(:,:,1)**2 )
+      !ebm_u_tide(:,:)  = SQRT( un(:,:,1)**2 + vn(:,:,1)**2 )
+
+      DO jj = 2, jpj-1
+        DO ji = 2, jpi-1
+          uT = 0.5_wp * ( un(ji  ,jj,1) + un(ji-1,jj,1) )
+          vT = 0.5_wp * ( vn(ji,jj  ,1) + vn(ji,jj-1,1) )
+          ebm_u_tide(ji,jj) = SQRT( uT*uT + vT*vT )
+        END DO
+      END DO
       ebm_L_tide(:,:)  = 0._wp
 
       ! Convert runoff to discharge (m3/s). Guard against negative/outflow values.
@@ -211,6 +220,8 @@ CONTAINS
       CALL iom_put( 'ebm_S_LM',   ebm_S_ocean )
       CALL iom_put( 'ebm_const',  ebm_const   )
       CALL iom_put( 'ebm_rho_UM', ebm_rho_UM  )
+      CALL iom_put( 'un', un(:,:,1)  )
+      CALL iom_put( 'vn', vn(:,:,1)  )
 
       ! Update runoff and salinity
       rnf(:,:) = ebm_Q_UM(:,:)
