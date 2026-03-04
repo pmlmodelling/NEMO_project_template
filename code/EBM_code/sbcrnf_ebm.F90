@@ -220,8 +220,6 @@ CONTAINS
       CALL iom_put( 'ebm_S_LM',   ebm_S_ocean )
       CALL iom_put( 'ebm_const',  ebm_const   )
       CALL iom_put( 'ebm_rho_UM', ebm_rho_UM  )
-      CALL iom_put( 'un', un(:,:,1)  )
-      CALL iom_put( 'vn', vn(:,:,1)  )
 
       ! Update runoff and salinity
       rnf(:,:) = ebm_Q_UM(:,:)
