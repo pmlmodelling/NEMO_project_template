@@ -7,8 +7,6 @@
 #SBATCH --output=./log/slurm-%j.out
 
 # SUBMIT WITH: sbatch runscript.slurm
-# If starting from anything other than START_YEAR, month 1
-# then run export year=XXXX and export month=X before submission
 
 export OMP_NUM_THREADS=1
 source config.sh
@@ -34,22 +32,18 @@ $SCRIPTS_DIR/core-scripts/setup_year.sh $year
 cd $RUN_DIR
 export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
 
-
-
-if [ $YEARLY = true ]; then
-    for month in {1..12}; do
-        $SCRIPTS_DIR/core-scripts/submit_job.sh
-    done
-    if [ $CLEAN_RESTART = true ] ; then
-        echo 'Cleaning all restarts except January for '$year
-        rm -f $RUN_DIR/restarts/${NAME}_${year}0[2-9]*.nc
-        rm -f $RUN_DIR/restarts/${NAME}_${year}1*.nc
-    fi
-    month=1
-    year=$(($year + 1))
-else
-    $SCRIPTS_DIR/core-scripts/submit_job.sh 
+for (( i=1; i<=$N_sub_months; i++ ));
+do
+    $SCRIPTS_DIR/core-scripts/submit_job.sh
     outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
+    # Check run completed successfully
+    if grep -q "TRACER STAT" "$outdir/ocean.output"; then
+      RUN_STATUS=true
+    else
+      RUN_STATUS=false
+      break
+    fi
+    # Increment month 
     if [ $month != 12 ]; then
         month=$(($month + 1))
     else
@@ -60,15 +54,10 @@ else
         fi
         month=1
         year=$(($year + 1))
+        if [ $year -gt $END_YEAR ]; then break; fi
+        $SCRIPTS_DIR/core-scripts/setup_year.sh $year
     fi
-fi
-
-# Check run completed successfully
-if grep -q "TRACER STAT" "$outdir/ocean.output"; then
-  RUN_STATUS=true
-else
-  RUN_STATUS=false
-fi
+done
 
 # Submit next cycle if run completed successfully
 if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then

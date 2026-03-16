@@ -9,13 +9,8 @@ echo "$SLURM_JOB_ID Submitting year/month" $year/$month >> $outdir/jobs.log
 # Set namelists
 iter_start=$((($(date -u -d "$year""$mm"01 +%s) - $(date -u -d "$START_YEAR"0101 +%s))/$dt))
 # Calculate number of days in run
-if [ "$YEARLY" = true ] ; then
-    nday=`cal $year | grep -v '[A-Za-z]' | wc -w`
-    iter_end=$(($iter_start + 86400*$(($nday-1))/$dt))
-else
-    nday=`cal $month $year | grep -v '[A-Za-z]' | wc -w`
-    iter_end=$(($iter_start + 86400*$nday/$dt))
-fi
+nday=`cal $month $year | grep -v '[A-Za-z]' | wc -w`
+iter_end=$(($iter_start + 86400*$nday/$dt))
 iter_start=$(($iter_start + 1))
 
 mm=$(printf '%02d' $month)
