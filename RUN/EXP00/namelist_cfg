@@ -288,6 +288,7 @@
     sn_ebm_H      = 'ebm_parameters'      ,         0         , 'ebm_H',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
     sn_ebm_W      = 'ebm_parameters'      ,         0         , 'ebm_W',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
     sn_ebm_uH      = 'ebm_parameters'      ,         0         , 'ebm_h',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
+    sn_ebm_angle      = 'ebm_parameters'      ,         0         , 'ebm_angle',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
 /
 !-----------------------------------------------------------------------
 &namsbc_apr    !   Atmospheric pressure used as ocean forcing           (ln_apr_dyn =T)
