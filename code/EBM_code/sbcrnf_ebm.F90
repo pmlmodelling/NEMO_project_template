@@ -30,12 +30,13 @@ MODULE sbcrnf_ebm
    PUBLIC   sbc_rnfebm       ! called in sbcmod module
    PUBLIC   sbc_rnfebm_init  ! called in sbcmod module
 
-   INTEGER , PARAMETER ::  jpfld = 5            ! Number of EBM parameters
+   INTEGER , PARAMETER ::  jpfld = 6            ! Number of EBM parameters
    INTEGER , PARAMETER ::  jp_msk = 1           ! index of msk parameter
    INTEGER , PARAMETER ::  jp_L = 2           ! index of L parameter
    INTEGER , PARAMETER ::  jp_W = 3           ! index of W parameter
    INTEGER , PARAMETER ::  jp_H = 4           ! index of H parameter
    INTEGER , PARAMETER ::  jp_uH = 5           ! index of uH parameter
+   INTEGER, PARAMETER :: jp_angle = 6
    TYPE(FLD), ALLOCATABLE, DIMENSION(:) ::   sf_ebm       ! structure: EBM data
    TYPE(FLD_N), DIMENSION(jpfld) ::   sn_ebm         ! array of namelist information on files to be read
 
@@ -45,9 +46,11 @@ MODULE sbcrnf_ebm
    TYPE(FLD_N)                ::   sn_ebm_W          !: information about the EBM estuary widths to be read
    TYPE(FLD_N)                ::   sn_ebm_H          !: information about the EBM estuary heights to be read
    TYPE(FLD_N)                ::   sn_ebm_uH          !: information about the EBM estuary upper layer heights to be read
+   TYPE(FLD_N) :: sn_ebm_angle
 
    REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_H_ocean, ebm_H_chan, ebm_L_chan, ebm_W_mouth, ebm_V_est
    REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_u_tide, ebm_L_tide, ebm_Q_river, ebm_S_ocean, ebm_T_ocean, ebm_a0
+   REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_angle
    INTEGER , ALLOCATABLE, DIMENSION(:,:) :: ebm_wide_mouth, ebm_river_mask
 
    REAL(wp), ALLOCATABLE, DIMENSION(:,:) :: ebm_Q_UM, ebm_Q_LM, ebm_S_UM, ebm_const, ebm_rho_UM, ebm_S_diff
@@ -63,12 +66,12 @@ CONTAINS
       !!                ***  ROUTINE sbc_rnf_alloc  ***
       !!----------------------------------------------------------------------
       ALLOCATE( &
-         & ebm_H_ocean(jpi,jpj), ebm_H_chan(jpi,jpj), ebm_L_chan(jpi,jpj), ebm_W_mouth(jpi,jpj), ebm_V_est(jpi,jpj), &
-         & ebm_u_tide(jpi,jpj), ebm_L_tide(jpi,jpj), ebm_Q_river(jpi,jpj), ebm_S_ocean(jpi,jpj), &
-         & ebm_T_ocean(jpi,jpj), ebm_a0(jpi,jpj), &
-         & ebm_wide_mouth(jpi,jpj), ebm_river_mask(jpi,jpj), &
-         & ebm_Q_UM(jpi,jpj), ebm_Q_LM(jpi,jpj), ebm_S_UM(jpi,jpj), ebm_const(jpi,jpj), ebm_rho_UM(jpi,jpj), ebm_S_diff(jpi,jpj), &
-         & STAT=sbc_rnfebm_alloc )
+           & ebm_H_ocean(jpi,jpj), ebm_H_chan(jpi,jpj), ebm_L_chan(jpi,jpj), ebm_W_mouth(jpi,jpj), ebm_V_est(jpi,jpj), &
+           & ebm_u_tide(jpi,jpj), ebm_L_tide(jpi,jpj), ebm_Q_river(jpi,jpj), ebm_S_ocean(jpi,jpj), &
+           & ebm_T_ocean(jpi,jpj), ebm_a0(jpi,jpj), ebm_angle(jpi,jpj), &
+           & ebm_wide_mouth(jpi,jpj), ebm_river_mask(jpi,jpj), &
+           & ebm_Q_UM(jpi,jpj), ebm_Q_LM(jpi,jpj), ebm_S_UM(jpi,jpj), ebm_const(jpi,jpj), ebm_rho_UM(jpi,jpj), ebm_S_diff(jpi,jpj), &
+           & STAT=sbc_rnfebm_alloc )
          !
       CALL mpp_sum ( 'sbcrnf_ebm', sbc_rnfebm_alloc )
       IF( sbc_rnfebm_alloc > 0 )   CALL ctl_warn('sbc_rnfebm_alloc: allocation of arrays failed')
@@ -88,9 +91,14 @@ CONTAINS
       !!----------------------------------------------------------------------
       INTEGER, INTENT(in) ::   kt          ! ocean time step
       INTEGER :: ji, jj, jk
-      REAL(wp) :: uT, vT
       INTEGER :: k_chan, k_bot
       REAL(wp) :: wsum, ssum, tsum, hsum
+      real(wp) :: theta_deg, theta_rad
+      real(wp) :: dirx, diry
+      real(wp) :: uT, vT, opp_comp
+      real(wp) :: dz_use, remaining_h
+      real(wp) :: opp_int, thick_sum
+      real(wp), parameter :: deg2rad = acos(-1.0_wp) / 180.0_wp
 
       !!----------------------------------------------------------------------
       !
@@ -101,6 +109,7 @@ CONTAINS
       ebm_W_mouth(:,:) = sf_ebm(jp_W )%fnow(:,:,1)
       ebm_H_ocean(:,:) = sf_ebm(jp_H )%fnow(:,:,1)
       ebm_H_chan(:,:)  = sf_ebm(jp_uH)%fnow(:,:,1)
+      ebm_angle(:,:)   = sf_ebm(jp_angle)%fnow(:,:,1)
       ebm_S_diff(:,:) = 0._wp
 
       ebm_V_est(:,:)   = ebm_L_chan(:,:) * ebm_W_mouth(:,:) * ebm_H_ocean(:,:)
@@ -163,12 +172,57 @@ CONTAINS
       ! Approximate tidal velocity amplitude from instantaneous near-surface currents
       !ebm_u_tide(:,:)  = SQRT( un(:,:,1)**2 + vn(:,:,1)**2 )
 
+      ebm_u_tide(:,:) = 0._wp
+
       DO jj = 2, jpj-1
-        DO ji = 2, jpi-1
-          uT = 0.5_wp * ( un(ji  ,jj,1) + un(ji-1,jj,1) )
-          vT = 0.5_wp * ( vn(ji,jj  ,1) + vn(ji,jj-1,1) )
-          ebm_u_tide(ji,jj) = SQRT( uT*uT + vT*vT )
-        END DO
+         DO ji = 2, jpi-1
+
+            IF ( sf_ebm(jp_msk)%fnow(ji,jj,1) < 0.5_wp ) CYCLE
+
+            k_bot = mbkt(ji,jj)
+            IF ( k_bot < 1 ) CYCLE
+
+            IF ( ebm_H_chan(ji,jj) <= 0._wp ) CYCLE
+
+            theta_rad = ebm_angle(ji,jj) * deg2rad
+            dirx      = COS(theta_rad)
+            diry      = SIN(theta_rad)
+
+            opp_int     = 0._wp
+            thick_sum   = 0._wp
+            remaining_h = ebm_H_chan(ji,jj)
+
+            ! Integrate upward from the bottom over the lower ebm_H_chan thickness
+            DO jk = k_bot, 1, -1
+
+               IF ( remaining_h <= 0._wp ) EXIT
+               IF ( tmask(ji,jj,jk) /= 1._wp ) CYCLE
+
+               ! Amount of this level included in the bottom-h interval
+               dz_use = MIN( e3t_n(ji,jj,jk), remaining_h )
+
+               ! T-point velocity from neighbouring U and V values at this level
+               uT = 0.5_wp * ( un(ji  ,jj,jk) + un(ji-1,jj,jk) )
+               vT = 0.5_wp * ( vn(ji,jj  ,jk) + vn(ji,jj-1,jk) )
+
+               ! Component opposite to the prescribed estuary direction
+               opp_comp = MAX( 0._wp, -(uT * dirx + vT * diry) )
+
+               ! Thickness-integrated opposite component over the bottom-h layer
+               opp_int   = opp_int   + opp_comp * dz_use
+               thick_sum = thick_sum + dz_use
+
+               remaining_h = remaining_h - dz_use
+
+            END DO
+
+            IF ( thick_sum > 0._wp ) THEN
+               ebm_u_tide(ji,jj) = opp_int / thick_sum
+            ELSE
+               ebm_u_tide(ji,jj) = 0._wp
+            END IF
+
+         END DO
       END DO
       ebm_L_tide(:,:)  = 0._wp
 
@@ -242,8 +296,8 @@ CONTAINS
       INTEGER           ::   ios           ! Local integer output status for namelist read
 
       !!
-      NAMELIST/namsbc_rnfebm/ cn_dir,  &
-         &                 sn_ebm_msk, sn_ebm_L, sn_ebm_W, sn_ebm_H, sn_ebm_uH
+      NAMELIST/namsbc_rnfebm/ cn_dir, &
+            & sn_ebm_msk, sn_ebm_L, sn_ebm_W, sn_ebm_H, sn_ebm_uH, sn_ebm_angle
 
       !!----------------------------------------------------------------------
       !
@@ -277,6 +331,7 @@ CONTAINS
       sn_ebm(jp_W) = sn_ebm_W
       sn_ebm(jp_H) = sn_ebm_H
       sn_ebm(jp_uH) = sn_ebm_uH
+      sn_ebm(jp_angle) = sn_ebm_angle
 
       ! Create structure for EBM parameter data
       ALLOCATE( sf_ebm(jpfld), STAT=ierror )         ! Create sf_rnf structure (runoff inflow)
