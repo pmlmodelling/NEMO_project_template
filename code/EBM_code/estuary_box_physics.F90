@@ -51,7 +51,7 @@ MODULE estuary_box_physics
 
       REAL(wp), ALLOCATABLE :: H_ocean2(:,:), H_chan2(:,:), L_chan2(:,:), W_mouth2(:,:), V_est2(:,:)
       REAL(wp), ALLOCATABLE :: u_tide2(:,:), L_tide2(:,:)
-      REAL(wp), ALLOCATABLE :: a0_2(:,:), S_ocean2(:,:), T_ocean2(:,:), Q_river2(:,:)
+      REAL(wp), ALLOCATABLE :: a0_2(:,:), a1_2(:,:), S_ocean2(:,:), T_ocean2(:,:), Q_river2(:,:)
       INTEGER, ALLOCATABLE :: wide_mouth2(:,:), river_mask(:,:)
 
    CONTAINS
@@ -97,7 +97,7 @@ CONTAINS
    ! load_estuary (2-D) + authoritative river_mask
    !============================================================
    SUBROUTINE load_estuary_2d(EBM, H_ocean_in, H_chan_in, L_chan_in, W_mouth_in, V_est_in, &
-                              u_tide_in, L_tide_in, Q_river_in, S_ocean_in, T_ocean_in, a0_in, &
+                              u_tide_in, L_tide_in, Q_river_in, S_ocean_in, T_ocean_in, a0_in, a1_in, &
                               wide_mouth_in, river_mask_in)
       IMPLICIT NONE
       ! Inputs are 2-D fields on the same (ni,nj) grid:
@@ -112,11 +112,12 @@ CONTAINS
       !   S_ocean_in     : ocean salinity at the mouth (Python: S_ocean / So)
       !   T_ocean_in     : ocean temperature at the mouth (units per EOS)
       !   a0_in          : empirical coefficient scaling tidal exchange terms (Python: a_0)
+      !   a1_in          : empirical coefficient scaling salinity exchange terms (Python: a_1)
       !   wide_mouth_in  : regime flag for wide-mouth parameterisation
       !   river_mask_in  : active-cell mask (TRUE = compute / valid cell)
       CLASS(Estuary_box_model), INTENT(INOUT) :: EBM
       REAL(wp), INTENT(IN) :: H_ocean_in(:,:), H_chan_in(:,:), L_chan_in(:,:), W_mouth_in(:,:), V_est_in(:,:)
-      REAL(wp), INTENT(IN) :: u_tide_in(:,:),  L_tide_in(:,:), Q_river_in(:,:), S_ocean_in(:,:), T_ocean_in(:,:), a0_in(:,:)
+      REAL(wp), INTENT(IN) :: u_tide_in(:,:),  L_tide_in(:,:), Q_river_in(:,:), S_ocean_in(:,:), T_ocean_in(:,:), a0_in(:,:), a1_in(:,:)
       INTEGER, INTENT(IN) :: wide_mouth_in(:,:), river_mask_in(:,:)
 
       INTEGER :: ni_loc, nj_loc
@@ -134,6 +135,7 @@ CONTAINS
       IF (SIZE(S_ocean_in,1) /= ni_loc .OR. SIZE(S_ocean_in,2) /= nj_loc) STOP 'load_estuary_2d: S_ocean_in shape mismatch'
       IF (SIZE(T_ocean_in,1) /= ni_loc .OR. SIZE(T_ocean_in,2) /= nj_loc) STOP 'load_estuary_2d: T_ocean_in shape mismatch'
       IF (SIZE(a0_in,1)      /= ni_loc .OR. SIZE(a0_in,2)      /= nj_loc) STOP 'load_estuary_2d: a0_in shape mismatch'
+      IF (SIZE(a1_in,1)      /= ni_loc .OR. SIZE(a1_in,2)      /= nj_loc) STOP 'load_estuary_2d: a1_in shape mismatch'
       IF (SIZE(wide_mouth_in,1) /= ni_loc .OR. SIZE(wide_mouth_in,2) /= nj_loc) STOP 'load_estuary_2d: wide_mouth_in shape mismatch'
       IF (SIZE(river_mask_in,1) /= ni_loc .OR. SIZE(river_mask_in,2) /= nj_loc) STOP 'load_estuary_2d: river_mask_in shape mismatch'
 
@@ -152,6 +154,7 @@ CONTAINS
       CALL alloc_or_realloc_r2(EBM%S_ocean2, ni_loc, nj_loc)
       CALL alloc_or_realloc_r2(EBM%T_ocean2, ni_loc, nj_loc)
       CALL alloc_or_realloc_r2(EBM%a0_2,     ni_loc, nj_loc)
+      CALL alloc_or_realloc_r2(EBM%a1_2,     ni_loc, nj_loc)
       CALL alloc_or_realloc_i2(EBM%wide_mouth2, ni_loc, nj_loc)
       CALL alloc_or_realloc_i2(EBM%river_mask,  ni_loc, nj_loc)
 
@@ -166,6 +169,7 @@ CONTAINS
       EBM%S_ocean2 = S_ocean_in
       EBM%T_ocean2 = T_ocean_in
       EBM%a0_2     = a0_in
+      EBM%a1_2     = a1_in
       EBM%wide_mouth2 = wide_mouth_in
 
       ! Authoritative river mask
@@ -185,7 +189,7 @@ CONTAINS
 
       INTEGER :: i, j, ni_loc, nj_loc
       REAL(wp) :: H_ocean_cell, H_chan_cell, W_mouth_cell, L_tide_cell, u_tide_cell
-      REAL(wp) :: Q_river_cell, S_ocean_cell, a0_cell
+      REAL(wp) :: Q_river_cell, S_ocean_cell, a0_cell, a1_cell
       INTEGER  :: wide_cell
       LOGICAL  :: ok
       REAL(wp) :: qlm, qum, rhoum, sum_out, cst, a_t_out
@@ -230,6 +234,7 @@ CONTAINS
             L_tide_cell  = EBM%L_tide2(i,j)
             u_tide_cell  = EBM%u_tide2(i,j)
             a0_cell      = EBM%a0_2(i,j)
+            a1_cell      = EBM%a1_2(i,j)
             wide_cell    = EBM%wide_mouth2(i,j)
 
             IF (PRESENT(daily_tidal_amp)) THEN
@@ -254,8 +259,9 @@ CONTAINS
             !IF (H_chan_cell < 0._wp .OR. H_chan_cell >= H_ocean_cell) CYCLE
 
             IF (a0_cell == 0._wp) a0_cell = EBM%a_0
+            IF (a1_cell == 0._wp) a1_cell = EBM%a_1
 
-            CALL compute_one_cell(a0_cell, EBM%a_1, EBM%Sc, EBM%beta, EBM%g, EBM%S, &
+            CALL compute_one_cell(a0_cell, a1_cell, EBM%Sc, EBM%beta, EBM%g, EBM%S, &
                                   EBM%rho_R, EBM%rho_LM, &
                                   H_ocean_cell, H_chan_cell, W_mouth_cell, L_tide_cell, u_tide_cell, &
                                   Q_river_cell, S_ocean_cell, wide_cell, &
