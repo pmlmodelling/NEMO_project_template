@@ -30,22 +30,20 @@ MODULE sbcrnf_ebm
    PUBLIC   sbc_rnfebm       ! called in sbcmod module
    PUBLIC   sbc_rnfebm_init  ! called in sbcmod module
 
-   INTEGER , PARAMETER ::  jpfld = 9            ! Number of EBM parameters
+   INTEGER , PARAMETER ::  jpfld = 8            ! Number of EBM parameters
    INTEGER , PARAMETER ::  jp_msk = 1           ! index of msk parameter
-   INTEGER , PARAMETER ::  jp_L = 2           ! index of L parameter
-   INTEGER , PARAMETER ::  jp_W = 3           ! index of W parameter
-   INTEGER , PARAMETER ::  jp_H = 4           ! index of H parameter
-   INTEGER , PARAMETER ::  jp_uH = 5           ! index of uH parameter
-   INTEGER, PARAMETER :: jp_angle = 6
-   INTEGER, PARAMETER :: jp_a0 = 7
-   INTEGER, PARAMETER :: jp_a1 = 8
-   INTEGER, PARAMETER :: jp_WM_flag = 9
+   INTEGER , PARAMETER ::  jp_W = 2           ! index of W parameter
+   INTEGER , PARAMETER ::  jp_H = 3           ! index of H parameter
+   INTEGER , PARAMETER ::  jp_uH = 4           ! index of uH parameter
+   INTEGER, PARAMETER :: jp_angle = 5
+   INTEGER, PARAMETER :: jp_a0 = 6
+   INTEGER, PARAMETER :: jp_a1 = 7
+   INTEGER, PARAMETER :: jp_WM_flag = 8
    TYPE(FLD), ALLOCATABLE, DIMENSION(:) ::   sf_ebm       ! structure: EBM data
    TYPE(FLD_N), DIMENSION(jpfld) ::   sn_ebm         ! array of namelist information on files to be read
 
    CHARACTER(len=100)         ::   cn_dir            !: Root directory for location of ebm files
    TYPE(FLD_N)                ::   sn_ebm_msk            !: information about the mask for EBM locations to be read
-   TYPE(FLD_N)                ::   sn_ebm_L          !: information about the EBM estuary lengths to be read
    TYPE(FLD_N)                ::   sn_ebm_W          !: information about the EBM estuary widths to be read
    TYPE(FLD_N)                ::   sn_ebm_H          !: information about the EBM estuary heights to be read
    TYPE(FLD_N)                ::   sn_ebm_uH          !: information about the EBM estuary upper layer heights to be read
@@ -111,7 +109,7 @@ CONTAINS
 
       ! Initialise ocean side variables
 
-      ebm_L_chan(:,:)  = sf_ebm(jp_L )%fnow(:,:,1)
+      ebm_L_chan(:,:)  = 0._wp
       ebm_W_mouth(:,:) = sf_ebm(jp_W )%fnow(:,:,1)
       ebm_H_ocean(:,:) = sf_ebm(jp_H )%fnow(:,:,1)
       ebm_H_chan(:,:)  = sf_ebm(jp_uH)%fnow(:,:,1)
@@ -301,7 +299,7 @@ CONTAINS
 
       !!
       NAMELIST/namsbc_rnfebm/ cn_dir, &
-            & sn_ebm_msk, sn_ebm_L, sn_ebm_W, sn_ebm_H, sn_ebm_uH, sn_ebm_angle, &
+            & sn_ebm_msk, sn_ebm_W, sn_ebm_H, sn_ebm_uH, sn_ebm_angle, &
             & sn_ebm_a0, sn_ebm_a1, sn_ebm_WM_flag
 
       !!----------------------------------------------------------------------
@@ -332,7 +330,6 @@ CONTAINS
 
       ! Create array of namelist information for EBM parameters
       sn_ebm(jp_msk) = sn_ebm_msk
-      sn_ebm(jp_L) = sn_ebm_L
       sn_ebm(jp_W) = sn_ebm_W
       sn_ebm(jp_H) = sn_ebm_H
       sn_ebm(jp_uH) = sn_ebm_uH
@@ -366,3 +363,4 @@ CONTAINS
 
    !!======================================================================
 END MODULE sbcrnf_ebm
+

@@ -284,7 +284,6 @@
     !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim   ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
     !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F)  ! 'monthly' !                  ! pairing  !    filename   !
     sn_ebm_msk      = 'ebm_parameters'      ,         0         , 'ebm_flag',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
-    sn_ebm_L      = 'ebm_parameters'      ,         0         , 'ebm_L',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
     sn_ebm_H      = 'ebm_parameters'      ,         0         , 'ebm_H',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
     sn_ebm_W      = 'ebm_parameters'      ,         0         , 'ebm_W',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
     sn_ebm_uH      = 'ebm_parameters'      ,         0         , 'ebm_h',   .false.   , .true.  , 'yearly'  , ''               , ''       , ''
