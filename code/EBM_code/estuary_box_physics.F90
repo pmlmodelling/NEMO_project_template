@@ -458,7 +458,7 @@ CONTAINS
       REAL(wp), INTENT(OUT) :: Q_LM, Q_UM, rho_UM, S_UM, const, a_t_out
       LOGICAL,  INTENT(OUT) :: ok
 
-      REAL(wp) :: pi_val, H_upper
+      REAL(wp) :: pi_val
       REAL(wp) :: r_2, r_s, theta, r_cos, r_sin, Fgeom, Rgeom
       REAL(wp) :: a_t_loc, Q_Ut, c, cbrtval, Qmix
       REAL(wp) :: lambda0, lambda1, lambda2, lambda3
@@ -485,7 +485,6 @@ CONTAINS
       IF (S_ocean < 0._wp) RETURN
 
       pi_val  = ACOS(-1._wp)
-      H_upper = H_ocean - H_lower
 
       IF (W_mouth > pi_val*L_tide/2._wp) THEN
          r_2 = L_tide
@@ -503,7 +502,7 @@ CONTAINS
       r_cos = (L_tide - r_2) * COS(pi_val - 2._wp*theta)
       r_sin = (L_tide - r_2) * SIN(pi_val - 2._wp*theta)
 
-      IF (wide_mouth == 1._wp) THEN
+      IF (wide_mouth == 1) THEN
          Fgeom = (L_tide*r_2) * ( theta + ATAN( r_sin / MAX(TINY(1._wp), (L_tide + r_2 + r_cos)) ) )
          Rgeom = r_s
       ELSE
@@ -515,7 +514,7 @@ CONTAINS
                         MAX(TINY(1._wp), (W_mouth*L_tide))
       a_t_out = a_t_loc
 
-      Q_Ut = 2._wp * W_mouth * (H_upper - H_lower) * u_tide / pi_val
+      Q_Ut = 2._wp * W_mouth * (H_ocean - H_lower) * u_tide / pi_val
       c    = SQRT( MAX(0._wp, g * beta * S_ocean * H_ocean) )
 
       cbrtval = cbrt_real( (W_mouth*H_ocean*c**4) / MAX(TINY(1._wp), (Q_river*Sc**2)) )
@@ -557,13 +556,8 @@ CONTAINS
       Q_UM = Q_river - Q_LM
 
       const = (a0 * a_t_loc * Q_Ut) / 2._wp
-      IF ( (Q_UM + a0*a1*Q_Ut/2._wp) == 0._wp ) RETURN
-
       rho_UM = ( rho_R*Q_river - rho_LM*Q_LM + rho_LM * const ) / &
                ( Q_UM + const )
-
-
-      IF ( (Q_UM + const) == 0._wp ) RETURN
 
       S_UM = S_ocean * (-Q_LM + const) / (Q_UM + const)
 
