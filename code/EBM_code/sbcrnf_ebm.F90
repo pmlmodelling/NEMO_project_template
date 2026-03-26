@@ -252,6 +252,7 @@ CONTAINS
 
       ! Convert EBM outflow into discharge load
       ebm_Q_UM = 1000.0 * ebm_Q_UM(:,:) / (e1t(:,:) * e2t(:,:))
+      ebm_Q_LM = 1000.0 * ebm_Q_LM(:,:) / (e1t(:,:) * e2t(:,:))
 
 
       DO jj = 1, jpj
@@ -279,6 +280,7 @@ CONTAINS
 
       ! Update runoff and salinity
       rnf(:,:) = ebm_Q_UM(:,:)
+      rnf_inflow(:,:) = -1*ebm_Q_LM(:,:)
       rnf_tsc(:,:,jp_sal) = ebm_S_UM(:,:) * rnf(:,:) / 1000.0
 
    END SUBROUTINE sbc_rnfebm
@@ -306,6 +308,7 @@ CONTAINS
       !
       !                                         !==  allocate runoff arrays
       IF( sbc_rnfebm_alloc() /= 0 )   CALL ctl_stop( 'STOP', 'sbc_rnfebm_alloc : unable to allocate arrays' )
+
       !
       !                                   ! ============
       !                                   !   Namelist
