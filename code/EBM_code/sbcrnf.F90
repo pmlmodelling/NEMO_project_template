@@ -61,6 +61,7 @@ MODULE sbcrnf
    REAL(wp), PUBLIC, ALLOCATABLE, SAVE, DIMENSION(:,:)   ::   rnfmsk              !: river mouth mask (hori.)
    REAL(wp), PUBLIC, ALLOCATABLE, SAVE, DIMENSION(:)     ::   rnfmsk_z            !: river mouth mask (vert.)
    REAL(wp), PUBLIC, ALLOCATABLE, SAVE, DIMENSION(:,:)   ::   h_rnf               !: depth of runoff in m
+   REAL(wp), PUBLIC, ALLOCATABLE, SAVE, DIMENSION(:,:)   ::   h_rnf_lower         !: depth of runoff entering estuary in m (ln_rnfebm = T)
    INTEGER,  PUBLIC, ALLOCATABLE, SAVE, DIMENSION(:,:)   ::   nk_rnf              !: depth of runoff in model levels
    REAL(wp), PUBLIC, ALLOCATABLE, SAVE, DIMENSION(:,:,:) ::   rnf_tsc_b, rnf_tsc  !: before and now T & S runoff contents   [K.m/s & PSU.m/s]   
 
@@ -83,6 +84,7 @@ CONTAINS
       ALLOCATE( rnfmsk(jpi,jpj)         , rnfmsk_z(jpk)          ,     &
          &      h_rnf (jpi,jpj)         , nk_rnf  (jpi,jpj)      ,     &
          &      rnf_tsc_b(jpi,jpj,jpts) , rnf_tsc (jpi,jpj,jpts) , STAT=sbc_rnf_alloc )
+      IF ( ln_rnfebm ) ALLOCATE( h_rnf_lower (jpi,jpj), )
          !
       CALL mpp_sum ( 'sbcrnf', sbc_rnf_alloc )
       IF( sbc_rnf_alloc > 0 )   CALL ctl_warn('sbc_rnf_alloc: allocation of arrays failed')
@@ -211,10 +213,10 @@ CONTAINS
                      phdivn(ji,jj,jk) = phdivn(ji,jj,jk) - ( rnf(ji,jj) + rnf_b(ji,jj) ) * zfact * r1_rau0 / h_rnf(ji,jj)
                   END DO
                   IF( ln_rnfebm  ) THEN
-                  !                          ! remove flow entering estuary 
-                     DO jk = nk_rnf(ji,jj), mbkt(ji,jj)
-                      phdivn(ji,jj,jk) = phdivn(ji,jj,jk) + rnf_inflow(ji,jj) * zfact * r1_rau0 / h_rnf(ji,jj)
-                     END DO
+                    ! remove flow entering estuary 
+                    DO jk = nk_rnf(ji,jj), mbkt(ji,jj)
+                     phdivn(ji,jj,jk) = phdivn(ji,jj,jk) + rnf_inflow(ji,jj) * r1_rau0 / h_rnf_lower(ji,jj)
+                    END DO
                   ENDIF
                END DO
             END DO
@@ -230,13 +232,13 @@ CONTAINS
                      phdivn(ji,jj,jk) = phdivn(ji,jj,jk) - ( rnf(ji,jj) + rnf_b(ji,jj) ) * zfact * r1_rau0 / h_rnf(ji,jj)
                   END DO
                   IF( ln_rnfebm  ) THEN
-                     h_rnf(ji,jj) = 0._wp
+                     h_rnf_lower(ji,jj) = 0._wp
                      DO jk = nk_rnf(ji,jj), mbkt(ji,jj)                          ! Get depth below river outflow
-                       h_rnf(ji,jj) = h_rnf(ji,jj) + e3t_n(ji,jj,jk)   
+                       h_rnf_lower(ji,jj) = h_rnf_lower(ji,jj) + e3t_n(ji,jj,jk)   
                      END DO
-                  !                          ! remove flow entering estuary 
+                                            ! remove flow entering estuary 
                      DO jk = nk_rnf(ji,jj), mbkt(ji,jj)
-                      phdivn(ji,jj,jk) = phdivn(ji,jj,jk) + rnf_inflow(ji,jj) * zfact * r1_rau0 / h_rnf(ji,jj)
+                      phdivn(ji,jj,jk) = phdivn(ji,jj,jk) + rnf_inflow(ji,jj) * r1_rau0 / h_rnf_lower(ji,jj)
                      END DO
                   ENDIF
 

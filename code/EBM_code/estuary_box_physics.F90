@@ -22,7 +22,7 @@ MODULE estuary_box_physics
       REAL(wp) :: g            = 9.81_wp
       REAL(wp) :: S            = 1._wp
       REAL(wp) :: rho_R        = 1000._wp
-      REAL(wp) :: rho_LM       = 1025._wp
+      REAL(wp) :: rho_LM       = 1026._wp
       REAL(wp) :: S_fw         = 0._wp     ! freshwater salinity fallback
 
       ! ---- scalar cell state (Python names in comments) ----

@@ -173,6 +173,13 @@ CONTAINS
             END DO
             nk_rnf(ji,jj) = k_chan
             h_rnf(ji,jj) = hsum
+
+            hsum = 0._wp
+            DO jk = k_chan, k_bot
+                hsum = hsum + e3t_n(ji,jj,jk)
+            END DO
+            h_rnf_lower(ji,jj) = hsum
+
          END DO
       END DO
 
@@ -244,7 +251,7 @@ CONTAINS
       ebm_L_tide(:,:)  = 0._wp
 
       ! Convert runoff to discharge (m3/s). Guard against negative/outflow values.
-      ebm_Q_river(:,:) = MAX( 0._wp, rnf(:,:) * e1t(:,:) * e2t(:,:) / 1000.0 )
+      ebm_Q_river(:,:) = MAX( 0._wp, rnf(:,:) * e1t(:,:) * e2t(:,:) * r1_rau0 )
 
       ebm_wide_mouth(:,:) = NINT( sf_ebm(jp_WM_flag)%fnow(:,:,1) )
 
@@ -262,8 +269,8 @@ CONTAINS
 
 
       ! Convert EBM outflow into discharge load
-      ebm_Q_UM = 1000.0 * ebm_Q_UM(:,:) / (e1t(:,:) * e2t(:,:))
-      ebm_Q_LM = 1000.0 * ebm_Q_LM(:,:) / (e1t(:,:) * e2t(:,:))
+      ebm_Q_UM = rau0 * ebm_Q_UM(:,:) / (e1t(:,:) * e2t(:,:))
+      ebm_Q_LM = rau0 * ebm_Q_LM(:,:) / (e1t(:,:) * e2t(:,:))
 
 
       DO jj = 1, jpj
@@ -292,7 +299,8 @@ CONTAINS
       ! Update runoff and salinity
       rnf(:,:) = ebm_Q_UM(:,:)
       rnf_inflow(:,:) = -1*ebm_Q_LM(:,:)
-      rnf_tsc(:,:,jp_sal) = ebm_S_UM(:,:) * rnf(:,:) / 1000.0
+      rnf_tsc(:,:,jp_sal) = ebm_S_UM(:,:) * rnf(:,:) * r1_rau0
+      rnf_inflow_sal(:,:) = ebm_S_ocean(:,:) * rnf_inflow(:,:) * r1_rau0
 
    END SUBROUTINE sbc_rnfebm
 

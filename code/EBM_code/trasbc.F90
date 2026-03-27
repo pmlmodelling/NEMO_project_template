@@ -21,6 +21,7 @@ MODULE trasbc
    USE eosbn2         ! Equation Of State
    USE sbcmod         ! ln_rnf, ln_rnfebm  
    USE sbcrnf         ! River runoff  
+   USE sbcrnf_ebm     ! Estuary box model coupling  
    USE sbcisf         ! Ice shelf   
    USE iscplini       ! Ice sheet coupling
    USE traqsr         ! solar radiation penetration
@@ -205,6 +206,11 @@ CONTAINS
                                            &                 +  ( rnf_tsc_b(ji,jj,jp_sal) + rnf_tsc(ji,jj,jp_sal) ) * zdep 
                      ENDIF
                   END DO
+                  IF ( ln_rnfebm ) THEN
+                       DO jk = nk_rnf(ji,jj), mbkt(ji,jj)
+                        tsa(ji,jj,jk,jp_sal) = tsa(ji,jj,jk,jp_sal) - rnf_inflow_sal(ji,jj) / h_rnf_lower(ji,jj)
+                       END DO
+                  ENDIF
                ENDIF
             END DO  
          END DO  
