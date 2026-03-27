@@ -102,6 +102,7 @@ CONTAINS
       real(wp) :: uT, vT, opp_comp
       real(wp) :: dz_use, remaining_h
       real(wp) :: opp_int, thick_sum
+      real(wp) :: depth_total, h_middle
       real(wp), parameter :: deg2rad = acos(-1.0_wp) / 180.0_wp
 
       !!----------------------------------------------------------------------
@@ -177,14 +178,13 @@ CONTAINS
 
       ! Approximate tidal velocity amplitude from instantaneous near-surface currents
       !ebm_u_tide(:,:)  = SQRT( un(:,:,1)**2 + vn(:,:,1)**2 )
-
       ebm_u_tide(:,:) = 0._wp
 
       DO jj = 2, jpj-1
          DO ji = 2, jpi-1
 
             IF ( sf_ebm(jp_msk)%fnow(ji,jj,1) < 0.5_wp ) CYCLE
-
+ 
             k_bot = mbkt(ji,jj)
             IF ( k_bot < 1 ) CYCLE
 
@@ -194,17 +194,28 @@ CONTAINS
             dirx      = COS(theta_rad)
             diry      = SIN(theta_rad)
 
+            ! Local total wet-column thickness from the model
+            depth_total = 0._wp
+            DO jk = 1, k_bot
+               IF ( tmask(ji,jj,jk) == 1._wp ) THEN
+                  depth_total = depth_total + e3t_n(ji,jj,jk)
+               END IF
+            END DO
+
+            ! Scale the param-file h/H ratio onto the local model depth
+            h_middle = depth_total * ebm_H_chan(ji,jj) / ebm_H_ocean(ji,jj)
+
             opp_int     = 0._wp
             thick_sum   = 0._wp
-            remaining_h = ebm_H_chan(ji,jj)
+            remaining_h = h_middle
 
-            ! Integrate upward from the bottom over the lower ebm_H_chan thickness
+            ! Integrate upward from the bottom over the lower h_middle thickness
             DO jk = k_bot, 1, -1
 
                IF ( remaining_h <= 0._wp ) EXIT
                IF ( tmask(ji,jj,jk) /= 1._wp ) CYCLE
 
-               ! Amount of this level included in the bottom-h interval
+               ! Amount of this level included in the bottom-h_middle interval
                dz_use = MIN( e3t_n(ji,jj,jk), remaining_h )
 
                ! T-point velocity from neighbouring U and V values at this level
@@ -214,7 +225,7 @@ CONTAINS
                ! Component opposite to the prescribed estuary direction
                opp_comp = MAX( 0._wp, -(uT * dirx + vT * diry) )
 
-               ! Thickness-integrated opposite component over the bottom-h layer
+               ! Thickness-integrated opposite component over the bottom-h_middle layer
                opp_int   = opp_int   + opp_comp * dz_use
                thick_sum = thick_sum + dz_use
 
