@@ -127,11 +127,52 @@
 &namtrc_trd       !   diagnostics on tracer trends        ('key_trdtrc')
 !                          or mixed-layer trends          ('key_trdmld_trc')
 !----------------------------------------------------------------------
-   nn_trd_trc  =   1     !  time step frequency and tracers trends
+   nn_trd_trc  =   300     !  time step frequency and tracers trends
    nn_ctls_trc =   50        !  control surface type in mixed-layer trends (0,1 or n<jpk)
    rn_ucf_trc  =   1        !  unit conversion factor (=1 -> /seconds ; =86400. -> /day)
    ln_trdmxl_trc_restart = .false.  !  restart for ML diagnostics
-   ln_trdmxl_trc_instant = .false.  !  flag to diagnose trends of instantantaneous or mean ML T/S
+   ln_trdmxl_trc_instant = .false.  !  flag to diagnose trends of instantaneous or mean ML T/S
+   cn_trdrst_trc_in  = 'restart_trd' !  suffix of pass. tracer trends restart name (input)
+   cn_trdrst_trc_out = 'restart_trd' !  suffix of pass. tracer trends restart name (output)
+   ln_trdtrc(1) = .true.
+   ln_trdtrc(2) = .true.
+   ln_trdtrc(3) = .true.
+   ln_trdtrc(4) = .true.
+   ln_trdtrc(5) = .true.
+   ln_trdtrc(6) = .true.
+   ln_trdtrc(7) = .true.
+   ln_trdtrc(8) = .true.
+   ln_trdtrc(9) = .true.
+   ln_trdtrc(10) = .true.
+   ln_trdtrc(11) = .true.
+   ln_trdtrc(12) = .true.
+   ln_trdtrc(13) = .true.
+   ln_trdtrc(14) = .true.
+   ln_trdtrc(15) = .true.
+   ln_trdtrc(16) = .true.
+   ln_trdtrc(17) = .true.
+   ln_trdtrc(18) = .true.
+   ln_trdtrc(19) = .true.
+   ln_trdtrc(20) = .true.
+   ln_trdtrc(21) = .true.
+   ln_trdtrc(22) = .true.
+   ln_trdtrc(23) = .true.
+   ln_trdtrc(24) = .true.
+   ln_trdtrc(25) = .true.
+   ln_trdtrc(26) = .true.
+   ln_trdtrc(27) = .true.
+   ln_trdtrc(28) = .true.
+   ln_trdtrc(29) = .true.
+   ln_trdtrc(30) = .true.
+   ln_trdtrc(31) = .true.
+   ln_trdtrc(32) = .true.
+   ln_trdtrc(33) = .true.
+   ln_trdtrc(34) = .true.
+   ln_trdtrc(35) = .true.
+   ln_trdtrc(36) = .true.
+   ln_trdtrc(37) = .true.
+   ln_trdtrc(38) = .true.
+   ln_trdtrc(39) = .true.
 /
 !-----------------------------------------------------------------------
 &namtrc_dia       !   parameters for passive tracer additional diagnostics

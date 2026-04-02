@@ -72,6 +72,7 @@
   <field id="B1_fR1B1p_e3t" long_name="bacterial DOP uptake cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > B1_fR1B1n * e3t </field>
   <field id="B1_fR2B1c_e3t" long_name="bacterial uptake of semi-labile DOC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > B1_fR2B1c * e3t </field>
   <field id="B1_fR3B1c_e3t" long_name="bacterial uptake of semi-refractory DOC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > B1_fR3B1c * e3t </field>
+  <field id="B1_fRPB1c_e3t" long_name="bacteria total uptake of POC" unit="mg C/m^2/d" default_value="-.200E+21" > B1_fRPB1c * e3t </field>
   <field id="B1_fB1R1c_e3t" long_name="bacterial release of labile DOC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > B1_fB1R1c * e3t </field>
   <field id="B1_fB1R1n_e3t" long_name="bacterial DON release cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > B1_fB1R1c * e3t </field>
   <field id="B1_fB1R1p_e3t" long_name="bacterial DOP release cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > B1_fB1R1p * e3t </field>
@@ -86,8 +87,26 @@
   <field id="Z4_fZIRDc_e3t" long_name="mesozooplankton loss to DOC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z4_fZIRDc * e3t </field>
   <field id="Z4_fZIRDn_e3t" long_name="mesozooplankton loss to DON cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fZIRDn * e3t </field>
   <field id="Z4_fZIRDp_e3t" long_name="mesozooplankton loss to DOP cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z4_fZIRDp * e3t </field>
-  <field id="Z4_fZINIn_e3t" long_name="mesozooplankton DIP release cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fZINIn * e3t </field>
+  <field id="Z4_fZINIn_e3t" long_name="mesozooplankton DIN release cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fZINIn * e3t </field>
   <field id="Z4_fZINIp_e3t" long_name="mesozooplankton DIP release cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z4_fZINIp * e3t </field>
+  <field id="Z5_fZIO3c_e3t" long_name="microzooplankton respiration cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z5_fZIO3c * e3t </field>
+  <field id="Z5_fZIRPc_e3t" long_name="microzooplankton loss to POC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z5_fZIRPc * e3t </field>
+  <field id="Z5_fZIRPn_e3t" long_name="microzooplankton loss to PON cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z5_fZIRPn * e3t </field>
+  <field id="Z5_fZIRPp_e3t" long_name="microzooplankton loss to POP cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z5_fZIRPp * e3t </field>
+  <field id="Z5_fZIRDc_e3t" long_name="microzooplankton loss to DOC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z5_fZIRDc * e3t </field>
+  <field id="Z5_fZIRDn_e3t" long_name="microzooplankton loss to DON cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z5_fZIRDn * e3t </field>
+  <field id="Z5_fZIRDp_e3t" long_name="microzooplankton loss to DOP cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z5_fZIRDp * e3t </field>
+  <field id="Z5_fZINIn_e3t" long_name="microzooplankton DIN release cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z5_fZINIn * e3t </field>
+  <field id="Z5_fZINIp_e3t" long_name="microzooplankton DIP release cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z5_fZINIp * e3t </field>
+  <field id="Z6_fZIO3c_e3t" long_name="nanozooplankton respiration cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z6_fZIO3c * e3t </field>
+  <field id="Z6_fZIRPc_e3t" long_name="nanozooplankton loss to POC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z6_fZIRPc * e3t </field>
+  <field id="Z6_fZIRPn_e3t" long_name="nanozooplankton loss to PON cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z6_fZIRPn * e3t </field>
+  <field id="Z6_fZIRPp_e3t" long_name="nanozooplankton loss to POP cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z6_fZIRPp * e3t </field>
+  <field id="Z6_fZIRDc_e3t" long_name="nanozooplankton loss to DOC cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z6_fZIRDc * e3t </field>
+  <field id="Z6_fZIRDn_e3t" long_name="nanozooplankton loss to DON cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z6_fZIRDn * e3t </field>
+  <field id="Z6_fZIRDp_e3t" long_name="nanozooplankton loss to DOP cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z6_fZIRDp * e3t </field>
+  <field id="Z6_fZINIn_e3t" long_name="nanozooplankton DIN release cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z6_fZINIn * e3t </field>
+  <field id="Z6_fZINIp_e3t" long_name="nanozooplankton DIP release cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z6_fZINIp * e3t </field>
   <field id="Z4_fphytoc_result_e3t" long_name="mesozooplankton grazing of phytoplankton carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z4_fphytoc_result * e3t </field>
   <field id="Z4_fphyton_result_e3t" long_name="mesozooplankton grazing of phytoplankton nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fphyton_result * e3t </field>
   <field id="Z4_fphytop_result_e3t" long_name="Zmesozooplankton grazing of phytoplankton phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z4_fphytop_result * e3t </field>
@@ -95,6 +114,12 @@
   <field id="Z4_fzooc_result_e3t" long_name="mesozooplankton predation on zooplankton carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z4_fzooc_result * e3t </field>
   <field id="Z4_fzoon_result_e3t" long_name="mesozooplankton predation on zooplankton nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fzoon_result * e3t </field>
   <field id="Z4_fzoop_result_e3t" long_name="mesozooplankton predation on zooplankton phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z4_fzoop_result * e3t </field>
+  <field id="Z4_fprey1c_e3t" long_name="mesozooplankton feeding on diatom carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey1c * e3t </field>
+  <field id="Z4_fprey2c_e3t" long_name="mesozooplankton feeding on nanophytoplankton carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey2c * e3t </field>
+  <field id="Z4_fprey4c_e3t" long_name="mesozooplankton feeding on microphytoplankton carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey4c * e3t </field>
+  <field id="Z4_fprey5c_e3t" long_name="mesozooplankton feeding on mesozooplankton carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey5c * e3t </field>
+  <field id="Z4_fprey6c_e3t" long_name="mesozooplankton feeding on microzooplankton carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey6c * e3t </field>
+  <field id="Z4_fprey7c_e3t" long_name="mesozooplankton feeding on nanozooplankton carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey7c * e3t </field>
   <field id="Z4_fprey9c_e3t" long_name="mesozooplankton scavenging on particulate organic carbon cell depth integrated" unit="mg c/m^2/d" default_value="-.200E+21" > Z4_fprey9c * e3t </field>
   <field id="Z4_fprey9n_e3t" long_name="mesozooplankton scavenging on particulate organic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fprey9n * e3t </field>
   <field id="Z4_fprey9p_e3t" long_name="mesozooplankton scavenging on particulate organic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z4_fprey9p * e3t </field>
@@ -132,8 +157,8 @@
   <field id="INP_rono3_e3t" default_value="-.200E+21" > INP_rono3 * e3t </field>
   <field id="INP_ronh4_e3t" default_value="-.200E+21" > INP_ronh4 * e3t </field>
   <field id="INP_rop_e3t" default_value="-.200E+21" > INP_rop * e3t </field>
-  <field id="INP_ronsio2_e3t" default_value="-.200E+21" > INP_rosio2 * e3t </field>
+  <field id="INP_rosio2_e3t" default_value="-.200E+21" > INP_rosio2 * e3t </field>
   <field id="INP_roo_e3t" default_value="-.200E+21" > INP_roo * e3t </field>
-  <field id="INP_robioalk_e3t" default_value="-.200E+21" > INP_robioalk * e3t </field>
+  <field id="INP_rototalk_e3t" default_value="-.200E+21" > INP_rototalk * e3t </field>
  </field_group>
 </field_definition>
