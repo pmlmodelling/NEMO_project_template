@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # ==========================================
-# Script to update the core count on scylla
+# Script to update the runscripts
 # ==========================================
-# Note: NEMO on scylla uses 63 cores per node
-
+# Note: NEMO on scylla uses 63 cores per node, archer2 uses 128
 # How to use:
 
 # Method 1 (simple)
@@ -12,9 +11,9 @@
 # below and execute this script. This sets one xios_server
 # per node. 
 # Therefore, to make full use of nodes set:
-# number_of_nodes = (xios_servers + ocean_cores) / 63
+# number_of_nodes = (xios_servers + ocean_cores) / cores_per_node
 # with xios_servers = number_of_nodes
-# e.g. for 8 nodes, you can rearrange to get 496 cores
+# e.g. for 8 nodes with 63 cores per node, you can rearrange to get 496 ocean cores
 # 8 = ( 8 + 496) / 63
 
 # Method 2 (complex)
@@ -25,7 +24,7 @@
 # where e.g. 
 # 0=no gap, 1=gap between every core, 2=2 ocean cores then a gap etc
 # This makes the calculation more fiddly,
-# 63 * number_of_nodes = (xios_servers * cores_per_xios_server
+# number_of_nodes * cores_per_node = (xios_servers * cores_per_xios_server
 #			 + ocean_cores * (cores_before_gap + 1)/cores_before_gap) 	
 # where number_of_nodes > xios_servers / xios_servers_per_node	 
 
@@ -34,6 +33,8 @@
 # Set parameters
 xios_servers=8 
 ocean_cores=496
+system=scylla     
+cores_per_node=63 # Scylla uses 63
 
 # Fine control parameters
 cores_per_xios_server=1
@@ -59,10 +60,10 @@ fi
 
 #Setup run
 if [ ! -d $RUN_DIR ]; then
-    $SCRIPTS_DIR/core-scripts/setup_initial.sh
+    $SCRIPTS_DIR/input-scripts/setup_initial.sh
 fi
 
-$SCRIPTS_DIR/core-scripts/setup_year.sh $year
+$SCRIPTS_DIR/input-scripts/setup_year.sh $year
 
 cd $RUN_DIR
 export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
@@ -90,7 +91,7 @@ do
         month=1
         year=$(($year + 1))
         if [ $year -gt $END_YEAR ]; then break; fi
-        $SCRIPTS_DIR/core-scripts/setup_year.sh $year
+        $SCRIPTS_DIR/input-scripts/setup_year.sh $year
     fi
 done
 
@@ -112,18 +113,18 @@ fi
 EOF2
 )
 
-./mkslurm_scylla -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
-               -C $ocean_cores -g $ocean_cores_before_gap -N 63 -t 01:00:00 -j AMM7-cycle \
-	       -z "$text" -T -M     \
-	       > runscript_cycle_scylla.slurm
+./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
+               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7-cycle \
+	       -z "$text" -T -M --sys "$system"    \
+		> runscript_cycle_$system.slurm
 
 # Update mapping script
-./mkslurm_scylla -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
-               -C $ocean_cores -g $ocean_cores_before_gap -N 63 -t 01:00:00 -j AMM7 \
-	       -H \
-	       > runscript_mapping_scylla.sh
+./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
+               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7 \
+	       -H --sys "$system" \
+	       > runscript_mapping_$system.sh
 
 # Update testing script
-./mkslurm_scylla -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
-               -C $ocean_cores -g $ocean_cores_before_gap -N 63 -t 01:00:00 -j AMM7-test \
-	       > runscript_testing_scylla.slurm
+./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
+               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7-test --sys "$system" \
+	       > runscript_testing_$system.slurm

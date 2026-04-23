@@ -67,7 +67,7 @@ def main(args):
 
     # Environment
     string = f"""
-    source ../../scripts/core-scripts/scylla_modules
+    source ../../scripts/core-scripts/{args.sys}_modules
 
     export OMP_NUM_THREADS=1
     """
@@ -250,7 +250,7 @@ def _print_table(hetjob_mapper, ncores_per_node):
 if __name__ == "__main__":
     # Parse arguments
     parser = argparse.ArgumentParser(
-        prog="mkslurm_scylla",
+        prog="mkslurm",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description=" ".join(
             [
@@ -275,6 +275,7 @@ if __name__ == "__main__":
     parser.add_argument("-M", help="ignore_mapping", action='store_false') 
     parser.add_argument("-T", help="include_text", action='store_true') 
     parser.add_argument("-z", help="text_content", type=str, default="")
+    parser.add_argument("--sys", help="HPC system", type=str, default="scylla")
     # Let's go!
     main(parser.parse_args())
 

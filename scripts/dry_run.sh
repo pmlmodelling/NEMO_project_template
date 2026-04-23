@@ -25,11 +25,11 @@ done
 
 echo "Creating Run Directory and linking domain files"
 if [ ! -d $RUN_DIR ]; then
-    $SCRIPTS_DIR/core-scripts/setup_initial.sh
+    $SCRIPTS_DIR/input-scripts/setup_initial.sh
 fi
 
 echo "Linking forcing files for "$year
-$SCRIPTS_DIR/core-scripts/setup_year.sh $year
+$SCRIPTS_DIR/input-scripts/setup_year.sh $year
 
 
 cd $RUN_DIR

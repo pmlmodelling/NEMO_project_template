@@ -25,10 +25,10 @@ fi
 
 #Setup run
 if [ ! -d $RUN_DIR ]; then
-    $SCRIPTS_DIR/core-scripts/setup_initial.sh
+    $SCRIPTS_DIR/input-scripts/setup_initial.sh
 fi
 
-$SCRIPTS_DIR/core-scripts/setup_year.sh $year
+$SCRIPTS_DIR/input-scripts/setup_year.sh $year
 
 cd $RUN_DIR
 export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | cut -d'!' -f1` #get time-step
@@ -56,7 +56,7 @@ do
         month=1
         year=$(($year + 1))
         if [ $year -gt $END_YEAR ]; then break; fi
-        $SCRIPTS_DIR/core-scripts/setup_year.sh $year
+        $SCRIPTS_DIR/input-scripts/setup_year.sh $year
     fi
 done
 

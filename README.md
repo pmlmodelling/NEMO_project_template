@@ -47,16 +47,16 @@ The executables for xios and nemo should now be available in `code/executables`
 
 ### RUN
 
-Before kickstarting a run, its a good idea to check everything is setup correctly. To help with this the script `scripts/dry_run.sh` is provided. This script creates the run folder `RUN/EXP_NAME`, links all the files needed to run from START_YEAR and sets the cfg files as needed. Please check this is as expected. A dry run with the flag `-c` will do perform a clean instance if you make any changes. 
+Before kickstarting a run, execute `scripts/dry_run.sh`. This script creates the run folder `RUN/EXP_NAME`, links all the files needed to run from START_YEAR and sets the cfg files as needed. Please check this is as expected. A dry run with the flag `-c` will do perform a clean instance if you make any changes. 
  
-To perform a single cycle, navigate to `RUN/<EXP_NAME>` and submit the job using the testing scripts
+To perform a run, navigate to `RUN/<EXP_NAME>` and submit the job using either the testing script for a single cycle:
 ```
 sbatch runscript_testing.slurm
 ```
 
-To start a cycle run, navigate to `scripts` and submit the run:
+Or the cycle script for a main run
 ```
-sbatch runscript.slurm
+sbatch runscript_cycle.slurm
 ```
 
 If you want to start from a date other than the January of START_YEAR, or the run needs to be restarted you can do so by creating/editing the file scripts/current_date with the following:
@@ -64,10 +64,15 @@ If you want to start from a date other than the January of START_YEAR, or the ru
 export year=XXXX
 export month=Y
 ```
-Note that if you change this before running to start from a date other than 1/1/1993, you will need to change scripts/core-scripts/setup_initial.sh to link the correct restart file. 
 
-The cycle run uses the run configuration files in RUN/EXP00. Please make any changes here, or alternatively set a new `DEFAULT_RUN_DIR` in config.sh before running if you want to change the configuration. 
+### Making Changes
+If you want to change any of the input files, including changing the restart files to run from a different date, you will need to change scripts/input-scripts/setup_initial.sh for any starting files or scripts/input-scripts/setup_year.sh for files that change on a yearly basis. 
 
+The cycle run uses the run configuration files in RUN/EXP00. Please make any changes here, or alternatively set a new `DEFAULT_RUN_DIR` in config.sh before running if you want to change the configuration. Alternative defaults are provided for runs that include the spectral light model and the mizer fish model. 
+
+#### Using a different core count
+To change the submission to use a different core count than the one provided, please use scripts/submission-scripts/update_runscripts.sh. Usage instructions are provided within the script
+ 
 ### OUTPUTS
 
 By default, output will be moved to the `OUTPUTS/` directory using the `EXP_NAME/YYYY/MM/` folder structure. 
@@ -80,8 +85,12 @@ Once linked, the INPUTS directory should point to files with the following folde
 - <H4>RIV</H4> Includes river forcing files
 - <H4>SBC</H4> Folders for atmospheric forcing and BGC surface forcing
 - <H4>TIDE</H4> Includes tidal forcing files
+Unless altered in scripts/input-scripts/setup_{initial,year}.sh, this is where the submission scripts will look for the files. 
+
 
 ### BGC_setup
 
 The scripts used to create the biogeochemical inputs: initial conditions, lateral and surface boundary files are found here should you wish to use them to create any alternative input files. 
+
+### 
 
