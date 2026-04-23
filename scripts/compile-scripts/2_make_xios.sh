@@ -9,7 +9,7 @@ source $SCRIPT_DIR/../config.sh
 cd $XIOS_DIR
 
 # set compile architecture and export compilers
-if [[ $archer2 == true ]]; then
+if [[ $system == archer2 ]]; then
  export CC=cc export CXX=CC export FC=ftn export F77=ftn export F90=ftn
  rsync -a $CODE_DIR/archer2-files/xios/* $XIOS_DIR/arch/
 else

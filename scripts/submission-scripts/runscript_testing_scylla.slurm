@@ -1,5 +1,12 @@
 #!/bin/bash
-# Created by: mkslurm_scylla -S 8 -s 1 -m 1 -C 496 -g 0 -N 63 -t 01:00:00 -j amm7
+#SBATCH --job-name=AMM7-test
+#SBATCH --time=01:00:00
+#SBATCH --exclusive
+#SBATCH --output=./log/slurm-%j.out
+
+#SBATCH --nodes=8
+#SBATCH --ntasks-per-core=1
+
 source ../../scripts/core-scripts/scylla_modules
 
 export OMP_NUM_THREADS=1

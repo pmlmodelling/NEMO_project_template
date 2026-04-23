@@ -38,79 +38,87 @@ def main(args):
     _print_table(hetjob_mapper, args.N)
 
     # Build slurm script
-
-    # Main job settings
     string = f"""\
-    #!/bin/bash
-    #SBATCH --job-name={args.j}
-    #SBATCH --time={args.t}
-    #SBATCH --exclusive
-    """
+        #!/bin/bash
+        """
     slurm = dedent(string)
 
-    # Hetjobs settings
-    strings = []
-    totn=0
-    for het_group, values in hetjob_mapper.items():
-        totn=totn + int(values['nnodes'])
-    string = f"""
-    #SBATCH --nodes={totn}
-    #SBATCH --ntasks-per-core=1
-    """
-    strings += [dedent(string)]
-    slurm += "\n".join(strings)
+    # Main job settings
+    if (args.H):
+        string = f"""\
+        #SBATCH --job-name={args.j}
+        #SBATCH --time={args.t}
+        #SBATCH --exclusive
+        #SBATCH --output=./log/slurm-%j.out
+        """
+        slurm += dedent(string)
+
+        # Hetjobs settings
+        strings = []
+        totn=0
+        for het_group, values in hetjob_mapper.items():
+            totn=totn + int(values['nnodes'])
+        string = f"""
+        #SBATCH --nodes={totn}
+        #SBATCH --ntasks-per-core=1
+        """
+        strings += [dedent(string)]
+        slurm += "\n".join(strings)
 
     # Environment
     string = f"""
-    # Created by: {cmd}
     source ../../scripts/core-scripts/scylla_modules
 
     export OMP_NUM_THREADS=1
     """
     slurm += dedent(string)
+    
+    if (args.T):
+        slurm += dedent(args.z)
 
-    # Wrapper
-    exec_map = " ".join(
-        [
-            str(e)
-            for values in hetjob_mapper.values()
-            for i in range(values["nnodes"])
-            for e in values["ex"]
-        ]
-    )
-    exec_cmd = "exec \\${map[\\${exec_map[\\$SLURM_PROCID]}]}"
-    string = f"""
-    cat > myscript_wrapper.sh << EOFB
-    #!/bin/bash
-    #
-    map=( ./xios_server.exe ./nemo )
-    exec_map=( {exec_map} )
-    #
-    {exec_cmd}
-    ##
-    EOFB
-    chmod u+x ./myscript_wrapper.sh
-    """
-    slurm += dedent(string)
-
-    # Srun
-    strings = []
-    prev_nodes = 0
-    for het_group, values in hetjob_mapper.items():
-        het_group_string = (
-            f"--het-group={het_group} --nodes={values['nnodes']}"
-            +f" --ntasks={values['nnodes']*len(values['ex'])}"
-            +f" --ntasks-per-node={len(values['ex'])}" if len(hetjob_mapper) > 1 else
-            f"--ntasks={values['nnodes']*len(values['ex'])}"
-            +f" --ntasks-per-node={len(values['ex'])}"
+    if (args.M):
+        # Wrapper
+        exec_map = " ".join(
+            [
+                str(e)
+                for values in hetjob_mapper.values()
+                for i in range(values["nnodes"])
+                for e in values["ex"]
+            ]
         )
-        strings += [
-            f"{het_group_string} --cpu-bind=v,mask_cpu:"
-            + ",".join([hex(2 ** core) for core in values["pl"]])
-            + " ./myscript_wrapper.sh"
-        ]
-        prev_nodes += values["nnodes"]
-    slurm += "\nsrun --mpi=pmi2 --mem-bind=local \\\n" + " \\\n: ".join(strings)
+        exec_cmd = "exec \\${map[\\${exec_map[\\$SLURM_PROCID]}]}"
+        string = f"""
+        cat > myscript_wrapper.sh << EOFB
+        #!/bin/bash
+        #
+        map=( ./xios_server.exe ./nemo )
+        exec_map=( {exec_map} )
+        #
+        {exec_cmd}
+        ##
+        EOFB
+        chmod u+x ./myscript_wrapper.sh
+        """
+        slurm += dedent(string)
+
+        # Srun
+        strings = []
+        prev_nodes = 0
+        for het_group, values in hetjob_mapper.items():
+            het_group_string = (
+                f"--het-group={het_group} --nodes={values['nnodes']}"
+                +f" --ntasks={values['nnodes']*len(values['ex'])}"
+                +f" --ntasks-per-node={len(values['ex'])}" if len(hetjob_mapper) > 1 else
+                f"--ntasks={values['nnodes']*len(values['ex'])}"
+                +f" --ntasks-per-node={len(values['ex'])}"
+            )
+            strings += [
+                f"{het_group_string} --cpu-bind=v,mask_cpu:"
+                + ",".join([hex(2 ** core) for core in values["pl"]])
+                + " ./myscript_wrapper.sh"
+            ]
+            prev_nodes += values["nnodes"]
+        slurm += "\nsrun --mpi=pmi2 --mem-bind=local \\\n" + " \\\n: ".join(strings)
 
     print(slurm)
 
@@ -260,9 +268,13 @@ if __name__ == "__main__":
     parser.add_argument("-m", help="max_servers_per_node", type=int, default=1)
     parser.add_argument("-C", help="num_clients", type=int, default=252)
     parser.add_argument("-g", help="client_gap_interval", type=int, default=0)
-    parser.add_argument("-N", help="ncores_per_node", type=int, default=64)
+    parser.add_argument("-N", help="ncores_per_node", type=int, default=63)
     parser.add_argument("-t", help="time_limit", type=str, default="01:00:00")
-    parser.add_argument("-j", help="job_name", type=str, default="amm7")
+    parser.add_argument("-j", help="job_name", type=str, default="AMM7")
+    parser.add_argument("-H", help="ignore_header", action='store_false') 
+    parser.add_argument("-M", help="ignore_mapping", action='store_false') 
+    parser.add_argument("-T", help="include_text", action='store_true') 
+    parser.add_argument("-z", help="text_content", type=str, default="")
     # Let's go!
     main(parser.parse_args())
 

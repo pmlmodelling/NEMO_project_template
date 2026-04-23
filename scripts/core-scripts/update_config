@@ -13,7 +13,7 @@ my $nemo_arch;         # NEMO architecture
 my $fabm_compiler;          # FABM compiler
 my $work_dir;		# Working Directory
 my $modules;		# File with modules to use
-my $archer2;		# Boolean denoting if on archer2
+my $system;		# String denoting working system
 my $help;
 
 # Process arguments:
@@ -23,7 +23,7 @@ if (@ARGV > 0) {
              'n|nemo_arch=s'        => \$nemo_arch,
              'c|fabm_compiler=s'        => \$fabm_compiler,
              'w|work_dir=s'        => \$work_dir,
-             'a|archer2=s'        => \$archer2,
+             's|system=s'        => \$system,
              'm|modules=s'        => \$modules,
              'help|?'                => \$help) or pod2usage(1);
 
@@ -51,7 +51,7 @@ foreach my $line (@lines) {
 
   $line =~ s/^(\s*?export MODULES\s*?)=.*/$1=$modules/ if ($modules);
 
-  $line =~ s/^(\s*?export archer2\s*?)=.*/$1=$archer2/ if ($archer2);
+  $line =~ s/^(\s*?export system\s*?)=.*/$1=$system/ if ($system);
 
 }
 

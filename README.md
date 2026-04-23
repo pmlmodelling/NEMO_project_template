@@ -1,6 +1,24 @@
 # NEMO_project_template
 
-Repository containing the recommended folder structure for an AMM7 NEMO-FABM-BGC project, including scripts to handle automatic run cycling. 
+Repository containing the recommended folder structure for an AMM7 NEMO-FABM-ERSEM project, including scripts to handle automatic run cycling. This is the base configuration for a 'standard' simulation, with options for including additional models of spectral light and mizer. Project contains the following structure:
+
+```
+project folder
+├── BGC_setup (collection of scripts to generate input files)
+├── RUN
+│   ├── EXP00 (default run configuration files) 
+│   ├── EXP00_spectral (default run configuration files including spectral model) 
+│   ├── EXP00_mizer (default run configuration files including mizer model)
+    └── EXP00_spectral_mizer (default run configuration files including spectral and mizer models)
+├── code (location for nemo to be compiled, contains any addition compilation files)
+├── INPUTS (input files, not to be stored on github)
+    ├── DOM (domain files, coordinates, bathymetry and initial conditions)
+    ├── LBC (physics and BGC lateral/open boundary conditions)
+    ├── RIV (river forcing files)
+    ├── SBC (atmospheric forcing and BGC surface forcing)
+    └── TIDES (tidal forcing files)
+├── scripts (scripts for compiling code and executing simulations)
+```
 
 ## Repository structure/workflow
 
@@ -29,7 +47,7 @@ The executables for xios and nemo should now be available in `code/executables`
 
 ### RUN
 
-Before kickstarting a run, its a good idea to check everything is setup correctly. To help with this the script `scripts/dry_run.sh` is provided. This script creates the run folder `RUN/EXP_NAME`, links all the files needed to run from START_YEAR and sets a cfg files as needed. Please check this is as expected. A dry run with the flag `-c` will do perform a clean instance if you make any changes. 
+Before kickstarting a run, its a good idea to check everything is setup correctly. To help with this the script `scripts/dry_run.sh` is provided. This script creates the run folder `RUN/EXP_NAME`, links all the files needed to run from START_YEAR and sets the cfg files as needed. Please check this is as expected. A dry run with the flag `-c` will do perform a clean instance if you make any changes. 
  
 To perform a single cycle, navigate to `RUN/<EXP_NAME>` and submit the job using the testing scripts
 ```

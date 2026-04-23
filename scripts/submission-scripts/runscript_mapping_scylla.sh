@@ -1,12 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=amm7
-#SBATCH --time=01:00:00
-#SBATCH --exclusive
 
-#SBATCH --nodes=8
-#SBATCH --ntasks-per-core=1
-
-# Created by: mkslurm_scylla -S 8 -s 1 -m 1 -C 496 -g 0 -N 63 -t 01:00:00 -j amm7
 source ../../scripts/core-scripts/scylla_modules
 
 export OMP_NUM_THREADS=1

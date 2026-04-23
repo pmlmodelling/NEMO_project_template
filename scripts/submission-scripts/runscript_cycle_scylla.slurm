@@ -1,19 +1,20 @@
-#!/bin/bash 
-#SBATCH --job-name=nemo_amm7cycle
-#SBATCH --time=02:00:00
-#SBATCH --nodes=8
-#SBATCH --ntasks-per-core=1
+#!/bin/bash
+#SBATCH --job-name=AMM7-cycle
+#SBATCH --time=01:00:00
 #SBATCH --exclusive
 #SBATCH --output=./log/slurm-%j.out
 
-# SUBMIT WITH: sbatch runscript.slurm
+#SBATCH --nodes=8
+#SBATCH --ntasks-per-core=1
+
+source ../../scripts/core-scripts/scylla_modules
 
 export OMP_NUM_THREADS=1
 source config.sh
 
 # Check if year and month provided
-if [ -f $SCRIPTS_DIR/current_date ]; then
-   source $SCRIPTS_DIR/current_date
+if [ -f $RUN_DIR/current_date ]; then
+   source $RUN_DIR/current_date
 fi
 if [ -z $year ]; then
    export year=$START_YEAR
@@ -43,7 +44,7 @@ do
       RUN_STATUS=false
       break
     fi
-    # Increment month 
+    # Increment month
     if [ $month != 12 ]; then
         month=$(($month + 1))
     else
@@ -62,8 +63,8 @@ done
 # Submit next cycle if run completed successfully
 if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
     echo "Submitting $year $month at $(date +'%F %T')"
-    cd $SCRIPTS_DIR
-cat > $SCRIPTS_DIR/current_date <<EOF
+    cd $RUN_DIR
+cat > $RUN_DIR/current_date <<EOF
 export year=$year
 export month=$month
 EOF

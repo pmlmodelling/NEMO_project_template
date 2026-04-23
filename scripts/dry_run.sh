@@ -1,6 +1,8 @@
 #!/bin/bash
 source config.sh
 
+rsync -a config.sh $RUN_DIR/config.sh
+
 # Check if year and month provided
 if [ -f $SCRIPTS_DIR/current_date ]; then
    source $SCRIPTS_DIR/current_date
@@ -68,4 +70,10 @@ if [ $COLD_START = true ]; then
     --tide_ramp true
 fi
 
-cd $SCRIPTS_DIR
+echo "Linking runscripts"
+yes | rsync -a $SCRIPTS_DIR/submission-scripts/runscript_cycle_$system.slurm $RUN_DIR/runscript_cycle.slurm
+
+yes | rsync -a $SCRIPTS_DIR/submission-scripts/runscript_mapping_$system.sh $RUN_DIR/runscript_mapping.sh
+yes | rsync -a $SCRIPTS_DIR/submission-scripts/runscript_testing_$system.slurm $RUN_DIR/runscript_testing.slurm
+
+cd $RUN_DIR
