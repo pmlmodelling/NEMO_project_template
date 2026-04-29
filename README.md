@@ -15,7 +15,7 @@ First, navigate to the `scripts/` directory and run `setup_<SYSTEM>.sh`, dependi
 
 Next edit scripts/config.sh. Most settings here can be left as standard, with the exception of:
 1. EXP_NAME - Name for your experiment. If you run multiple experiments under the same project, this can be changed between runs to  keep them separate
-2. START_YEAR - Beginning year of the experiment. Please ensure restart files exist in INPUTS/DOM/
+2. START_YEAR - Beginning year of the experiment. Please ensure restart files exist in INPUTS/DOM/. If using the existing restarts please keep this as 1993. You can start from a later time by adding the current_date file (see below)
 3. END_YEAR - Final year of experiment (inclusive)
 
 ### Compiling code
