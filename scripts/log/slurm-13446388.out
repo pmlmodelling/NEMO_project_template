@@ -1,0 +1,4 @@
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+Launching 1993 1 at 2026-04-28 11:55:03
+/work/n01/n01/rmilling/test_mizer_demersal/scripts/core-scripts/submit_job.sh: line 51: /work/n01/n01/rmilling/test_mizer_demersal/RUN/EXP_cycletest/runscript.slurm: Permission denied
+Cycle did not complete.
