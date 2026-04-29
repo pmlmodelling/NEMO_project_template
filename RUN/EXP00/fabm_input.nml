@@ -4,53 +4,9 @@
    name='mole_fraction_of_carbon_dioxide_in_air'
    sn=         'fluxes/pCO2a',-1,            'pCO2a', .true.,  .false.,   'yearly',     '',         '',        ''
 /
-!&variable
-!   name='gelbstoff_absorption_satellite'
-!   sn=         'fluxes/ady',192,            'ady', .true.,  .true.,   'yearly',     '',         '',        ''
-!/
 &variable
-   name='atmosphere_mass_content_of_ozone'
-   sn=         'fluxes/total_ozone',1,            'tco3', .true.,  .false.,   'yearly',     '',         '',        ''
-/
-&variable
-   name='atmosphere_mass_content_of_cloud_liquid_water'
-   sn=         'fluxes/cloud_liquid_water',1,            'tclw', .true.,  .false.,   'yearly',     '',         '',        ''
-/
-&variable
-   name='atmosphere_mass_content_of_water_vapor'
-   sn=         'fluxes/total_water_vapour',1,            'tcwv', .true.,  .false.,   'yearly',     '',         '',        ''
-/
-&variable
-   name='surface_air_pressure'
-   sn=         'fluxes/ERA5_MSL',1,            'MSL', .true.,  .false.,   'yearly',     './fluxes/weights_era5_bicubic.nc',         '',        './fluxes/ERA5_LSM.nc'
-/
-&variable
-   name='cloud_area_fraction'
-   sn=         'fluxes/total_cloud_cover',1,            'tcc', .true.,  .false.,   'yearly',     '',         '',        ''
-/
-&variable
-   name='surface_specific_humidity'
-   sn=         'fluxes/ERA5_SPH',1,            'SPH', .true.,  .false.,   'yearly', './fluxes/weights_era5_bicubic.nc', '', './fluxes/ERA5_LSM.nc'    
-/
-&variable
-   name='surface_temperature'
-   sn=         'fluxes/ERA5_T2M',1,            'T2M', .true.,  .false.,   'yearly',  './fluxes/weights_era5_bicubic.nc', '', './fluxes/ERA5_LSM.nc' 
-/
-&variable
-   name='light_mean_wind'
-   sn=         'fluxes/wind_speed',1,            'windsp', .true.,  .false.,   'yearly',  './fluxes/weights_era5_bicubic.nc', '', './fluxes/ERA5_LSM.nc' 
-/
-&variable
-   name='visibility_in_air'
-   sn=         'fluxes/AERO',-1,            'aero_vis', .true.,  .true.,   'monthly',     '',         '',        ''
-/
-&variable
-   name='ADY443_obs_3D/source'
-   sn=         'fluxes/ady443',192,            'adg_443', .true.,  .true.,   'yearly',     '',         '',        ''
-/
-&variable
-   name='BB555_obs_3D/source'
-   sn=         'fluxes/bbp560',192,            'bbp_560', .true.,  .true.,   'yearly',     '',         '',        ''
+   name='gelbstoff_absorption_satellite'
+   sn=         'fluxes/ady',192,            'ady', .true.,  .true.,   'yearly',     '',         '',        ''
 /
 &variable
    name='N3_flux/flux'

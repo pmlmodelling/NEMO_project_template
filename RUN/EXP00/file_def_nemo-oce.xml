@@ -109,8 +109,7 @@
           <field field_ref="phytoplankton_netPI_result"      name="phytoplankton_netPI"   operation="average" />
 	  <field field_ref="phytoplankton_fO3PIc_result"     name="phytoplankton_fO3PIc"   operation="average"/>
 	  <field field_ref="net_PelBen_POC_result"    name="net_PelBen_POC_result"   operation="average"/>
-          <field field_ref="light_Kd_par"            name="light_Kd_par"  operation="average"/>
-          <field field_ref="light_par"               name="light_par"   operation="average"/>
+          <field field_ref="light_xEPS" operation="average" />
 	  <field field_ref="fish_c_tot" operation="average" />
 	  <field field_ref="fish_c_pel" operation="average" />
 	  <field field_ref="fish_c_dem" operation="average" />
