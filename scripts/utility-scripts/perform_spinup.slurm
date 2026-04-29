@@ -6,10 +6,24 @@
 #SBATCH --exclusive
 #SBATCH --output=./spinup-log/slurm-%j.out
 
+##########################################################################
+# Slurm script to perform a BGC spinup by repeating a short run and
+# reseting the initial BGC file with the file from the end of the run
+# 
+# Parameters to set:
+# cycle_years - how many years to run before resetting
+# cycle_repeat - how many times to repeat 
+# START_YEAR - starting year for the run, default 1993. If different to 1993
+#		please update input-scripts/setup_initial.sh to link correct starting files
+#
+# N.B. The wallclock time for this script needs to be long enough to perform a simulation of length cycle_years
+#
+#########################################################################
+
 source ../config.sh
 
 # Set parameters
-cycle_years=5 # The wallclock time for this script needs to be long enough to perform this many years simulation
+cycle_years=5 
 cycle_repeat=5
 START_YEAR=1993
 
@@ -20,7 +34,7 @@ END_YEAR=$(($START_YEAR + $cycle_years -1))
 sed -i "/export EXP_NAME/c\\export EXP_NAME=EXP_spinup" $SCRIPTS_DIR/config.sh
 sed -i "/START_YEAR/c\\export START_YEAR=$START_YEAR" $SCRIPTS_DIR/config.sh
 sed -i "/END_YEAR/c\\export END_YEAR=$END_YEAR" $SCRIPTS_DIR/config.sh
-source config.sh
+source $SCRIPTS_DIR/config.sh
 
 if [ -f $SCRIPTS_DIR/utility-scripts/current_cycle ]; then
    source $SCRIPTS_DIR/utility-scripts/current_cycle
