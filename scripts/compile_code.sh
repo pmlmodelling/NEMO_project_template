@@ -74,6 +74,6 @@ while getopts :n nemo; do
     esac
 done
 
-cd $WORK
+cd $SCRIPTS_DIR
 
 

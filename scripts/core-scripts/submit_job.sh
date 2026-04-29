@@ -29,11 +29,6 @@ $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --restart_file ${NAME}_${year}${mm}01_restart \
     --trc_file $RUN_DIR/namelist_top_cfg  \
     --trc_restart_file ${NAME}_${year}${mm}01_restart_trc
-if [ $ICE = true ] ; then
-    $SCRIPTS_DIR/core-scripts/update_nemo_nl \
-    --ice_file $RUN_DIR/namelist_ice_cfg  \
-    --ice_restart_file ${NAME}_${year}${mm}01_restart_ice
-fi
 if [ $COLD_START = true ]; then
     $SCRIPTS_DIR/core-scripts/update_nemo_nl --phy_file $RUN_DIR/namelist_cfg  \
     --restart false           \
@@ -43,15 +38,10 @@ fi
 
 # Launch Run
 echo "Launching $year $month at $(date +'%F %T')"
-$RUN_DIR/runscript.slurm
+$RUN_DIR/runscript_mapping.sh
 
 # Archiving
 mkdir -p $outdir
 rsync -a fabm.yaml fabm_input.nml namelist* $outdir
 mv *.output $outdir
 mv $NAME*nc $outdir
-#for f in $NAME*nc; do
-#  ncks -4 -L6 $f $outdir/$f
-#  rm -f $f
-#done
-

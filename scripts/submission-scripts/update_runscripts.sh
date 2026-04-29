@@ -9,11 +9,13 @@
 # Method 1 (simple)
 # Update the number of xios_servers and ocean_cores
 # below and execute this script. This sets one xios_server
-# per node. 
-# Therefore, to make full use of nodes set:
+# per node and fully populates the cores. 
+#
+# Therefore,
 # number_of_nodes = (xios_servers + ocean_cores) / cores_per_node
 # with xios_servers = number_of_nodes
-# e.g. for 8 nodes with 63 cores per node, you can rearrange to get 496 ocean cores
+#
+# Example:- to use 8 nodes with 63 cores per node, you can rearrange to get 496 ocean cores
 # 8 = ( 8 + 496) / 63
 
 # Method 2 (complex)
@@ -23,10 +25,13 @@
 # and you can have gaps between ocean cores (ocean_cores_before_gap),
 # where e.g. 
 # 0=no gap, 1=gap between every core, 2=2 ocean cores then a gap etc
-# This makes the calculation more fiddly,
+# This makes the calculation more fiddly:
+#
 # number_of_nodes * cores_per_node = (xios_servers * cores_per_xios_server
 #			 + ocean_cores * (cores_before_gap + 1)/cores_before_gap) 	
-# where number_of_nodes > xios_servers / xios_servers_per_node	 
+# where number_of_nodes > xios_servers / xios_servers_per_node
+# 
+# which may take some trial and error to tune
 
 # --------------------------------------------
 
@@ -103,7 +108,7 @@ cat > $RUN_DIR/current_date <<EOF
 export year=$year
 export month=$month
 EOF
-    sbatch $SCRIPTS_DIR/runscript.slurm
+    sbatch $RUN_DIR/runscript_cycle.slurm
     echo "Done."
 elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then
     echo "Cycle did not complete."
@@ -117,14 +122,17 @@ EOF2
                -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7-cycle \
 	       -z "$text" -T -M --sys "$system"    \
 		> runscript_cycle_$system.slurm
+chmod 755 runscript_cycle_$system.slurm
 
 # Update mapping script
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
                -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7 \
 	       -H --sys "$system" \
 	       > runscript_mapping_$system.sh
+chmod 755 runscript_mapping_$system.sh
 
 # Update testing script
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
                -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7-test --sys "$system" \
 	       > runscript_testing_$system.slurm
+chmod 755 runscript_testing_$system.slurm
