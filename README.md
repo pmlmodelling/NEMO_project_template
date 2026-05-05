@@ -11,7 +11,11 @@ git clone -b AMM7 https://github.com/pmlmodelling/NEMO_project_template.git <PRO
 
 ### Set Environment
 
-First, navigate to the `scripts/` directory and run `setup_<SYSTEM>.sh`, depending on if you are using scylla or archer2. This will set the module environment, architecture files for compilation and link the inputs to <PROJECT_NAME>/INPUTS, with the folder structure detailed below.
+First, navigate to the `scripts/` directory and run `setup_archer2_proj.sh`, note that this branch is only set-up on archer2. This script takes the following arguments:
+1. MODEL: CNRM-ESM2 or GFDL-ESM4
+2. SCENARIO: ssp126 or ssp370
+   
+This will set the module environment, architecture files for compilation and link the inputs to <PROJECT_NAME>/INPUTS, with the folder structure detailed below.
 
 Next edit scripts/config.sh. Most settings here can be left as standard, with the exception of:
 1. EXP_NAME - Name for your experiment. If you run multiple experiments under the same project, this can be changed between runs to  keep them separate
