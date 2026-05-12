@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 # Open yaml file with configuration
-with open('3_make_OBC_files.yaml','r') as yamlfile:
+with open('4_make_OBC_files.yaml','r') as yamlfile:
     yconf = yaml.safe_load(yamlfile)
 
 #Load grid
@@ -22,7 +22,7 @@ for b,bconf in yconf['boundaries'].items():
     ivals = xr.DataArray(coord.nbit.values.squeeze(),dims='xb')-1 #indices are numbered from 1 instead of a pythonic 0
     jvals = xr.DataArray(coord.nbjt.values.squeeze(),dims='xb')-1
     bdy_depth = grd[['nav_lat','nav_lon','gdept_0','e3t_0']].isel(x=ivals,y=jvals,t=0).rename({'z':'zb'})
-    for y in np.arange(yconf['ystart'],yconf['yend']):
+    for y in np.arange(yconf['ystart'],yconf['yend']+1):
         print('Creating boundary for year '+str(y))
         # Create dataset and add index and depth variables
         ds = xr.Dataset(coords={'time_counter': xr.DataArray(dims=["time_counter"],data=np.arange(1,13))},data_vars={'nbit':coord.nbit,'nbjt':coord.nbjt,'nbrt':coord.nbrt,'gphit':coord.gphit,'glamt':coord.glamt}).rename({'xbT':'xb'})
@@ -34,7 +34,7 @@ for b,bconf in yconf['boundaries'].items():
         ds_phys['time_counter'] = [np.datetime64('%s-01-01T12:00:00.000000000' %str(y))+ np.timedelta64(i,'D') for i in np.arange(len(ds_phys.time_counter))] # Need to set time to correct year otherwise leap years mess up resampling
         ds_phys = ds_phys.resample(time_counter='1M').mean('time_counter').rename({'z':'zb'})
         ds_phys['time_counter'] = ds.time_counter
-        ds_phys['abs_pres'] = (('time_counter','zb','yb','xb'),gsw.p_from_z(-ds_phys.deptht.fillna(0),bdy_depth.nav_lat ).data)
+        ds_phys['abs_pres'] = (('time_counter','zb','yb','xb'),gsw.p_from_z(-ds_phys.gdept.fillna(0),bdy_depth.nav_lat ).data)
         ds_phys['abs_sal'] = (('time_counter','zb','yb','xb'),gsw.SA_from_SP(ds_phys.vosaline, ds_phys.abs_pres, bdy_depth.nav_lon, bdy_depth.nav_lat).data)
         ds_phys['con_temp'] = (('time_counter','zb','yb','xb'),gsw.CT_from_pt(ds_phys.abs_sal, ds_phys.votemper).data)
         ds_phys['density'] = (('time_counter','zb','yb','xb'),gsw.rho(ds_phys.abs_sal, ds_phys.con_temp, ds_phys.abs_pres).data)
@@ -57,6 +57,14 @@ for b,bconf in yconf['boundaries'].items():
                 print('Creating '+v+' boundary using exponential decay')
                 ds[v] = vconf['max_value']*np.exp(ds.gdept*np.log(vconf['min_value']/vconf['max_value'])/vconf['max_depth']).expand_dims({'time_counter':12})
                 ds[v] = xr.where(ds.gdept>vconf['max_depth'],vconf['min_value'],ds[v])
+
+            elif vconf['method'] == 'time_series':
+                # Fill boundary with a constant value per month given by a time series
+                print('Creating '+v+' boundary using time series')
+                ds_i = xr.open_dataset(vconf['input_file']).sel(time_counter=str(y))
+                ds_i['time_counter'] = ds.time_counter
+                ds[v] = ds_i[v]*xr.DataArray(np.ones((ds.time_counter.size,ds.yb.size,ds.xb.size,ds.zb.size)),dims=('time_counter','yb','xb','zb'))
+
             else:
                 print('No valid method specified for: '+v)
             
@@ -87,12 +95,28 @@ for b,bconf in yconf['boundaries'].items():
                 # Convert back to variable salinity
                 ds[v] = dat*ds_phys.vosaline/35.0
             
-            # Replace baltic DIC and TA with salinity based relationship
-            if b == 'skag' and v in ['O3_c', 'O3_TA']:
+            # Adjust N2O based on solubility in temperature and salinity (Wanninkhof 2014)
+            if b == 'open' and v == 'O5_n':
+                A1 = -62.7062
+                A2 = 97.3066
+                A3 = 24.1406
+                B1 = -0.05842
+                B2 = 0.033193
+                B3 = -0.0051
+
+                tk100 = (ds_phys.votemper+273.15)/100.
+                koN2O = np.exp(A1 + A2/tk100 + A3 * np.log(tk100) + 
+                                ds_phys.vosaline * (B1 + B2*tk100 + B3*tk100**2.))
+                ds[v] = 2. * koN2O * 1.e-9 * 1.e6 * ds[v]
+
+            # Replace baltic DIC and TA with salinity based relationship and N2O with constant
+            if b == 'skag' and v in ['O3_c', 'O3_TA', 'O5_n']:
                 if v == 'O3_c':
                     ds[v] = (23.767*ds_phys.vosaline + 1388.0) * ds_phys.density/1000.0 #umol/kg to mmol/m3
-                else:
+                elif v == 'O3_TA':
                     ds[v] = (25.406*ds_phys.vosaline + 1410.15) * ds_phys.density/1000.0 #umol/kg to mmol/m3
+                else:
+                    ds[v] = 0*ds[v] + 0.025
 
         print('Saving year '+str(y))
         ds = ds.transpose('time_counter','zb','yb','xb')

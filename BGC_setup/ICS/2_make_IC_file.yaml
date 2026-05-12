@@ -1,9 +1,9 @@
-domainfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/domain_cfg.nc
-shelfmask: /work/n01/n01/shared/AMM7-INPUTS/DOM/amm7_val_subdomains.nc
-outfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/19930101_restart_trc_from_obs.nc
+domainfile: /data/thaumus2/scratch/common/AMM7-INPUTS/DOM/domain_cfg.nc
+shelfmask: /data/thaumus2/scratch/common/AMM7-INPUTS/DOM/amm7_val_subdomains.nc
+outfile: /data/thaumus2/scratch/common/AMM7-INPUTS/DOM/19930101_restart_trc_from_obs.nc
 inputfile: pelagic_ICs.nc
-temfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/glosea_ini_19930101_votemper_domain_cfg_co9amm7_MEsL51r10-07.nc
-salfile: /work/n01/n01/shared/AMM7-INPUTS/DOM/glosea_ini_19930101_vosaline_domain_cfg_co9amm7_MEsL51r10-07.nc
+temfile: /data/thaumus2/scratch/common/AMM7-INPUTS/DOM/glosea_ini_19930101_votemper_domain_cfg_co9amm7_MEsL51r10-07.nc
+salfile: /data/thaumus2/scratch/common/AMM7-INPUTS/DOM/glosea_ini_19930101_vosaline_domain_cfg_co9amm7_MEsL51r10-07.nc
 variables:
     TRNP1_c: 
         long_name: "diatom carbon" 
@@ -143,6 +143,9 @@ variables:
     TRNO3_TA: 
         long_name: "total alkalinity" 
         units: "umol/kg" 
+    TRNO5_n: 
+        long_name: "nitrous oxide" 
+        units: "mmol/m3" 
     TRNN1_p: 
         long_name: "phosphate" 
         units: "mmol/m3" 
@@ -299,6 +302,9 @@ variables:
     TRBO3_TA: 
         long_name: "total alkalinity" 
         units: "umol/kg" 
+    TRBO5_n: 
+        long_name: "nitrous oxide" 
+        units: "mmol/m3" 
     TRBN1_p: 
         long_name: "phosphate" 
         units: "mmol/m3" 
@@ -425,6 +431,9 @@ variables:
     fabm_st2Dnben_nit_G4n: 
         long_name: "benthic dinitrogen" 
         units: "mmol/m2" 
+    fabm_st2DnG5_n: 
+        long_name: "benthic nitrous oxide" 
+        units: "mmol/m2" 
     fabm_st2DbH1_c: 
         long_name: "benthic aerobic bacteria" 
         units: "mmol/m2" 
@@ -532,4 +541,7 @@ variables:
         units: "m" 
     fabm_st2Dbben_nit_G4n: 
         long_name: "benthic dinitrogen" 
+        units: "mmol/m2" 
+    fabm_st2DbG5_n: 
+        long_name: "benthic nitrous oxide" 
         units: "mmol/m2" 

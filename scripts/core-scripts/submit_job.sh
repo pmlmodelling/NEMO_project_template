@@ -2,7 +2,6 @@
 
 mm=$(printf '%02d' $month)
 
-outdir=$OUTPUT_DIR/$EXP_NAME/$year/$mm
 mkdir -p $outdir
 echo "$SLURM_JOB_ID Submitting year/month" $year/$month >> $outdir/jobs.log
 

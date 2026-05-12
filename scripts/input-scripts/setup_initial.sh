@@ -10,8 +10,13 @@ mkdir -p $RUN_DIR/tides
 
 # Copy run files and executables
 rsync -a $DEFAULT_RUN_DIR/* $RUN_DIR
-rsync -a $EXECUTABLE_DIR/nemo $RUN_DIR
+rsync -a $EXECUTABLE_DIR/nemo$suffix $RUN_DIR/nemo
 rsync -a $EXECUTABLE_DIR/xios_server.exe $RUN_DIR
+
+# Update file outputs
+for outfile in $OUTPUT_FILES; do 
+   sed -i "/${outfile}/s/enabled=\".FALSE.\"/enabled=\".TRUE.\"/g" $RUN_DIR/file_def_nemo-oce.xml; 
+done
 
 # Link restart files
 ln -s $INPUT_DIR/DOM/19930101_restart_trc_30yr_spinup.nc $RUN_DIR/restarts/${NAME}_19930101_restart_trc.nc

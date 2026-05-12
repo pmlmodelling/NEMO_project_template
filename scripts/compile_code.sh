@@ -66,7 +66,7 @@ while getopts :n nemo; do
           echo "Building NEMO"
           bash $SCRIPTS_DIR/compile-scripts/4_make_nemo.sh
           if [ -f $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe ]; then
-            ln -s $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe $EXECUTABLE_DIR/nemo
+            ln -s $NEMO_DIR/cfgs/$NEMO_CFG/BLD/bin/nemo.exe $EXECUTABLE_DIR/nemo${suffix}
           else
             echo "NEMO Build Failed"
           fi

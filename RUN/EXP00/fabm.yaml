@@ -48,7 +48,7 @@ instances:
     long_name: oxygen
     model: ersem/oxygen
     parameters:
-      ISWO2: 2                                             # saturation formulation (1: legacy ERSEM, 2: Weiss 1970)
+      iswO2: 2                                             # saturation formulation (1: legacy ERSEM, 2: Weiss 1970)
     initialization:
       o: 300.0                                             # oxygen (mmol O_2/m^3)
   O3:
@@ -56,12 +56,19 @@ instances:
     model: ersem/carbonate
     parameters:
       iswCO2: 1                                            # carbonate system diagnostics (0: off, 1: on), default = 1
-      iswASFLUX: 1                                         # air-sea CO2 exchange (0: none, 1: Nightingale and Liss, 2: Wanninkhof 1992 without chemical enhancement, 3: Wanninkhof 1992 with chemical enhancement, 4: Wanninkhof 1999), default = 1
+      iswASFLUX: 1                                         # air-sea CO2 exchange (0: none, 1: Nightingale et al. 2000, 2: Wanninkhof 1992 without chemical enhancement, 3: Wanninkhof 1992 with chemical enhancement, 4: Wanninkhof and McGillis 1999, 5: Wanninkhof 1992 switching to Wanninkhof and McGillis 1999, 6: Wan, default = 6
       iswtalk: 5                                           # alkalinity formulation (1-4: from salinity and temperature, 5: dynamic alkalinity), default = 5
-      # iswbioalk: 1
+      pHscale: 1                                           # pH scale (1: total, 0: SWS, -1: SWS backward compatible), default = 1
     initialization:
       c: 2130.0                                            # total dissolved inorganic carbon (mmol C/m^3)
-      TA: 2130.0
+      TA: 2300.0                                           # total alkalinity (mmol/m^3)
+  O5:
+    long_name: nitrous oxide
+    model: ersem/nitrous_oxide
+    parameters:
+      iswASFLUX: 2                                         # air-sea N2O exchange (1: Wanninkhof, 1992; 2: Wanninkhof, 2014)', default = 1
+    initialization:
+      n: 0.02
   R1:
     long_name: labile dissolved organic matter
     model: ersem/pelagic_base
@@ -93,12 +100,12 @@ instances:
     model: ersem/pelagic_base
     parameters:
       composition: cnpf                                    # elemental composition
-      rm: 1.0                                              # sinking velocity (m/d), default = 0.0
-      ndeposition: 2                                           # number of target pools where the sedimentation flux goes (-)
-      qxc2: 0.1
-      qxn2: 0.1
-      qxp2: 0.06
       c0: 0.0033                                           # background carbon concentration (mg C/m^3), default = 0.0
+      rm: 1.0                                              # sinking velocity (m/d), default = 0.0  NB: see release notes regarding this parameter value
+      ndeposition: 2                                       # number of target pools for sedimentation, default = 1
+      qxc2: 0.1                                            # fraction of carbon sinking into deposition target 2 (-)
+      qxn2: 0.1                                            # fraction of nitrogen sinking into deposition target 2 (-)
+      qxp2: 0.06                                           # fraction of phosphorus sinking into deposition target 2 (-)
     initialization:
       c: 7.2                                               # carbon (mg C/m^3)
       n: 0.1                                               # nitrogen (mmol N/m^3)
@@ -111,13 +118,13 @@ instances:
     model: ersem/pelagic_base
     parameters:
       composition: cnpsf                                   # elemental composition
-      rm: 5.0                                              # sinking velocity (m/d), default = 0.0
-      ndeposition: 2                                           # number of target pools where the sedimentation flux goes (-)
-      qxc2: 0.1
-      qxn2: 0.1
-      qxp2: 0.06
-      qxs2: 0.0
       c0: 0.0033                                           # background carbon concentration (mg C/m^3), default = 0.0
+      rm: 10.0 #5.0                                        # sinking velocity (m/d), default = 0.0  NB: see release notes regarding this parameter value
+      ndeposition: 2                                       # number of target pools for sedimentation, default = 1
+      qxc2: 0.1                                            # fraction of carbon sinking into deposition target 2 (-)
+      qxn2: 0.1                                            # fraction of nitrogen sinking into deposition target 2 (-)
+      qxp2: 0.06                                           # fraction of phosphorus sinking into deposition target 2 (-)
+      qxs2: 0.0                                            # fraction of silicate sinking into deposition target 2 (-)
     initialization:
       c: 17.0                                              # carbon (mg C/m^3)
       n: 0.24                                              # nitrogen (mmol N/m^3)
@@ -131,13 +138,13 @@ instances:
     model: ersem/pelagic_base
     parameters:
       composition: cnps                                    # elemental composition
-      rm: 10.0                                             # sinking velocity (m/d), default = 0.0
-      ndeposition: 2                                       # number of target pools where the sedimentation flux goes (-)
-      qxc2: 0.1
-      qxn2: 0.1
-      qxp2: 0.06
-      qxs2: 0.0
       c0: 0.0033                                           # background carbon concentration (mg C/m^3), default = 0.0
+      rm: 50.0 #10.0                                       # sinking velocity (m/d), default = 0.0  NB: see release notes regarding this parameter value
+      ndeposition: 2                                       # number of target pools for sedimentation, default = 1
+      qxc2: 0.1                                            # fraction of carbon sinking into deposition target 2 (-)
+      qxn2: 0.1                                            # fraction of nitrogen sinking into deposition target 2 (-)
+      qxp2: 0.06                                           # fraction of phosphorus sinking into deposition target 2 (-)
+      qxs2: 0.0                                            # fraction of silicate sinking into deposition target 2 (-)
     initialization:
       c: 0.17                                              # carbon (mg C/m^3)
       n: 0.0024                                            # nitrogen (mmol N/m^3)
@@ -151,7 +158,7 @@ instances:
     model: ersem/benthic_base
     parameters:
       composition: cnp                                     # elemental composition
-      c0: 0.001                                            # background carbon concentration (mg C/m^2)
+      c0: 0.001                                            # background carbon concentration (mg C/m^2), default = 0.0
     initialization:
       c: 18.9                                              # carbon (mg C/m^2)
       n: 0.6                                               # nitrogen (mmol N/m^2)
@@ -161,8 +168,8 @@ instances:
     model: ersem/benthic_column_particulate_matter
     parameters:
       composition: cnpsf                                   # elemental composition
+      c0: 0.001                                            # background carbon concentration (mg C/m^2), default = 0.0
       resuspension: true                                   # enable resuspension, default = false
-      c0: 0.001                                            # background carbon concentration (mg C/m^2)
     initialization:
       c: 3052.0                                            # carbon (mg C/m^2)
       n: 3.5                                               # nitrogen (mmol N/m^2)
@@ -179,8 +186,8 @@ instances:
     model: ersem/benthic_column_particulate_matter
     parameters:
       composition: cnp                                     # elemental composition
+      c0: 0.001                                            # background carbon concentration (mg C/m^2), default = 0.0
       burial: true                                         # enable burial, default = false
-      c0: 0.001                                            # background carbon concentration (mg C/m^2)
     initialization:
       c: 30520.0                                           # carbon (mg C/m^2)
       n: 80.0                                              # nitrogen (mmol N/m^2)
@@ -222,9 +229,9 @@ instances:
       fsink: 7e-05                                         # scavenging rate for iron (1/d)
       c0: 0.01                                             # background carbon concentration (mg C/m^3)
       nRP: 3                                               # number of substrates, default = 0
-      sRP1R1: 0.01                                         # remineralisation of substrate 1 to DOM (1/d)
-      sRP2R1: 0.0025                                       # remineralisation of substrate 2 to DOM (1/d)
-      sRP3R1: 0.001                                        # remineralisation of substrate 3 to DOM (1/d)
+      sRP1R1: 0.14                                         # remineralisation of substrate 1 to DOM (1/d)
+      sRP2R1: 0.03                                         # remineralisation of substrate 2 to DOM (1/d)
+      sRP3R1: 0.007                                        # remineralisation of substrate 3 to DOM (1/d)
       rR2: 0.0075                                          # fraction of semi-labile DOC available to bacteria (-)
       rR3: 0.0025                                          # fraction of semi-refractory DOC available to bacteria (-)
       frR3: 0.3                                            # fraction of activity respiration converted to semi-refractory DOC (-)
@@ -251,13 +258,16 @@ instances:
     parameters:
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       ISWph: 1                                             # pH impact on nitrification (0: off, 1: on)
-      sN4N3: 0.5                                           # specific nitrification rate (1/d)
+      sN4N3: 0.05                                          # specific nitrification rate (1/d)
       chN3o: 2700.0                                        # Michaelis-Menten constant for cubic oxygen dependence of nitrification ((mmol O_2/m^3)^3)
       chN4n: 0.5                                           # Michaelis-Menten constant for cubic ammonium dependence of nitrification ((mmol N/m^3)^3), default = 0.0
+      ISWn2o: true                                         # activate production of nitrous oxide (default = false)
+      N4O5minX: 0.001                                      # fraction of N going to N2O during nitrification
     coupling:
       N3n: N3/n                                            # nitrate (mmol N/m^3)
       N4n: N4/n                                            # ammonium (mmol N/m^3)
       O2o: O2/o                                            # oxygen (mmol O_2/m^3)
+      O5n: O5/n                                            # nitrous oxide (mmol N/m^3)
   P1:
     long_name: diatoms
     model: ersem/primary_producer
@@ -265,7 +275,10 @@ instances:
       sum: 1.375                                           # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.04                                            # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                          # excreted fraction of primary production (-)
+      exulim: 0.3                     			   # excreted fraction of primary production due to nutrient stress,maximum=1._rk-self%pu_ea
+      xqcpx: 1.3                                           # threshold for phosphorus limitation, relative to minimum ratio,default=2.0_rk
+      xqcnx: 1.3                                           # threshold for nitrogen limitation, relative to minimum ratio, default=2.0_rk
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.0042                                         # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.0001                                         # minimum phosphorus to carbon ratio (mmol P/mg C)
@@ -331,7 +344,10 @@ instances:
       sum: 1.625                                           # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.04                                            # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                          # excreted fraction of primary production (-)
+      exulim: 0.3                                          # excreted fraction of primary production due to nutrient stress,maximum=1._rk-self%pu_ea
+      xqcpx: 1.3                                           # threshold for phosphorus limitation, relative to minimum ratio,default=2.0_rk
+      xqcnx: 1.3                                           # threshold for nitrogen limitation, relative to minimum ratio, default=2.0_rk
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.005                                          # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.000225                                       # minimum phosphorus to carbon ratio (mmol P/mg C)
@@ -394,7 +410,10 @@ instances:
       sum: 2.0                                             # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.045                                           # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                          # excreted fraction of primary production (-)
+      exulim: 0.3                                          # excreted fraction of primary production due to nutrient stress,maximum=1._rk-self%pu_ea
+      xqcpx: 1.3                                           # threshold for phosphorus limitation, relative to minimum ratio,default=2.0_rk
+      xqcnx: 1.3                                           # threshold for nitrogen limitation, relative to minimum ratio, default=2.0_rk
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.006                                          # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.00035                                        # minimum phosphorus to carbon ratio (mmol P/mg C)
@@ -405,7 +424,7 @@ instances:
       qun3: 0.006                                          # nitrate affinity (m^3/mg C/d)
       qun4: 0.007                                          # ammonium affinity (m^3/mg C/d)
       qurp: 0.006                                          # phosphate affinity (m^3/mg C/d)
-      snplux: 1.0                                          # specific tendency of luxuary uptake of nutrients towards maximum quoata (1/d)
+      snplux: 1.0                                          # specific tendency of luxury uptake of nutrients towards maximum quota (1/d), default = 1.0
       use_Si: false                                        # use silicate, default = false
       sdo: 0.055                                           # 1.1 of minimal specific lysis rate (1/d)
       alpha: 6.0                                           # initial slope of PI-curve (mg C m^2/mg Chl/W/d)
@@ -454,7 +473,10 @@ instances:
       sum: 1.125                                           # maximum specific productivity at reference temperature (1/d)
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.035                                           # specific rest respiration at reference temperature (1/d)
-      pu_ea: 0.2                                           # excreted fraction of primary production (-)
+      pu_ea: 0.05                                          # excreted fraction of primary production (-)
+      exulim: 0.3                                          # excreted fraction of primary production due to nutrient stress,maximum=1._rk-self%pu_ea
+      xqcpx: 1.3                                           # threshold for phosphorus limitation, relative to minimum ratio,default=2.0_rk
+      xqcpx: 1.3                                           # threshold for nitrogen limitation, relative to minimum ratio, default=2.0_rk
       pu_ra: 0.2                                           # respired fraction of primary production (-)
       qnlc: 0.0042                                         # minimum nitrogen to carbon ratio (mmol N/mg C)
       qplc: 0.0001                                         # minimum phosphorus to carbon ratio (mmol P/mg C)
@@ -465,7 +487,7 @@ instances:
       qun3: 0.002                                          # nitrate affinity (m^3/mg C/d)
       qun4: 0.002                                          # ammonium affinity (m^3/mg C/d)
       qurp: 0.002                                          # phosphate affinity (m^3/mg C/d)
-      snplux: 1.0                                          # specific tendency of luxuary uptake of nutrients towards maximum quoata (1/d)
+      snplux: 1.0                                          # specific tendency of luxury uptake of nutrients towards maximum quota (1/d), default = 1.0
       use_Si: false                                        # use silicate, default = false
       sdo: 0.045                                           # 1.1 of minimal specific lysis rate (1/d)
       alpha: 3.0                                           # initial slope of PI-curve (mg C m^2/mg Chl/W/d)
@@ -514,7 +536,7 @@ instances:
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       minfood: 12.0                                        # Michaelis-Menten constant to perceive food (mg C/m^3)
       chuc: 36.0                                           # Michaelis-Menten constant for food uptake (mg C/m^3)
-      sum: 1.0                                             # maximum specific uptake at reference temperature (1/d)
+      sum: 2.0                                             # maximum specific uptake at reference temperature (1/d)
       pu: 0.6                                              # assimilation efficiency (-)
       pu_ea: 0.5                                           # fraction of unassimilated prey that is excreted (not respired) (-)
       pu_eaR: 0.9                                          # fraction of unassimilated detritus that is excreted (not respired) (-)
@@ -603,7 +625,7 @@ instances:
     initialization:
       c: 7.2                                               # carbon (mg C/m^3)
       n: 0.12                                              # nitrogen (mmol N/m^3)
-      p: 0.0113                                            # phosphorus (mmol P/m^3)
+      p: 0.0072                                            # phosphorus (mmol P/m^3)
     coupling:
       prey1: B1
       prey2: P1
@@ -690,17 +712,6 @@ instances:
       deposition_target1: bL2
       om_cal: O3/Om_cal                                    # calcite saturation (-)
       O3c: O3/c                                            # total dissolved inorganic carbon (mmol C/m^3)
-#  bL2:
-      #  long_name: benthic calcite
-      #    model: ersem/benthic_base
-      #  parameters:
-      # composition: c                                       # elemental composition
-      # remin: 0.05                                          # remineralisation rate (1/d), default = 0.0
-      # c0: 1.e-05                                           # background value for benthic calcite
-      #initialization:
-      # c: 0.05                                              # carbon (mg C/m^2)
-      #coupling:
-      # O3c: O3/c                                            # dissolved inorganic carbon (mmol/m^3)
   bL2:
     long_name: benthic calcite
     model: ersem/benthic_calcite
@@ -714,7 +725,7 @@ instances:
       c: 0.05                                              # carbon (mg C/m^2)
     coupling:
       Om_Cal: O3/Om_cal                                    # calcite saturation (-)
-      O3c: O3/c  
+      O3c: O3/c                                            # dissolved inorganic carbon (mmol/m^3)
   ben_col:
     long_name: benthic column
     model: ersem/benthic_column
@@ -740,10 +751,10 @@ instances:
     model: ersem/benthic_column_dissolved_matter
     parameters:
       composition: p                                       # composition (any combination of c,n,p,s,o,a)
+      c0: 0.0003                                           # background carbon concentration (mg C/m^2), default = 0.0
       ads1: 100.0                                          # adsorption in layer 1 (total:dissolved) (-), default = 1.0
       ads2: 100.0                                          # adsorption in layer 2 (total:dissolved) (-), default = 1.0
       ads3: 2.0                                            # adsorption in layer 3 (total:dissolved) (-), default = 1.0
-      c0: 0.0003                                           # background concentration (mg C/m^2)
     initialization:
       p: 6.8                                               # phosphorus (mmol/m^2)
     coupling:
@@ -753,10 +764,10 @@ instances:
     model: ersem/benthic_column_dissolved_matter
     parameters:
       composition: n                                       # composition (any combination of c,n,p,s,o,a)
+      c0: 0.0003                                           # background carbon concentration (mg C/m^2), default = 0.0
       last_layer: 2                                        # sediment layer where concentration drops to zero, default = 3
       relax: 5.0                                           # rate of relaxation towards equilibrium concentration profile (1/d)
       minD: 0.0001                                         # minimum depth of zero-concentration isocline (m)
-      c0: 0.0003                                           # background concentration (mg C/m^2)
     initialization:
       n: 0.584                                             # nitrogen (mmol/m^2)
     coupling:
@@ -766,11 +777,11 @@ instances:
     model: ersem/benthic_column_dissolved_matter
     parameters:
       composition: n                                       # composition (any combination of c,n,p,s,o,a)
+      c0: 0.0003                                           # background carbon concentration (mg C/m^2), default = 0.0
       ads1: 3.0                                            # adsorption in layer 1 (total:dissolved) (-), default = 1.0
       ads2: 3.0                                            # adsorption in layer 2 (total:dissolved) (-), default = 1.0
       ads3: 3.0                                            # adsorption in layer 3 (total:dissolved) (-), default = 1.0
       correction: true                                     # move losses in oxygenic layer to deeper layers if pelagic concentration is limiting, default = false
-      c0: 0.0003                                           # background concentration (mg C/m^2)
     initialization:
       n: 25.0                                              # nitrogen (mmol/m^2)
     coupling:
@@ -780,7 +791,7 @@ instances:
     model: ersem/benthic_column_dissolved_matter
     parameters:
       composition: s                                       # composition (any combination of c,n,p,s,o,a)
-      c0: 9.e-05                                           # background concentration (mg C/m^2)
+      c0: 9.e-05                                           # background carbon concentration (mg C/m^2), default = 0.0
     initialization:
       s: 20.1                                              # silicate (mmol/m^2)
     coupling:
@@ -795,9 +806,21 @@ instances:
       minD: 0.0001                                         # minimum depth of zero-concentration isocline (m)
     initialization:
       o: 0.0225                                            # oxygen (mmol/m^2)
-      o_deep: 0
+      o_deep: 0                                            # oxygen below zero isocline (mmol/m^2)
     coupling:
       o_pel: O2/o                                          # pelagic oxygen (mmol/m^3)
+  G5:
+    long_name: benthic nitrous oxide
+    model: ersem/benthic_column_dissolved_matter
+    parameters:
+      composition: n                                       # composition (any combination of c,n,p,s,o,a)
+      last_layer: 2                                        # sediment layer where concentration drops to zero, default = 3
+      relax: 5.0                                           # rate of relaxation towards equilibrium concentration profile (1/d)
+      minD: 0.0001                                         # minimum depth of zero-concentration isocline (m)
+    initialization:
+      n: 0.0                                             # nitrogen  (mmol/m^2)
+    coupling:
+      n_pel: O5/n                                          # pelagic nitrous oxide (mmol/m^3)
   G3:
     long_name: benthic dissolved inorganic carbon
     model: ersem/benthic_column_dissolved_matter
@@ -842,15 +865,15 @@ instances:
       sM4M3: 4.0                                           # maximum nitrification rate at 10 degrees Celsius (1/d)
       xno3: 2.0                                            # oxygen consumed per nitrate produced (mol O_2/mol N)
       pammon: 0.5                                          # fraction of oxygen demand fulfilled by denitrification under anaerobic conditions (-)
-      pdenit: 0.05                                         # fraction of denitrification producing dinitrogen gas (remainder produces ammonium) (-)
-      xn2: 1.25                                            # oxygen produced per N2 produced (-)
+      pdenit: 0.05 #0.95                                   # fraction of denitrification producing dinitrogen gas (remainder produces ammonium) (-)  NB: see release notes regarding this parameter value 
+      xn2: 1.25                                            # oxygen demand fulfilled by reduction of nitrate to dinitrogen gas (mol O_2/mol N)
       hM3G4: 1.0                                           # Michaelis-Menten constant for nitrate limitation of denitrification (mmol N/m^3)
     initialization:
-      G4n: 0
+      G4n: 0                                               # dinitrogen gas (mmol N/m^2)
     coupling:
-      K3n: K3/per_layer/n1                                 # nitrate (mmol N/m^2)
-      K4n: K4/per_layer/n1                                 # ammonium (mmol N/m^2)
-      G2o: G2/per_layer/o1                                 # oxygen (mmol O_2/m^2)
+      K3n: K3/per_layer/n1                                 # benthic nitrate in 1st layer (mmol N/m^2)
+      K4n: K4/per_layer/n1                                 # benthic ammonium in 1st layer (mmol N/m^2)
+      G2o: G2/per_layer/o1                                 # benthic oxygen in 1st layer (mmol O_2/m^2)
       N4n: N4/n                                            # pelagic ammonium (mmol N/m^3)
       benTA: zero_hz                                       # benthic alkalinity in aerobic layer (mEq/m^2)
       benTA2: zero_hz                                      # benthic alkalinity in anaerobic layer (mEq/m^2)
@@ -864,7 +887,7 @@ instances:
     parameters:
       qnc: 0.0167                                          # nitrogen to carbon ratio (mmol N/mg C)
       qpc: 0.00125                                         # phosphorus to carbon ratio (mmol P/mg C)
-      c0: 1.e-06                                           # background carbon concentration (mg C/m^2)
+      c0: 1.e-06                                           # background carbon concentration (mg C/m^2), default = 0.0
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       dd: 0.001                                            # Michaelis-Menten constant for oxygen limitation through layer thickness (m)
       nfood: 3                                             # number of food sources
@@ -919,7 +942,7 @@ instances:
     parameters:
       qnc: 0.0167                                          # nitrogen to carbon ratio (mmol N/mg C)
       qpc: 0.00125                                         # phosphorus to carbon ratio (mmol P/mg C)
-      c0: 1.e-06                                           # background carbon concentration (mg C/m^2)
+      c0: 1.e-06                                           # background carbon concentration (mg C/m^2), default = 0.0
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       dd: 0.01                                             # Michaelis-Menten constant for oxygen limitation through layer thickness (m)
       nfood: 2                                             # number of food sources
@@ -974,7 +997,7 @@ instances:
     parameters:
       qnc: 0.0119                                          # nitrogen to carbon ratio (mmol N/mg C)
       qpc: 0.000792                                        # phosphorus to carbon ratio (mmol P/mg C)
-      c0: 0.001                                            # background carbon concentration (mg C/m^2)
+      c0: 0.001                                            # background carbon concentration (mg C/m^2), default = 0.0
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       rlO2: 0.0                                            # minimum pelagic oxygen concentration (mmol O2/m^3)
       hO2: 0.0                                             # Michaelis-Menten constant for oxygen limitation (mmol O2/m^3)
@@ -1056,7 +1079,7 @@ instances:
     parameters:
       qnc: 0.0119                                          # nitrogen to carbon ratio (mmol N/mg C)
       qpc: 0.000792                                        # phosphorus to carbon ratio (mmol P/mg C)
-      c0: 0.001                                            # background carbon concentration (mg C/m^2)
+      c0: 0.001                                            # background carbon concentration (mg C/m^2), default = 0.0
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       rlO2: 0.0                                            # minimum pelagic oxygen concentration (mmol O2/m^3)
       hO2: 0.0                                             # Michaelis-Menten constant for oxygen limitation (mmol O2/m^3)
@@ -1126,7 +1149,7 @@ instances:
     parameters:
       qnc: 0.0119                                          # nitrogen to carbon ratio (mmol N/mg C)
       qpc: 0.000792                                        # phosphorus to carbon ratio (mmol P/mg C)
-      c0: 0.001                                            # background carbon concentration (mg C/m^2)
+      c0: 0.001                                            # background carbon concentration (mg C/m^2), default = 0.0
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       rlO2: 0.0                                            # minimum pelagic oxygen concentration (mmol O2/m^3)
       hO2: 0.0                                             # Michaelis-Menten constant for oxygen limitation (mmol O2/m^3)
@@ -1179,6 +1202,8 @@ instances:
       maximum_depth: 0.03                                  # maximum depth (m), default = 0.0
     coupling:
       Q: Q6
+  erosion:
+    model: ersem/benthic_erosion
   N3_flux:
     model: external_surface_flux
     coupling:
@@ -1189,6 +1214,40 @@ instances:
       target: N4/n
   erosion:
     model: ersem/benthic_erosion
+  db:
+    model: ersem/dvm_upper_lower_boundaries
+    parameters:
+      nprey: 7                                             # number of prey types
+      day_light: 0                                         # minimum light level for day (log W m-2)
+      upper_light: -1                                      # light level for upper isolume (log W m-2)
+      lower_light: -15.0                                   # light level for lower isolume (log W m-2)
+      divide_food_by: 40                                   # a likely concentration (e.g. half saturation constant) to normalize food (-)
+    coupling:
+      prey1: P1/c
+      prey2: P2/c
+      prey3: Z6/c
+      prey4: P4/c
+      prey5: Z4/c
+      prey6: Z5/c
+      prey7: R6/c
+  dw:
+    model: ersem/dvm_weight_distribution
+    coupling:
+      target: Z4/c
+      present: db/migrator_presence
+      migrator_food: db/migrator_food
+  dm:
+    model: ersem/dvm_move
+    long_name: distribute_migrators
+    parameters: 
+      ratioMig: 0.1                                       # ratio of moving biomass (-)
+      tstep: 300                                          # model time-step in seconds (sec). NB see release notes regarding this parameter value
+    coupling:
+      target: Z4/c
+      integral: dw/integral
+      migrator_weights: dw/migrator_weights
+      migrator_integral_weights: dw/migrator_integral_weights
+      overwintering: Z4/overwintering
   #Diagnostics:
   PON:
    long_name: particulate organic nitrogen

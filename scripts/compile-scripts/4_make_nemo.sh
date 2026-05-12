@@ -15,6 +15,12 @@ cd $NEMO_DIR
 REF=AMM7_FABM
 
 printf 'y\nn\nn\ny\nn\nn\nn\nn\n' |./makenemo -n $NEMO_CFG -r $REF -m $NEMO_ARCH -j 0
+if [ $tracer_budget = true ]; then
+    sed -i '/key_tracer_budget/!s/$/ key_trdtrc key_tracer_budget/' $NEMO_DIR/cfgs/$NEMO_CFG/cpp_$NEMO_CFG.fcm
+else
+    yes | cp $NEMO_DIR/cfgs/$REF/cpp_$REF.fcm $NEMO_DIR/cfgs/$NEMO_CFG/cpp_$NEMO_CFG.fcm
+fi
+
 ./makenemo -n $NEMO_CFG -r $REF -m $NEMO_ARCH -j 4 clean
 rsync -avz $CODE_DIR/MY_SRC $NEMO_DIR/cfgs/$NEMO_CFG/
 ./makenemo -n $NEMO_CFG -r $REF -m $NEMO_ARCH -j 16

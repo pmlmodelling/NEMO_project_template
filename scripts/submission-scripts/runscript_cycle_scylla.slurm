@@ -35,8 +35,8 @@ export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | 
 
 for (( i=1; i<=$N_sub_months; i++ ));
 do
+    export outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     $SCRIPTS_DIR/core-scripts/submit_job.sh
-    outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     # Check run completed successfully
     if grep -q "TRACER STAT" "$outdir/ocean.output"; then
       RUN_STATUS=true
@@ -60,18 +60,22 @@ do
     fi
 done
 
-# Submit next cycle if run completed successfully
-if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
-    echo "Submitting $year $month at $(date +'%F %T')"
+# Check run completed successfully and increment stored date
+if [ $RUN_STATUS == "true" ]; then
     cd $RUN_DIR
 cat > $RUN_DIR/current_date <<EOF
 export year=$year
 export month=$month
 EOF
-    sbatch $RUN_DIR/runscript_cycle.slurm
-    echo "Done."
-elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then
+else
     echo "Cycle did not complete."
+    exit 1
+fi
+
+# Submit next cycle
+if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
+    echo "Submitting $year $month at $(date +'%F %T')"
+    sbatch $RUN_DIR/runscript_cycle.slurm
 else
     echo "All done."
 fi

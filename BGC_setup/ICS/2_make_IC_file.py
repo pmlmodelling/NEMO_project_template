@@ -63,6 +63,25 @@ ds['TRNN5_s'] = ds_i.N5_s.expand_dims(dim={'t':1})*ds_phys.density/1000.0
 print('   Dissolved Oxygen')
 ds['TRNO2_o'] = ds_i.O2_o.expand_dims(dim={'t':1})*ds_phys.density/1000.0
 
+######################################
+# Set Nitrous Oxide
+# Source - NOAA (https://gml.noaa.gov/aftp/data/hats/n2o/combined/GML_global_N2O.txt)
+# 01/1993 value of 310.397
+# Converted to mmol/m3 based on seawater solubility
+# Ref - Wanninkhof 2014 https://doi.org/10.4319/lom.2014.12.351
+#######################################
+A1 = -62.7062
+A2 = 97.3066
+A3 = 24.1406
+B1 = -0.05842
+B2 = 0.033193
+B3 = -0.0051
+
+tk100 = (ds_phys.votemper+273.15)/100.
+koN2O = np.exp(A1 + A2/tk100 + A3 * np.log(tk100) +
+                ds_phys.vosaline * (B1 + B2*tk100 + B3*tk100**2.))
+ds['TRNO5_n'] = (2. * koN2O * 1.e-9 * 1.e6 * 310.397).expand_dims(dim={'t':1})
+
 ################################################
 # Set Alkalinity and Dissolved inorganic carbon
 # Source - GLODAP
@@ -250,6 +269,9 @@ ds[pf+'G3_c'] = p*z*ds.TRNO3_c.isel(z=bl)
 
 print('   NO2')
 ds[pf+'ben_nit_G4n'] = 0*ds[pf+'K3_n']
+
+print('   N2O')
+ds[pf+'G5_n'] = p*z*ds.TRNO5_n.isel(z=bl)
 
 #######################################################
 # Set zoobenthos, bacteria and organic matter

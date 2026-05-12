@@ -32,11 +32,15 @@
 # where number_of_nodes > xios_servers / xios_servers_per_node
 # 
 # which may take some trial and error to tune
-
+#
+# The wallclock time is by default set to 1 hour, which comfortable covers
+# 1 month of simulation at most core counts. It can be changed using the variable
+# below, please use the format hh:mm:ss
+#
 # --------------------------------------------
 
 # Set parameters
-xios_servers=8 
+xios_servers=8
 ocean_cores=496
 system=scylla     
 cores_per_node=63 # Scylla uses 63
@@ -46,6 +50,7 @@ cores_per_xios_server=1
 xios_servers_per_node=1
 ocean_cores_before_gap=0
 
+wallclock_time=01:00:00 
 # --------------------------------------------
 
 # Update cycle script
@@ -75,8 +80,8 @@ export dt=`grep 'rn_rdt\s*=' namelist_cfg | tr -d '[:space:]' | cut -d'=' -f2 | 
 
 for (( i=1; i<=$N_sub_months; i++ ));
 do
+    export outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     $SCRIPTS_DIR/core-scripts/submit_job.sh
-    outdir=$OUTPUT_DIR/$EXP_NAME/$year/$(printf '%02d' $month)
     # Check run completed successfully
     if grep -q "TRACER STAT" "$outdir/ocean.output"; then
       RUN_STATUS=true
@@ -100,18 +105,22 @@ do
     fi
 done
 
-# Submit next cycle if run completed successfully
-if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
-    echo "Submitting $year $month at $(date +'%F %T')"
+# Check run completed successfully and increment stored date
+if [ $RUN_STATUS == "true" ]; then
     cd $RUN_DIR
 cat > $RUN_DIR/current_date <<EOF
 export year=$year
 export month=$month
 EOF
-    sbatch $RUN_DIR/runscript_cycle.slurm
-    echo "Done."
-elif [ $year -le $END_YEAR ] && [ $RUN_STATUS = false ]; then
+else
     echo "Cycle did not complete."
+    exit 1
+fi
+
+# Submit next cycle
+if [ $year -le $END_YEAR ] && [ $RUN_STATUS == "true" ]; then
+    echo "Submitting $year $month at $(date +'%F %T')"
+    sbatch $RUN_DIR/runscript_cycle.slurm
 else
     echo "All done."
 fi
@@ -119,20 +128,20 @@ EOF2
 )
 
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
-               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7-cycle \
+               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t $wallclock_time -j AMM7-cycle \
 	       -z "$text" -T -M --sys "$system"    \
 		> runscript_cycle_$system.slurm
 chmod 755 runscript_cycle_$system.slurm
 
 # Update mapping script
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
-               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7 \
+               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t $wallclock_time -j AMM7 \
 	       -H --sys "$system" \
 	       > runscript_mapping_$system.sh
 chmod 755 runscript_mapping_$system.sh
 
 # Update testing script
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
-               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t 01:00:00 -j AMM7-test --sys "$system" \
+               -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t $wallclock_time -j AMM7-test --sys "$system" \
 	       > runscript_testing_$system.slurm
 chmod 755 runscript_testing_$system.slurm

@@ -53,6 +53,12 @@ variables:
         long_name: "oxygen"
         method: 'input'
         input_file: woa_OBCs.nc
+    O5_n:
+        units: "mmolN m-3"
+        short_name: "N2O"
+        long_name: "nitrous oxide"
+        method: 'time_series'
+        input_file: noaa_OBCs.nc
     R2_c:
         units: "mgC m-3"
         long_name: "semi-labile Dissolved Organic Carbon"
@@ -72,7 +78,7 @@ variables:
     P1_n:
         units: "mmolN m-3"
         short_name: "P1_n"
-        long_name: "diatoms nitrogen"
+        7long_name: "diatoms nitrogen"
         method: 'fixed'
         fixed_value: 1.26e-6
     P1_p:
@@ -170,7 +176,49 @@ variables:
         short_name: "P4_Chl"
         long_name: "microphytoplankton chlorophyll a"
         method: 'fixed'
-        fixed_value: 0.0001
+        fixed_value: 0.0001 
+    Z4_c:
+        units: "mgC m-3"
+        short_name: "Z4_c"
+        long_name: "mesozooplankton carbon"
+        method: 'fixed'
+        fixed_value: 0.0001 
+    Z5_c:
+        units: "mgC m-3"
+        short_name: "Z5_c"
+        long_name: "microzooplankton carbon"
+        method: 'fixed'
+        fixed_value: 0.0001 
+    Z5_n:
+        units: "mmolN m-3"
+        short_name: "Z5_n"
+        long_name: "microzooplankton nitrogen"
+        method: 'fixed'
+        fixed_value: 1.26e-6
+    Z5_p:
+        units: "mmolP m-3"
+        short_name: "Z5_p"
+        long_name: "microzooplankton phosphorus"
+        method: 'fixed'
+        fixed_value: 7.86e-8
+    Z6_c:
+        units: "mgC m-3"
+        short_name: "Z6_c"
+        long_name: "nanoflagellates carbon"
+        method: 'fixed'
+        fixed_value: 0.0001 
+    Z6_n:
+        units: "mmolN m-3"
+        short_name: "Z6_n"
+        long_name: "nanoflagellates nitrogen"
+        method: 'fixed'
+        fixed_value: 1.26e-6
+    Z6_p:
+        units: "mmolP m-3"
+        short_name: "Z6_p"
+        long_name: "nanoflagellates phosphorus"
+        method: 'fixed'
+        fixed_value: 7.86e-8
     R4_c:
         units: "mgC m-3"
         short_name: "R4_c"

@@ -21,6 +21,8 @@ else
 fi
 ln -s $INPUT_DIR/SBC/BGC/pCO2/AMM7-pCO2a_y$year.nc $RUN_DIR/fluxes/pCO2a.nc 
 ln -s $INPUT_DIR/SBC/BGC/pCO2/AMM7-pCO2a_y$year.nc $RUN_DIR/fluxes/pCO2a_y$year.nc 
+ln -s $INPUT_DIR/SBC/BGC/n2o/AMM7-n2o_y$year.nc $RUN_DIR/fluxes/n2o.nc 
+ln -s $INPUT_DIR/SBC/BGC/n2o/AMM7-n2o_y$year.nc $RUN_DIR/fluxes/n2o_y$year.nc 
 ln -s $INPUT_DIR/SBC/BGC/NDep/AMM7-EMEP-NDeposition_y$year.nc $RUN_DIR/fluxes/Ndep.nc
 ln -s $INPUT_DIR/SBC/BGC/NDep/AMM7-EMEP-NDeposition_y$year.nc $RUN_DIR/fluxes/Ndep_y$year.nc
 
