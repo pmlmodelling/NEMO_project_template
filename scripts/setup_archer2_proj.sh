@@ -13,7 +13,7 @@ fi
 if [[ $SCENARIO == '' ]]
 then
 	echo 'WARNING no scenario has been specified, setting to historical'
-	MODEL='historical'
+	SCENARIO='historical'
 fi
 
 yes | rsync -a $WORK/scripts/core-scripts/config.proj.sh $WORK/scripts/config.sh
@@ -33,7 +33,7 @@ echo "Linking runscripts"
 yes | rsync -a $SCRIPTS_DIR/core-scripts/runscript_archer2.proj.slurm $SCRIPTS_DIR/runscript.slurm
 
 yes | rsync -a $WORK/RUN/EXP00/runscripts/mapping_archer2.slurm $WORK/RUN/EXP00/mapping.slurm
-yes | rsync -a $WORK/RUN/EXP00/runscripts/mapping_testing_archer2.slurm $WORK/RUN/EXP00/mapping_testing.slurm
+yes | rsync -a $WORK/RUN/EXP00/runscripts/mapping_testing_archer2.slurm.standard $WORK/RUN/EXP00/mapping_testing.slurm
 
 echo "Linking inputs from /work/n01/n01/shared/AMM7-INPUTS"
 ln -s -T /work/n01/n01/shared/AMM7-INPUTS-$MODEL $INPUT_DIR

@@ -99,15 +99,15 @@
   <field id="Z4_fprey9n_e3t" long_name="mesozooplankton scavenging on particulate organic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z4_fprey9n * e3t </field>
   <field id="Z4_fprey9p_e3t" long_name="mesozooplankton scavenging on particulate organic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z4_fprey9p * e3t </field>
   <field id="Z4_fprey9s_e3t" long_name="mesozooplankton scavenging on particulate organic silicon cell depth integrated" unit="mmol Si/m^2/d" default_value="-.200E+21" > Z4_fprey9s * e3t </field>
-  <field id="total_microzooplankton_respiration_result_e3t" long_name="total microzooplankton respiration cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > total_microzooplankton_respiration_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_POC_result_e3t" long_name="total microzooplankton loss to particulate organic carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_POC_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_PON_result_e3t" long_name="total microzooplankton loss to particulate organic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_PON_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_POP_result_e3t" long_name="total microzooplankton loss to particulate organic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_POP_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_DOC_result_e3t" long_name="total microzooplankton loss to dissolved organic carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_DOC_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_DON_result_e3t" long_name="total microzooplankton loss to dissolved organic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_DON_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_DOP_result_e3t" long_name="total microzooplankton loss to dissolved organic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_DOP_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_DIN_result_e3t" long_name="total microzooplankton loss to dissolved inorganic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_DIN_result * e3t </field>
-  <field id="total_microzooplankton_loss_to_DIP_result_e3t" long_name="total microzooplankton loss to dissolved inorganic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > total_microzooplankton_loss_to_DIP_result * e3t </field>
+  <field id="total_smallzooplankton_respiration_result_e3t" long_name="total small zooplankton respiration cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > total_smallzooplankton_respiration_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_POC_result_e3t" long_name="total small zooplankton loss to particulate organic carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_POC_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_PON_result_e3t" long_name="total small zooplankton loss to particulate organic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_PON_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_POP_result_e3t" long_name="total small zooplankton loss to particulate organic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_POP_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_DOC_result_e3t" long_name="total small zooplankton loss to dissolved organic carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_DOC_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_DON_result_e3t" long_name="total small zooplankton loss to dissolved organic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_DON_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_DOP_result_e3t" long_name="total small zooplankton loss to dissolved organic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_DOP_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_DIN_result_e3t" long_name="total small zooplankton loss to dissolved inorganic nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_DIN_result * e3t </field>
+  <field id="total_smallzooplankton_loss_to_DIP_result_e3t" long_name="total small zooplankton loss to dissolved inorganic phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > total_smallzooplankton_loss_to_DIP_result * e3t </field>
   <field id="Z5_fphytoc_result_e3t" long_name="microzooplankton grazing on phytoplankton carbon cell depth integrated" unit="mg C/m^2/d" default_value="-.200E+21" > Z5_fphytoc_result * e3t </field>
   <field id="Z5_fphyton_result_e3t" long_name="microzooplankton grazing on phytoplankton nitrogen cell depth integrated" unit="mmol N/m^2/d" default_value="-.200E+21" > Z5_fphyton_result * e3t </field>
   <field id="Z5_fphytop_result_e3t" long_name="microzooplankton grazing on phytoplankton phosphorus cell depth integrated" unit="mmol P/m^2/d" default_value="-.200E+21" > Z5_fphytop_result * e3t </field>
@@ -134,6 +134,14 @@
   <field id="INP_rop_e3t" default_value="-.200E+21" > INP_rop * e3t </field>
   <field id="INP_ronsio2_e3t" default_value="-.200E+21" > INP_rosio2 * e3t </field>
   <field id="INP_roo_e3t" default_value="-.200E+21" > INP_roo * e3t </field>
+  <field id="INP_rotoalk_e3t" default_value="-.200E+21" > INP_rotoalk * e3t </field>
   <field id="INP_robioalk_e3t" default_value="-.200E+21" > INP_robioalk * e3t </field>
+  <field id="fish_fprey_P1c" long_name="Uptake of P1 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey1_depth_average_loss_distributor_rate * P1_c </field>
+  <field id="fish_fprey_P2c" long_name="Uptake of P2 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey2_depth_average_loss_distributor_rate * P2_c </field>
+  <field id="fish_fprey_P3c" long_name="Uptake of P3 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey3_depth_average_loss_distributor_rate * P3_c </field>
+  <field id="fish_fprey_P4c" long_name="Uptake of P4 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey4_depth_average_loss_distributor_rate * P4_c </field>
+  <field id="fish_fprey_Z4c" long_name="Uptake of Z4 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey5_depth_average_loss_distributor_rate * Z4_c </field>
+  <field id="fish_fprey_Z5c" long_name="Uptake of Z5 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey6_depth_average_loss_distributor_rate * Z5_c </field>
+  <field id="fish_fprey_Z6c" long_name="Uptake of Z6 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey7_depth_average_loss_distributor_rate * Z6_c </field>
  </field_group>
 </field_definition>

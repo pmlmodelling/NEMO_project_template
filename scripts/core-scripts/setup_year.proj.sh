@@ -44,3 +44,6 @@ mkdir -p $RUN_DIR/rivers/
 ln -s $INPUT_DIR/RIV/amm7_rivers_${MODEL}_${SCENARIO}_y${year}.nc $RUN_DIR/rivers/rivers.nc 
 ln -s $INPUT_DIR/RIV/amm7_rivers_${MODEL}_${SCENARIO}_y${year}.nc $RUN_DIR/rivers/rivers_y$year.nc 
 
+# Fishing pressure maps
+ln -s $INPUT_DIR/SBC/fish/processed_fishing_effort_2012-2016_mean.nc $RUN_DIR/fluxes/fishing_pressure_y$year.nc
+ln -s $INPUT_DIR/SBC/fish/processed_fishing_effort_2012-2016_mean.nc $RUN_DIR/fluxes/fishing_pressure.nc

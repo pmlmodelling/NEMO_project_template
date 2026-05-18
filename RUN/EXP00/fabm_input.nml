@@ -16,7 +16,10 @@
    name='N4_flux/flux'
    sn=         'fluxes/Ndep',-12,            'N4_flux', .false.,  .false.,   'yearly',     '',         '',        ''
 /
-&riverdata
+&variable
+   name='fish/fishing_pressure'
+   sn=         'fluxes/fishing_pressure',8760,            'tot_EffActiveHours', .false.,  .false.,   'yearly',     '',         '',        ''
+/&riverdata
    name='N3_n'
    sn=         'rivers/rivers',24,            'rono3', .false.,  .true.,   'yearly',     '',         '',        ''
    rfac=71.4 ! 1000./14.0067 (g/s -> mmol/s)

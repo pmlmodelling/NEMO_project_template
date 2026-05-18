@@ -6,7 +6,7 @@
 #SBATCH --qos=standard
 #SBATCH --output=./log/slurm-%j.out
 
-#SBATCH --nodes=13
+#SBATCH --nodes=14
 #SBATCH --ntasks-per-core=1
 
 # SUBMIT WITH: sbatch runscript.slurm

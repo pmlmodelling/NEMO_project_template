@@ -88,7 +88,7 @@ foreach my $line (@lines) {
 
   $line =~ s/^(\s*?cn_ocerst_in\s*?)=.*/$1=  '$restart_file'/ if ($restart_file);
 
-  $line =~ s/<MODEL>/$model/ if ($model);
+  $line =~ s/<MODEL>/$model/g if ($model);
 
   $line =~ s/<SCENARIO>/$scenario/ if ($scenario);
 
