@@ -4,9 +4,9 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/../config.sh
 
 # Clone code bases for ERSEM, FABM
-#ERSEM_REV=8510fbf80a4ef8b1f9f827e156531e9e0ce6315b
-git clone -b 165_n2o_config https://github.com/pmlmodelling/ersem.git $ERSEM_DIR
-#cd $ERSEM_DIR && git checkout $ERSEM_REV
+ERSEM_REV=8ee235834f81fc24835dea240ab3b22e3f0f76a3
+git clone https://github.com/pmlmodelling/ersem.git $ERSEM_DIR
+cd $ERSEM_DIR && git checkout $ERSEM_REV
 
 FABM_REV=2178e4198586578664ca8db21b508c52cf5d3b83
 git clone https://github.com/fabm-model/fabm.git $FABM_DIR
