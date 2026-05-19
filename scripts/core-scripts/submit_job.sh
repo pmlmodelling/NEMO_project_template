@@ -37,7 +37,7 @@ fi
 
 # Launch Run
 echo "Launching $year $month at $(date +'%F %T')"
-$RUN_DIR/runscript_mapping.sh
+$RUN_DIR/mapping.sh
 
 # Archiving
 mkdir -p $outdir

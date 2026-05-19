@@ -137,8 +137,8 @@ chmod 755 runscript_cycle_$system.slurm
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \
                -C $ocean_cores -g $ocean_cores_before_gap -N $cores_per_node -t $wallclock_time -j AMM7 \
 	       -H --sys "$system" \
-	       > runscript_mapping_$system.sh
-chmod 755 runscript_mapping_$system.sh
+	       > mapping_$system.sh
+chmod 755 mapping_$system.sh
 
 # Update testing script
 ./mkslurm.py -S $xios_servers -s $cores_per_xios_server -m $xios_servers_per_node \

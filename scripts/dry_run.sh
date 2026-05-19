@@ -71,7 +71,7 @@ fi
 
 echo "Linking runscripts"
 yes | rsync -a $SCRIPTS_DIR/submission-scripts/runscript_cycle_$system.slurm $RUN_DIR/runscript_cycle.slurm
-yes | rsync -a $SCRIPTS_DIR/submission-scripts/runscript_mapping_$system.sh $RUN_DIR/runscript_mapping.sh
+yes | rsync -a $SCRIPTS_DIR/submission-scripts/mapping_$system.sh $RUN_DIR/mapping.sh
 yes | rsync -a $SCRIPTS_DIR/submission-scripts/runscript_testing_$system.slurm $RUN_DIR/runscript_testing.slurm
 
 cd $RUN_DIR
