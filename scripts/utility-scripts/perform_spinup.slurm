@@ -49,7 +49,7 @@ else
    sed -i "/export EXP_NAME/c\\export EXP_NAME=EXP_spinup" $SCRIPTS_DIR/config.sh
    sed -i "/START_YEAR/c\\export START_YEAR=$spinup_start" $SCRIPTS_DIR/config.sh
    sed -i "/END_YEAR/c\\export END_YEAR=$spinup_end" $SCRIPTS_DIR/config.sh
-   sed -i "/OUTPUT_FILES/c\\export OUTPUT_FILES=$OUTPUT_FILES" $SCRIPTS_DIR/config.sh
+   sed -i "/OUTPUT_FILES/c\\export OUTPUT_FILES=\"$OUTPUT_FILES\"" $SCRIPTS_DIR/config.sh
    source $SCRIPTS_DIR/config.sh
    cp $SCRIPTS_DIR/config.sh $SCRIPTS_DIR/utility-scripts/config.sh
 
@@ -64,7 +64,6 @@ export cycle_iter=$cycle_iter
 EOF
 fi
 
-
 # Use correct restart from previous cycle
 if [ $year -eq $spinup_start ] && [ $month -eq 1 ]; then
     if [ $cycle_iter -eq 1 ]; then
@@ -76,12 +75,11 @@ if [ $year -eq $spinup_start ] && [ $month -eq 1 ]; then
     fi
 fi
 
-# Run cycle #cycle_iter
-cd $RUN_DIR
-$RUN_DIR/runscript_cycle.slurm
-cd $SCRIPTS_DIR/utility-scripts
-
 if [ $year -le $spinup_end ]; then
+    # Run cycle #cycle_iter
+    cd $RUN_DIR
+    $RUN_DIR/runscript_cycle.slurm
+    cd $SCRIPTS_DIR/utility-scripts
     sbatch $SCRIPTS_DIR/utility-scripts/perform_spinup.slurm
 else 
     # Complete cycle
@@ -93,14 +91,14 @@ cat > $RUN_DIR/current_date <<EOF
 export year=$spinup_start
 export month=1
 EOF
-        # Rebuild restarts
-        filebase=$RUN_DIR/restarts/AMM7_$(($spinup_end+1))0101_restart_trc
-        $SCRIPTS_DIR/utility-scripts/rebuild_nemo $filebase
+    # Rebuild restarts
+    filebase=$RUN_DIR/restarts/AMM7_$(($spinup_end+1))0101_restart_trc
+    $SCRIPTS_DIR/utility-scripts/rebuild_nemo $filebase
 
-        # Reset date in restart file
-	restart_file=${OUTPUT_DIR}EXP_spinup/AMM7_${spinup_start}0101_restart_trc_cycle$(($cycle_iter-1)).nc 
-        rsync -a $filebase.nc $restart_file
-        ncap2 -s "time_counter(:)=1; kt=0" -O $restart_file $restart_file
+    # Reset date in restart file
+    restart_file=${OUTPUT_DIR}EXP_spinup/AMM7_${spinup_start}0101_restart_trc_cycle$(($cycle_iter-1)).nc 
+    rsync -a $filebase.nc $restart_file
+    ncap2 -s "time_counter(:)=1; kt=0" -O $restart_file $restart_file
         
     if [ $cycle_iter -le $cycle_repeat ]; then
 	# Submit next cycle

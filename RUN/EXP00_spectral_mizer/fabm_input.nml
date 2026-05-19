@@ -1,0 +1,102 @@
+!        !  file name         ! frequency (hours) ! variable  ! time interp. !  clim  ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+!                             !  (if <0  months)  !   name    !   (logical)  !  (T/F) ! 'monthly' ! filename ! pairing  ! filename      !
+&variable
+   name='mole_fraction_of_carbon_dioxide_in_air'
+   sn=         'fluxes/pCO2a',          -1,         'pCO2a',       .true.,    .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='partial_pressure_of_n2o'
+   sn=         'fluxes/n2o',            -1,         'n2o',         .true.,    .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='atmosphere_mass_content_of_ozone'
+   sn=         'fluxes/total_ozone',     1,         'tco3',        .true.,    .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='atmosphere_mass_content_of_cloud_liquid_water'
+   sn=         'fluxes/cloud_liquid_water',1,       'tclw',        .true.,    .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='atmosphere_mass_content_of_water_vapor'
+   sn=         'fluxes/total_water_vapour',1,       'tcwv',        .true.,    .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='surface_air_pressure'
+   sn=         'fluxes/ERA5_MSL',        1,         'MSL',         .true.,    .false.,   'yearly',     './fluxes/weights_era5_bicubic.nc',         '',        './fluxes/ERA5_LSM.nc'
+/
+&variable
+   name='cloud_area_fraction'
+   sn=         'fluxes/total_cloud_cover',1,        'tcc',         .true.,    .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='surface_specific_humidity'
+   sn=         'fluxes/ERA5_SPH',        1,         'SPH',         .true.,    .false.,   'yearly', './fluxes/weights_era5_bicubic.nc', '', './fluxes/ERA5_LSM.nc'    
+/
+&variable
+   name='surface_temperature'
+   sn=         'fluxes/ERA5_T2M',        1,         'T2M',         .true.,    .false.,   'yearly',  './fluxes/weights_era5_bicubic.nc', '', './fluxes/ERA5_LSM.nc' 
+/
+&variable
+   name='light_mean_wind'
+   sn=         'fluxes/wind_speed',      1,         'windsp',      .true.,    .false.,   'yearly',  './fluxes/weights_era5_bicubic.nc', '', './fluxes/ERA5_LSM.nc' 
+/
+&variable
+   name='visibility_in_air'
+   sn=         'fluxes/AERO',           -1,         'aero_vis',    .true.,    .true.,    'monthly',     '',         '',        ''
+/
+&variable
+   name='ADY443_obs_3D/source'
+   sn=         'fluxes/ady443',        192,         'adg_443',     .true.,    .true.,    'yearly',     '',         '',        ''
+/
+&variable
+   name='BB555_obs_3D/source'
+   sn=         'fluxes/bbp560',        192,         'bbp_560',     .true.,    .true.,    'yearly',     '',         '',        ''
+/
+&variable
+   name='N3_flux/flux'
+   sn=         'fluxes/Ndep',          -12,         'N3_flux',     .false.,   .false.,   'yearly',     '',         '',        ''
+/
+&variable
+   name='N4_flux/flux'
+   sn=         'fluxes/Ndep',          -12,         'N4_flux',     .false.,   .false.,   'yearly',     '',         '',        ''
+/
+&riverdata
+   name='N3_n'
+   sn=         'rivers',                24,         'rono3',       .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=71.4 ! 1000./14.0067 (g/s -> mmol/s)
+/
+&riverdata
+   name='N4_n'
+   sn=         'rivers',                24,         'ronh4',       .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=71.4 ! 1000./14.0067 (g/s -> mmol/s)
+/
+&riverdata
+   name='N1_p'
+   sn=         'rivers',                24,         'rop',         .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=32.3 ! 1000./30.9738 (g/s -> mmol/s)
+/
+&riverdata
+   name='N5_s'
+   sn=         'rivers',                24,         'rosio2',      .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=35.6 ! 1000./28.0855 (g/s -> mmol/s)
+/
+&riverdata
+   name='O3_c'
+   sn=         'rivers',                24,         'rodic',       .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=83.3 ! 1000./12.011 (g/s -> mmol/s)
+/
+&riverdata
+   name='O2_o'
+   sn=         'rivers',                24,         'roo',         .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=31.25 ! 1000./32 (g/s -> mmol/s)
+/
+&riverdata
+   name='O3_TA'
+   sn=        'rivers',                 24,         'rototalk',    .false.,   .true.,    'yearly',     '',         '',        ''
+   rfac=0.001
+/
+&variable
+   name='fish/fishing_pressure'
+   sn=         'fluxes/fishing_pressure',8760,      'tot_EffActiveHours', .false.,  .false.,   'yearly',     '',         '',        ''
+!   rfac = 1/86400
+/

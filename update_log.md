@@ -8,7 +8,7 @@ The repository is now setup to be able to perform runs simultaneously. This mean
 
 Variable Outputs 
 =================
-In config.sh there is an option to turn on which files to output. Default file outputs include daily/monthly sets of physics and tracer variables, monthly diagnostics and monthly budget terms.
+In config.sh there is an option to turn on which files to output. Default file outputs include daily/monthly sets of physics and tracer variables, monthly diagnostics and monthly budget terms. 
 
 Restructure of scripts directory 
 ================================
@@ -22,9 +22,9 @@ Most scripts were previously held in a single directory (core-scripts), this hav
 
 Addition of Spectral/Mizer models and tracer budgets
 =====================================================
-There are now flags in the config.sh that turn on the spectral and/or mizer models. Additionally there are additional default run directories with setups for these models. 
+There are now flags in the config.sh that turn on the spectral and/or mizer models. Additionally there are additional default run directories with setups for these models. When you compile the code it will create executables with "spectral" or "mizer" suffixes, or both so that you may create multiple options. You will need to run `compile_code.sh -fc` again when adding/removing these options before recompiling nemo.   
 
-There is also a flag to compile nemo with the flags to calculate a tracer budget
+There is also a flag to compile nemo with the keys needed to calculate a tracer budget
 
 ERSEM version and Nitrous Oxide 
 ===============================
@@ -32,7 +32,7 @@ The repository now clones the ERSEM version released in February 2026. Nitrous o
 
 Submission script generator 
 ===========================
-There is now the ability to produce the runscripts for both cycling and single run which allows the changes to the number of nodes needed to run. This script is provided here:
+There is now the ability to produce the runscripts for both cycling and single runs, allowing the user to change to the number of nodes needed to run. This script is provided here:
 ```
 scripts/submission-scripts/update_runscripts.sh
 ```

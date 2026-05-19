@@ -22,8 +22,11 @@ export system=scylla # Name of the HPC system
 # Default options: 
 # Daily Physics: 1d_grid_T, 1d_grid_U, 1d_grid_V, 
 # Daily BGC: 1d_ptrc_T
+# Daily Mizer: 1d_mizer_fish
 # Monthly Physics: 1m_grid_T, 1m_grid_U, 1m_grid_V
 # Monthly BGC: 1m_ptrc_T, 1m_ptrc_diag_T, 1m_ptrc_budget_T
+# Monthly Mizer: 1m_mizer_fish, 1m_mizer_f_pel, 1m_mizer_f_ben, 
+#                1m_mizer_g_pel, 1m_mizer_g_ben, 1m_mizer_c_fish
 export OUTPUT_FILES="1m_grid_T 1m_grid_U 1m_grid_V 1m_ptrc_T" 
 
 ##########################################################
@@ -61,7 +64,7 @@ export FABM_DIR=$CODE_DIR/fabm
 export FABM_BUILD=$CODE_DIR/fabm-build
 export FABM_COMPILER=mpif90
 export NEMO_DIR=$CODE_DIR/nemo
-export NEMO_CFG=AMM7_FABM_BENCHMARK
+export NEMO_CFG=AMM7_FABM_BENCHMARK$suffix
 export NEMO_ARCH=GCC_SCYLLA
 export XIOS_DIR=$CODE_DIR/xios
 export XIOS_BUILD=$CODE_DIR/xios-build

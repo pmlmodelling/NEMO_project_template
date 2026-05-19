@@ -6,7 +6,8 @@
 <context id="nemo">
 <!-- $id$ -->
 <!-- Fields definition -->
-    <field_definition src="./field_def_nemo-oce.xml"/>   <!--  NEMO ocean dynamics                     -->   <field_definition src="./field_def_fabm.xml"/> 
+    <field_definition src="./field_def_nemo-oce.xml"/>   <!--  NEMO ocean dynamics                     -->   
+    <field_definition src="./field_def_fabm.xml"/> 
     <field_definition src="./field_def_custom.xml"/>
 <!-- Files definition -->
     <file_definition src="./file_def_nemo-oce.xml"/>     <!--  NEMO ocean dynamics                     -->

@@ -55,3 +55,8 @@
    sn=        'rivers',                 24,         'rototalk',    .false.,   .true.,    'yearly',     '',         '',        ''
    rfac=0.001
 /
+&variable
+   name='fish/fishing_pressure'
+   sn=         'fluxes/fishing_pressure',8760,      'tot_EffActiveHours', .false.,  .false.,   'yearly',     '',         '',        ''
+!   rfac = 1/86400
+/

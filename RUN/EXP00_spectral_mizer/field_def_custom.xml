@@ -160,5 +160,12 @@
   <field id="INP_rosio2_e3t" default_value="-.200E+21" > INP_rosio2 * e3t </field>
   <field id="INP_roo_e3t" default_value="-.200E+21" > INP_roo * e3t </field>
   <field id="INP_rototalk_e3t" default_value="-.200E+21" > INP_rototalk * e3t </field>
+  <field id="fish_fprey_P1c" long_name="Uptake of P1 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey1_depth_average_loss_distributor_rate * P1_c </field>
+  <field id="fish_fprey_P2c" long_name="Uptake of P2 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey2_depth_average_loss_distributor_rate * P2_c </field>
+  <field id="fish_fprey_P3c" long_name="Uptake of P3 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey3_depth_average_loss_distributor_rate * P3_c </field>
+  <field id="fish_fprey_P4c" long_name="Uptake of P4 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey4_depth_average_loss_distributor_rate * P4_c </field>
+  <field id="fish_fprey_Z4c" long_name="Uptake of Z4 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey5_depth_average_loss_distributor_rate * Z4_c </field>
+  <field id="fish_fprey_Z5c" long_name="Uptake of Z5 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey6_depth_average_loss_distributor_rate * Z5_c </field>
+  <field id="fish_fprey_Z6c" long_name="Uptake of Z6 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey7_depth_average_loss_distributor_rate * Z6_c </field>
  </field_group>
 </field_definition>

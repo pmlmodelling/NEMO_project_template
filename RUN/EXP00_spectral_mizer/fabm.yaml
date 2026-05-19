@@ -1,17 +1,273 @@
 check_conservation: false
 require_initialization: true
 instances:
-  zenithAngle:
-    model: ersem/zenith_angle
-  light:
-    model: ersem/light_iop_ady
+  fish:
+    model: mizer/multi_element_demersal_pelagic_population
+    check_conservation: true
     parameters:
-      a0w: 0.03                                            # absorption coefficient of clear water (1/m), default = 0.036
-      b0w: 0.0015                                          # backscatter coefficient of clear water (1/m), default = 0.0016
-      pEIR_eow: 0.5                                        # photosynthetically active fraction of shortwave radiation (-), default = 0.5
-      relax: 0.143                                         # relaxation towards satellite gelbstoff absorption (1/d), default=0.033
-    initialization:
-      ADY: 0.05
+       feedback: true
+       w_min: 1e-3             # egg mass
+       w_inf: 1e6              # asymptotic mass
+       nclass: 100             # number of size classes
+       nprey: 10                # number of prey (pelagic and benthic)
+       w_prey1_min: 4.188e-9   # P1; min ESD = 20 um
+       w_prey1_max: 4.188e-6   # P1; max ESD = 200 um
+       w_prey2_min: 4.188e-12  # P2; min ESD = 2 um
+       w_prey2_max: 4.188e-9   # P2; max ESD = 20 um
+       w_prey3_min: 4.188e-15  # P3; min ESD = .2 um
+       w_prey3_max: 4.188e-12  # P3; max ESD = 2 um
+       w_prey4_min: 4.188e-9   # P4; min ESD = 20 um
+       w_prey4_max: 4.188e-6   # P4; max ESD = 200 um
+       w_prey5_min: 4.188e-6   # Z4
+       w_prey5_max: 1e-3       # Z4
+       w_prey6_min: 4.188e-9   # Z5; min ESD = 20 um
+       w_prey6_max: 4.188e-6   # Z5; max ESD = 200 um
+       w_prey7_min: 4.188e-12  # Z6; min ESD = 2 um
+       w_prey7_max: 4.188e-9   # Z6; max ESD = 20 um
+       w_prey8_min: 1e-3       # Y3
+       w_prey8_max: 1e2        # Y3
+       w_prey9_min: 1e-9       # Y4
+       w_prey9_max: 1e-3       # Y4              
+       w_prey10_min: 1e-3      # Y2
+       w_prey10_max: 1e2       # Y2
+       T_dependence: 1                # Pre-factor for temperature dependence
+       T_ref: 13.                     # Reference temperature deg C
+       E_a: 0.63                      # Activation energy Blanchard et al 2012: 0.63
+       beta: 100                      # 0.82 in Blanchard et al 2009; 2012
+       sigma: 2.3025                  # Blanchard et al 2009; 2012: 1 in log10 units, here converted to ln units
+       gamma: 91.32                   # Blanchard et al 2009 640 m3/yr; Blanchard et al 2012: 64 ?UNITS? [times kappa=0.5 for time spent in pelagic]; Faking giants paper gives 10^14.076 * W^0.926 * exp(-Ea/(kT) L d-1, which is 428 L d-1 = 156 m3 yr-1
+       q: 0.776                       # Blanchard et al 2009; 2012: 0.82; Acuna et al 2011: 0.926
+       gammaB: 1                    # pre-factor for demersal fish volumetric search rate 
+       alpha: 0.2                     # assimilation efficiency
+       alpha_eg: 0.3                  # fraction of food egested
+       z0_type: 1                     # type of background mortality (0: constant, 1: allometric function of size)
+       z0pre: 0.2                     # pre-factor for background mortality (= mortality at 1 g)
+       z0exp: -0.25                   # exponent of background mortality
+       w_s: 1000                      # start mass for senescence mortality
+       z_s: 0.3                       # exponent for senescence mortality
+       z_spre: 0.2                    # pre-factor for senescence mortality (= mortality at w_s g)
+       ks: 0                          # pre-factor for standard metabolism
+       #p: 0.785                      # exponent of standard metabolism
+       n: 0.75 #6666                     # exponent of max. consumption (default 2/3)
+       SRR: 3                         # stock-recruitment relationship (0: constant recruitment, 1: density-independent recruitment, 2: Beverton-Holt)
+       R_relax: 5                     # relaxation towards expected egg density
+       h: 111
+       # kappa: 0.1                   # carrying capacity of background resource spectrum
+       # lambda: 2.05                 # exponent of background resource spectrum default=2+q-n
+       fishing_type: 1               # fishing regime 0: none, 1: constant/knife-edge, 2: logistic 3: linear
+       w_minF: 80                     # minimum mass affected by fishing # Blanchard et al 2009 J Anim Ecol: 10 g
+       #F: 0.8                        # fishing type 1 or 2: fishing effort
+       spatial_fishing: true          # whether fishing varies spatially
+       npelprey: 7                    # number of pelagic prey
+       emergent_omega: true
+       omega_size: true               # logical for use of size dependant omega
+       omega_threshold: 0.5           # threshold for when fish above this (g wet mass) will spend time in benthos
+       nbenprey: 3                 # number of benthic prey
+       prey8isben: true              # is prey 8 benthic
+       prey9isben: true              # is prey 9 benthic       
+       prey10isben: true             # is prey 10 benthic       
+       #F_a: 0.09                     # only for fishing type 3: scale factor for fishing mortality as function of log10 mass
+       #F_b: 0.04                     # only for fishing type 3: offset for fishing mortality as function of log10 mass
+       xi: 1
+       w_threshold: 80
+       w_threshold2: 250
+       w_threshold3: 360
+       lfi_w_threshold: 865
+    initialization:      
+      c1: 0.2804092059588942   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00111 g
+      c2: 1.8113182703511093   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00136 g
+      c3: 1.9406235482526586   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00168 g
+      c4: 2.060291767030443   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00207 g
+      c5: 2.1676749993024975   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00254 g
+      c6: 2.2605890714662906   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00313 g
+      c7: 2.337448812308078   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00385 g
+      c8: 2.3973495070418593   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00473 g
+      c9: 2.4400857360772097   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00582 g
+      c10: 2.4661084683795162   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00716 g
+      c11: 2.476430411970715   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.00881 g
+      c12: 2.4724961948534525   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0108 g
+      c13: 2.456036788919514   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0133 g
+      c14: 2.4289266270819883   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0164 g
+      c15: 2.393057981836895   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0202 g
+      c16: 2.350241768530262   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0248 g
+      c17: 2.302138416296743   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0305 g
+      c18: 2.2502178583102057   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0376 g
+      c19: 2.195744558904961   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0462 g
+      c20: 2.1397818760949403   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0569 g
+      c21: 2.0832096990359417   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.07 g
+      c22: 2.026749810940644   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.0861 g
+      c23: 1.970994421150217   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.106 g
+      c24: 1.9164344766788095   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.13 g
+      c25: 1.863485496832631   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.16 g
+      c26: 1.8125096593067707   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.197 g
+      c27: 1.763833654303818   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.243 g
+      c28: 1.7177624082018594   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.299 g
+      c29: 1.6745891758494817   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.367 g
+      c30: 1.6346027364049343   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.452 g
+      c31: 1.598092531075124   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.556 g
+      c32: 1.5653525821369862   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.684 g
+      c33: 1.5366849604840422   # biomass (8.333333333 * g/m2) for bin with individual mass of 0.841 g
+      c34: 1.5124034509627862   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.04 g
+      c35: 1.4928379250014598   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.27 g
+      c36: 1.4783397878343727   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.57 g
+      c37: 1.469288736440536   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.93 g
+      c38: 1.466100951043326   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.37 g
+      c39: 1.4692387479535878   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.92 g
+      c40: 1.4792216388252148   # biomass (8.333333333 * g/m2) for bin with individual mass of 3.59 g
+      c41: 1.4966386597354915   # biomass (8.333333333 * g/m2) for bin with individual mass of 4.42 g
+      c42: 1.5221617368721367   # biomass (8.333333333 * g/m2) for bin with individual mass of 5.43 g
+      c43: 1.5565597237610977   # biomass (8.333333333 * g/m2) for bin with individual mass of 6.68 g
+      c44: 1.6007125537426605   # biomass (8.333333333 * g/m2) for bin with individual mass of 8.22 g
+      c45: 1.600906495167866   # biomass (8.333333333 * g/m2) for bin with individual mass of 10.1 g
+      c46: 1.6033236560873163   # biomass (8.333333333 * g/m2) for bin with individual mass of 12.4 g
+      c47: 1.607267590835906   # biomass (8.333333333 * g/m2) for bin with individual mass of 15.3 g
+      c48: 1.6118647976946028   # biomass (8.333333333 * g/m2) for bin with individual mass of 18.8 g
+      c49: 1.616046145190896   # biomass (8.333333333 * g/m2) for bin with individual mass of 23.2 g
+      c50: 1.6185351551771712   # biomass (8.333333333 * g/m2) for bin with individual mass of 28.5 g
+      c51: 1.6178481896591452   # biomass (8.333333333 * g/m2) for bin with individual mass of 35.1 g
+      c52: 1.6123125869175232   # biomass (8.333333333 * g/m2) for bin with individual mass of 43.2 g
+      c53: 1.6001092689722176   # biomass (8.333333333 * g/m2) for bin with individual mass of 53.1 g
+      c54: 1.5793458555338313   # biomass (8.333333333 * g/m2) for bin with individual mass of 65.3 g
+      c55: 1.5481643851117852   # biomass (8.333333333 * g/m2) for bin with individual mass of 80.4 g
+      c56: 1.504883957334419   # biomass (8.333333333 * g/m2) for bin with individual mass of 98.9 g
+      c57: 1.4481728301870493   # biomass (8.333333333 * g/m2) for bin with individual mass of 122 g
+      c58: 1.377237068001346   # biomass (8.333333333 * g/m2) for bin with individual mass of 150 g
+      c59: 1.292004735067575   # biomass (8.333333333 * g/m2) for bin with individual mass of 184 g
+      c60: 1.1932775681141043   # biomass (8.333333333 * g/m2) for bin with individual mass of 226 g
+      c61: 1.0828182682693004   # biomass (8.333333333 * g/m2) for bin with individual mass of 279 g
+      c62: 0.9633433179000844   # biomass (8.333333333 * g/m2) for bin with individual mass of 343 g
+      c63: 0.8384001782050171   # biomass (8.333333333 * g/m2) for bin with individual mass of 422 g
+      c64: 0.7121240229363516   # biomass (8.333333333 * g/m2) for bin with individual mass of 519 g
+      c65: 0.5888908965402546   # biomass (8.333333333 * g/m2) for bin with individual mass of 638 g
+      c66: 0.472907248743839   # biomass (8.333333333 * g/m2) for bin with individual mass of 785 g
+      c67: 0.3677945305926555   # biomass (8.333333333 * g/m2) for bin with individual mass of 966 g
+      c68: 0.2762360986817098   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.19e+03 g
+      c69: 0.1997478984965315   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.46e+03 g
+      c70: 0.13861356068462063   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.8e+03 g
+      c71: 0.09199234995364092   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.21e+03 g
+      c72: 0.058172591206376904   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.72e+03 g
+      c73: 0.03491354284973863   # biomass (8.333333333 * g/m2) for bin with individual mass of 3.35e+03 g
+      c74: 0.019803857536673762   # biomass (8.333333333 * g/m2) for bin with individual mass of 4.12e+03 g
+      c75: 0.01056904978775645   # biomass (8.333333333 * g/m2) for bin with individual mass of 5.07e+03 g
+      c76: 0.005281744648002815   # biomass (8.333333333 * g/m2) for bin with individual mass of 6.24e+03 g
+      c77: 0.00245908332928808   # biomass (8.333333333 * g/m2) for bin with individual mass of 7.67e+03 g
+      c78: 0.001060957792342333   # biomass (8.333333333 * g/m2) for bin with individual mass of 9.44e+03 g
+      c79: 0.00042179985969835893   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.16e+04 g
+      c80: 0.00015361707678976125   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.43e+04 g
+      c81: 5.093717489034862e-05   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.76e+04 g
+      c82: 1.5280501212321073e-05   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.16e+04 g
+      c83: 4.120147341917491e-06   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.66e+04 g
+      c84: 9.918773931413177e-07   # biomass (8.333333333 * g/m2) for bin with individual mass of 3.27e+04 g
+      c85: 2.1174654545329877e-07   # biomass (8.333333333 * g/m2) for bin with individual mass of 4.03e+04 g
+      c86: 3.980964345493971e-08   # biomass (8.333333333 * g/m2) for bin with individual mass of 4.95e+04 g
+      c87: 6.545511911838815e-09   # biomass (8.333333333 * g/m2) for bin with individual mass of 6.1e+04 g
+      c88: 9.34614710631928e-10   # biomass (8.333333333 * g/m2) for bin with individual mass of 7.5e+04 g
+      c89: 1.1507921361872254e-10   # biomass (8.333333333 * g/m2) for bin with individual mass of 9.23e+04 g
+      c90: 1.2133315992175854e-11   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.14e+05 g
+      c91: 1.087762679201902e-12   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.4e+05 g
+      c92: 8.234416672669542e-14   # biomass (8.333333333 * g/m2) for bin with individual mass of 1.72e+05 g
+      c93: 5.2272332101004115e-15   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.11e+05 g
+      c94: 2.7636039590157113e-16   # biomass (8.333333333 * g/m2) for bin with individual mass of 2.6e+05 g
+      c95: 1.2086463648110004e-17   # biomass (8.333333333 * g/m2) for bin with individual mass of 3.2e+05 g
+      c96: 4.343370169901788e-19   # biomass (8.333333333 * g/m2) for bin with individual mass of 3.94e+05 g
+      c97: 1.2740062599580932e-20   # biomass (8.333333333 * g/m2) for bin with individual mass of 4.84e+05 g
+      c98: 3.0302037564660714e-22   # biomass (8.333333333 * g/m2) for bin with individual mass of 5.96e+05 g
+      c99: 5.8061450745279515e-24   # biomass (8.333333333 * g/m2) for bin with individual mass of 7.33e+05 g
+      c100: 8.904257435301952e-26   # biomass (8.333333333 * g/m2) for bin with individual mass of 9.02e+05 g
+      totlandings: 0
+    coupling:
+       prey1: P1
+       prey2: P2
+       prey3: P3
+       prey4: P4
+       prey5: Z4
+       prey6: Z5
+       prey7: Z6
+       prey8: Y3
+       prey9: Y4
+       prey10: Y2
+       egested_matter: R8
+       respired_carbon: O3
+       oxygen_consumed: O2
+       excreted_nitrogen: N4
+       excreted_phosphorus: N1
+       ben_egested_matter: R8
+       ben_excreted_nitrogen: N4
+       ben_excreted_phosphorus: N1
+       ben_respired_carbon: O3
+       ben_oxygen_consumed: O2
+  light:
+    model: spectral/spectral
+    parameters:
+      lambda_method: 1
+      compute_mean_wind: false
+      n_iop: 6
+      iop1_type: 1
+      iop2_type: 2
+      iop3_type: 3
+      iop4_type: 5
+      iop5_type: 11
+      iop6_type: 11
+      a_star_iop5: 1.
+      lambda_a_iop5: 443.
+      S_iop5: 0.014
+      b_star_iop6: 56.95
+      lambda_b_iop6: 555.0
+      eta_iop6: 0.5
+      b_b_iop6: 0.01756
+      spectral_output: 2
+      nlambda_out: 6
+      lambda1_out: 412
+      lambda2_out: 443
+      lambda3_out: 490
+      lambda4_out: 510
+      lambda5_out: 555
+      lambda6_out: 665
+      save_Kd: true
+    coupling:
+      iop1: P1
+      iop2: P2
+      iop3: P3
+      iop4: P4
+      iop5: ADY443
+      iop6: BB555
+  ADY443:
+    model: ersem/pelagic_base
+    parameters:
+      composition: c
+    initialization: 
+      c: 0.2 
+  ADY443_obs_3D:
+    model: column_projection
+  ADY_relax:
+    model: interior_relaxation
+    parameters:
+      rate: 3.8e-5   # s-1, this is approximately 1/month
+    coupling:
+      original: ADY443/c
+      target: ADY443_obs_3D/result
+  BB555:
+    model: ersem/pelagic_base
+    parameters:
+      composition: c                                       # elemental composition
+    initialization: 
+      c: 0.02
+  BB555_obs_3D:
+    model: column_projection 
+  BB_relax:
+    model: interior_relaxation
+    parameters:
+      rate: 3.8e-07                                        # relaxation rate (s-1)
+    coupling:
+      original: BB555/c                                    # variable that is to be relaxed
+      target: BB555_obs_3D/result                          # target to relax towards
+  relhum:
+    model: spectral/relhum
+  aero:
+    model: horizontal_constant
+    parameters:
+      standard_name: aerosol_air_mass_type
+      value: 10
   N1:
     long_name: phosphate
     model: ersem/pelagic_base
@@ -276,7 +532,7 @@ instances:
       q10: 2.0                                             # Q_10 temperature coefficient (-)
       srs: 0.04                                            # specific rest respiration at reference temperature (1/d)
       pu_ea: 0.05                                          # excreted fraction of primary production (-)
-      exulim: 0.3                     			   # excreted fraction of primary production due to nutrient stress,maximum=1._rk-self%pu_ea
+      exulim: 0.3                                  			   # excreted fraction of primary production due to nutrient stress,maximum=1._rk-self%pu_ea
       xqcpx: 1.3                                           # threshold for phosphorus limitation, relative to minimum ratio,default=2.0_rk
       xqcnx: 1.3                                           # threshold for nitrogen limitation, relative to minimum ratio, default=2.0_rk
       pu_ra: 0.2                                           # respired fraction of primary production (-)
@@ -542,7 +798,7 @@ instances:
       pu_eaR: 0.9                                          # fraction of unassimilated detritus that is excreted (not respired) (-)
       pe_R1: 0.5                                           # dissolved fraction of excreted/dying matter (-)
       srs: 0.015                                           # specific rest respiration at reference temperature (1/d)
-      sd: 0.05                                             # basal mortality (1/d)
+      sd: 0.005                                             # basal mortality (1/d)
       sdo: 0.2                                             # maximum mortality due to oxygen limitation (1/d)
       chro: 7.81                                           # Michaelis-Menten constant for oxygen limitation (-)
       qpc: 0.000786                                        # phosphorus to carbon ratio (mmol P/mg C)
@@ -561,7 +817,7 @@ instances:
       suprey2: 0.05                                        # relative affinity for prey type 2 (-)
       suprey3: 0.0                                         # relative affinity for prey type 3 (-)
       suprey4: 0.15                                        # relative affinity for prey type 4 (-)
-      suprey5: 0.25                                        # relative affinity for prey type 5 (-)
+      suprey5: 0                                           # relative affinity for prey type 5 (-)
       suprey6: 0.25                                        # relative affinity for prey type 6 (-)
       suprey7: 0.05                                        # relative affinity for prey type 7 (-)
       suprey8: 0.0                                         # relative affinity for prey type 8 (-)
@@ -1004,7 +1260,7 @@ instances:
       xcl: 2500.0                                          # abundance above which crowding reduces food uptake (mg C/m^2)
       xcs: 3000.0                                          # Michaelis-Menten constant for the impact of crowding (mg C/m^2)
       xch: 5000.0                                          # abundance determining asymptotic threshold of crowding limitation (-> xch/(Yc+xch) for Yc-> inf) (mg C/m^2)
-      su: 0.11                                             # specific maximum uptake at reference temperature (1/d)
+      su: 0.4                                              # specific maximum uptake at reference temperature (1/d)
       lu: 250.0                                            # Michaelis-Menten constant for food preference as function of food concentration (mg C/m^2)
       hu: 3000.0                                           # Michaelis-Menten constant for gross carbon uptake (mg C/m^2)
       pue: 0.35                                            # fraction of carbon in consumed live food that goes to faeces (-)
@@ -1092,26 +1348,33 @@ instances:
       pue: 0.35                                            # fraction of carbon in consumed live food that goes to faeces (-)
       pueQ: 0.85                                           # fraction of carbon in consumed detritus that goes to faeces (-)
       pudil: 0.8                                           # relative nutrient content of faeces (-)
-      sd: 0.001                                            # specific mortality at reference temperature (1/d)
+      sd: 0.005                                            # specific mortality at reference temperature (1/d)
       sdmO2: 1.0                                           # specific maximum additional mortality due to oxygen stress (1/d)
       sdc: 0.022                                           # specific maximum additional mortality induced by cold temperature (1/d)
       xdc: -0.7                                            # e-folding temperature factor of cold mortality response (1/degree_C)
       sr: 0.0027                                           # specific rest respiration at reference temperature (1/d)
       pur: 0.4                                             # fraction of assimilated food that is respired (-)
-      nfood: 6                                             # number of food sources, default = 0
+      nfood: 9                                             # number of food sources, default = 9 
       food1ispel: true                                     # food source 1 is pelagic, default = false
       food2ispel: true                                     # food source 2 is pelagic, default = false
       food3ispel: true                                     # food source 3 is pelagic, default = false
-      food4ispel: true                                     # food source 4 is pelagic, default = false
-      food5_ll: true                                       # availability of food source 5 is limited by aerobic layer height, default = false
+      food4ispel: true                                     # food source 4 is pelagic, default = false      
+      food5ispel: true                                     # food source 5 is pelagic, default = false
+      food6ispel: true                                     # food source 6 is pelagic, default = false
+      food7ispel: true                                     # food source 7 is pelagic, default = false
+      food8_ll: true                                       # availability of food source 5 is limited by aerobic layer height, default = false
       pufood1: 1.0                                         # preference for food source 1 (-)
       pufood2: 1.0                                         # preference for food source 2 (-)
       pufood3: 1.0                                         # preference for food source 3 (-)
       pufood4: 1.0                                         # preference for food source 4 (-)
       pufood5: 1.0                                         # preference for food source 5 (-)
-      pufood6: 0.1                                         # preference for food source 6 (-)
-      food4ispom: true                                     # food source 4 is detritus, default = false
+      pufood6: 1.0                                         # preference for food source 6 (-)      
+      pufood7: 1.0                                         # preference for food source 7 (-)
+      pufood8: 1.0                                         # preference for food source 8 (-)
+      pufood9: 0.1                                         # preference for food source 9 (-)
+      food5ispom: true                                     # food source 5 is detritus, default = false
       food6ispom: true                                     # food source 6 is detritus, default = false
+      food7ispom: true                                     # food source 7 is detritus, default = false
       dwat: 1.0                                            # water layer accessible for pelagic food uptake (m), default = 1.0
       dQ6: 0.0025                                          # depth of available sediment layer (m), default = 0.0
     initialization:
@@ -1120,9 +1383,12 @@ instances:
       food1: P1
       food2: P2
       food3: P3
-      food4: R6
-      food5: H1
-      food6: Y3_Q6
+      food4: P4
+      food5: R4
+      food6: R6
+      food7: R8
+      food8: H1
+      food9: Y3_Q6
       Q: Y3_Q6
       Dm: ben_col/D1m                                      # depth of limiting layer for uptake (m)
       O2o: O2/o                                            # pelagic oxygen (mmol O_2/m^3)
