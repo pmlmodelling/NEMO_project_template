@@ -143,5 +143,6 @@
   <field id="fish_fprey_Z4c" long_name="Uptake of Z4 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey5_depth_average_loss_distributor_rate * Z4_c </field>
   <field id="fish_fprey_Z5c" long_name="Uptake of Z5 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey6_depth_average_loss_distributor_rate * Z5_c </field>
   <field id="fish_fprey_Z6c" long_name="Uptake of Z6 by fish" unit="mg C/m^3/d" default_value="-.200E+21" grid_ref="grid_T_3D"> fish_pelprey7_depth_average_loss_distributor_rate * Z6_c </field>
+  <field id="total_PO_c" long_name="detrital particulate organic carbon" unit="mg C/m^3" default_value="-.200E+21" > (R4_c + R6_c + R8_c) </field>
  </field_group>
 </field_definition>

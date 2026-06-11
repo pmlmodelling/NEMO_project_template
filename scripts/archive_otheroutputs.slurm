@@ -16,7 +16,7 @@
 #   using threading.
 
 
-source /work/n01/n01/yuti/AMM7_projections/scripts/config.sh
+source /work/n01/n01/rmilling/test_projections_2/scripts/config.sh
 module load nco 
 
 outdir=$1
@@ -33,7 +33,16 @@ do
         mv $f.gz $f
        fi
 done       
-for f in $NAME*1d*.benthos_*
+for f in $NAME*1d*.benthos_T*
+do
+       ncks -4 -L5 $f $f.gz
+       if [ -f $f.gz ]
+       then
+	rm $f
+        mv $f.gz $f
+       fi
+done       
+for f in $NAME*1d*.fish_T*
 do
        ncks -4 -L5 $f $f.gz
        if [ -f $f.gz ]

@@ -7,6 +7,7 @@
 #SBATCH --account=n01-PML  
 #SBATCH --partition=serial
 #SBATCH --qos=serial
+#SBATCH --mem=25GB
 
 
 
@@ -16,7 +17,7 @@
 #   using threading.
 
 
-source /work/n01/n01/yuti/AMM7_projections/scripts/config.sh
+source /work/n01/n01/rmilling/test_projections_2/scripts/config.sh
 module load nco
 outdir=$1
 echo"Archiving $outdir"
