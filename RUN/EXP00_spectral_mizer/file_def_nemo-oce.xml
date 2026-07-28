@@ -239,15 +239,15 @@
           <field field_ref="Z4_fprey9n" name="Z4_fdetrn_result" long_name="mesozooplankton scavenging of particulate organic nitrogen" operation="instant" freq_op="1mo"> @Z4_fprey9n_e3t / @e3t </field>
           <field field_ref="Z4_fprey9p" name="Z4_fdetrp_result" long_name="mesozooplankton scavenging of particulate organic phosphorus" operation="instant" freq_op="1mo"> @Z4_fprey9p_e3t / @e3t </field>
           <field field_ref="Z4_fprey9s" name="Z4_fdetrs_result" long_name="mesozooplankton scavenging of particulate organic silicon" operation="instant" freq_op="1mo"> @Z4_fprey9s_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_respiration_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_respiration_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_POC_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_POC_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_PON_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_PON_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_POP_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_POP_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_DOC_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_DOC_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_DON_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_DON_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_DOP_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_DOP_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_DIN_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_DIN_result_e3t / @e3t </field>
-          <field field_ref="total_microzooplankton_loss_to_DIP_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @total_microzooplankton_loss_to_DIP_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_respiration_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_respiration_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_POC_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_POC_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_PON_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_PON_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_POP_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_POP_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_DOC_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_DOC_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_DON_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_DON_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_DOP_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_DOP_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_DIN_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_DIN_result_e3t / @e3t </field>
+          <field field_ref="total_smallzooplankton_loss_to_DIP_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @total_smallzooplankton_loss_to_DIP_result_e3t / @e3t </field>
           <field field_ref="Z5_fphytoc_result" unit="mg C/m^3/d" operation="instant" freq_op="1mo"> @Z5_fphytoc_result_e3t / @e3t </field>
           <field field_ref="Z5_fphyton_result" unit="mmol N/m^3/d" operation="instant" freq_op="1mo"> @Z5_fphyton_result_e3t / @e3t </field>
           <field field_ref="Z5_fphytop_result" unit="mmol P/m^3/d" operation="instant" freq_op="1mo"> @Z5_fphytop_result_e3t / @e3t </field>
@@ -267,7 +267,8 @@
           <field field_ref="Z6_fprey4c" name="Z6_fzooc_result" long_name="heterotrophic flagellate predation of zooplankton carbon" operation="instant" freq_op="1mo"> @Z6_fprey4c_e3t / @e3t </field>
           <field field_ref="Z6_fprey4n" name="Z6_fzoon_result" long_name="heterotrophic flagellate predation of zooplankton nitrogen" operation="instant" freq_op="1mo"> @Z6_fprey4n_e3t / @e3t </field>
           <field field_ref="Z6_fprey4p" name="Z6_fzoop_result" long_name="heterotrophic flagellate predation of zooplankton phosphorus" operation="instant" freq_op="1mo"> @Z6_fprey4p_e3t / @e3t </field>
-          <field field_ref="pel_nit_rate" operation="instant" freq_op="1mo"> @pel_nit_rate_e3t / @e3t </field>
+          <field field_ref="pel_nit_fN4N3n" name="pel_nit_rate" long_name="pelagic nitrification rate" operation="instant" freq_op="1mo"> @pel_nit_fN4N3n_e3t / @e3t </field>
+          <field field_ref="pel_nit_fN4O5n" name="pel_nit_N2O_rate" long_name="N2O production rate" operation="instant" freq_op="1mo"> @pel_nit_fN4O5n_e3t / @e3t </field>
           <field field_ref="ben_nit_nrate" operation="average" />
           <field field_ref="benthic_denitrification_ammonification_result" unit="mmol N/m^2/d" operation="average" />
           <field field_ref="Y2_fprey1c" name="Y2_faerbacc_result" long_name="benthic deposit feeders predation of aerobic bacteria carbon" operation="average" />
@@ -392,7 +393,6 @@
           <field field_ref="YAD_PO_c_e3t" operation="average" />
           <field field_ref="YAD_PO_n_e3t" operation="average" />
           <field field_ref="YAD_PO_p_e3t" operation="average" />
-          <field field_ref="B1_fdenit" operation="average"/>
           <field field_ref="K1_p_pb_flux" operation="average" />
           <field field_ref="K3_n_pb_flux" operation="average" />
           <field field_ref="K4_n_pb_flux" operation="average" />
