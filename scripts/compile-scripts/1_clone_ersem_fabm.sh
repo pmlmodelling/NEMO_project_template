@@ -8,7 +8,7 @@ ERSEM_REV=8ee235834f81fc24835dea240ab3b22e3f0f76a3
 git clone https://github.com/pmlmodelling/ersem.git $ERSEM_DIR
 cd $ERSEM_DIR && git checkout $ERSEM_REV
 
-FABM_REV=2178e4198586578664ca8db21b508c52cf5d3b83
+FABM_REV=b5704dbc0d7bd40be745cbd588233e8c0ba48d2a
 git clone https://github.com/fabm-model/fabm.git $FABM_DIR
 cd $FABM_DIR && git checkout $FABM_REV
 
